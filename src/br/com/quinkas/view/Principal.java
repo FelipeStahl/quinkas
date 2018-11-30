@@ -5,6 +5,8 @@
  */
 package br.com.quinkas.view;
 
+import br.com.quinkas.manter.ManterPrincipal;
+
 /**
  *
  * @author Felipe-Sistema
@@ -16,6 +18,7 @@ public class Principal extends javax.swing.JFrame {
      */
     public Principal() {
         initComponents();
+        ManterPrincipal.setPrincipal(this);
         PnPin pnPin = new PnPin();
         this.setContentPane(pnPin);
         this.setVisible(true);

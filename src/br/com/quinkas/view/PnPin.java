@@ -5,6 +5,7 @@
  */
 package br.com.quinkas.view;
 
+import br.com.quinkas.manter.ManterPrincipal;
 import br.com.quinkas.util.CorPainel;
 import br.com.quinkas.util.ErroEfeito;
 import java.awt.Graphics;
@@ -134,7 +135,7 @@ public class PnPin extends javax.swing.JPanel {
 
         lbProfessor.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lbProfessor.setForeground(new java.awt.Color(51, 255, 255));
-        lbProfessor.setText("Você é professo? Clique aqui!");
+        lbProfessor.setText("Você é professor? Clique aqui!");
         lbProfessor.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lbProfessor.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
@@ -142,6 +143,9 @@ public class PnPin extends javax.swing.JPanel {
             }
         });
         lbProfessor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbProfessorMouseClicked(evt);
+            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 lbProfessorMouseExited(evt);
             }
@@ -241,6 +245,12 @@ public class PnPin extends javax.swing.JPanel {
         // ERRO DE PIN:
         erroPin();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void lbProfessorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbProfessorMouseClicked
+        PnProfessor pn = new PnProfessor();
+        ManterPrincipal.getPrincipal().setContentPane(pn);
+        ManterPrincipal.getPrincipal().setVisible(true);
+    }//GEN-LAST:event_lbProfessorMouseClicked
     
     private void erroPin(){
         ErroEfeito altera = new ErroEfeito(pnErro);
