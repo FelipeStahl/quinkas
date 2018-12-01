@@ -5,23 +5,39 @@
  */
 package br.com.quinkas.view;
 
+import br.com.quinkas.entidade.Mensagem;
+import br.com.quinkas.entidade.Participante;
 import br.com.quinkas.manter.ManterPrincipal;
 import br.com.quinkas.util.CorPainel;
+import java.io.ObjectInputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 /**
  *
  * @author Felipe-Sistema
  */
 public class PnEsperaProfessor extends javax.swing.JPanel {
+    
+    private Boolean iniciar = false;
+    private String pin;
+    private List<Participante> participantes;
+    private Thread ouvir;
 
     /**
      * Creates new form PnEsperaProfessor
      */
     public PnEsperaProfessor() {
+        this.participantes = new ArrayList<Participante>();
         initComponents();
         CorPainel altera = new CorPainel(this);
         Thread t = new Thread(altera);
         t.start();
+        iniciarEspera(); //QUANDO CLICAR EM INICIAR, MUDE A VARIAVEL INICIAR PRA TRUE, E MANDE UMA MENSAGEM VAZIA PRO SERVER, OU INTERROMPA O THREAD "OUVIR"
+        // AINDA PRECISAMOS DECIDIR COMO O PIN VAI SER GERADO, E DEPOIS DISSO PRECISAMOS IMPLEMENTAR OS METODOS "GERARPIN" E "RESOLVERPIN" NO MANTERPRINCIPAL
     }
 
     /**
@@ -190,6 +206,49 @@ public class PnEsperaProfessor extends javax.swing.JPanel {
         // erroPin();
     }//GEN-LAST:event_btEntrarActionPerformed
 
+    private void iniciarEspera() {
+        Thread ouvir = new Thread() {
+            public void run() {
+                try {
+                    ServerSocket servidor = new ServerSocket(Integer.valueOf(ManterPrincipal.resolverPin(pin).getPorta()));
+                    System.out.println("Servidor iniciado");
+                    while (iniciar) {
+                        Socket cliente = servidor.accept();
+                        resolverCliente(cliente).start(); //FALTA IMPLEMENTAR O METODO "adicionarParticipanteAoPainel"
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        this.ouvir = ouvir;
+        this.ouvir.start();
+    }
+    
+    private Thread resolverCliente(Socket cliente) {
+        Thread thread = new Thread() {
+            public void run() {
+                try {
+                    ObjectInputStream entradaObjeto = new ObjectInputStream(cliente.getInputStream());
+                    Mensagem mensagem = (Mensagem) entradaObjeto.readObject();
+                    if (mensagem != null) {
+                        Participante participante = mensagem.getParticipante();
+                        participante.setIp(cliente.getInetAddress().getHostAddress());
+                        participantes.add(participante);
+                        adicionarParticipanteAoPainel();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        return thread;
+    }
+    
+    private void adicionarParticipanteAoPainel() {
+        Participante participante = participantes.get(participantes.size() - 1);
+        // IMPLEMENTAR O ADICIONAMENTO DO PARTICIPANTE NO QUADRO
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btEntrar;

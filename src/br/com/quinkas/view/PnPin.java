@@ -17,6 +17,8 @@ import javax.swing.ImageIcon;
  * @author Felipe-Sistema
  */
 public class PnPin extends javax.swing.JPanel {
+    
+    private String pin;
 
     /**
      * Creates new form pnPIN
@@ -242,7 +244,7 @@ public class PnPin extends javax.swing.JPanel {
     }//GEN-LAST:event_lbProfessorMouseExited
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        PnNick pn1 = new PnNick();
+        PnNick pn1 = new PnNick(this.pin);
         ManterPrincipal.getPrincipal().setContentPane(pn1);
         ManterPrincipal.getPrincipal().setVisible(true);
         // ERRO DE PIN:

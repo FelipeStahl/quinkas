@@ -5,22 +5,55 @@
  */
 package br.com.quinkas.view;
 
+import br.com.quinkas.entidade.IpAndPorta;
+import br.com.quinkas.entidade.Mensagem;
+import br.com.quinkas.entidade.Participante;
+import br.com.quinkas.manter.ManterPrincipal;
 import br.com.quinkas.util.CorPainel;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 
 /**
  *
  * @author Felipe-Sistema
  */
 public class PnEspera extends javax.swing.JPanel {
+    
+    private String pin;
+    private String nick;
 
     /**
      * Creates new form PnEspera
      */
-    public PnEspera() {
+    public PnEspera(String pin, String nick) {
+        this.pin = pin;
+        this.nick = nick;
         initComponents();
         CorPainel altera = new CorPainel(this);
         Thread t = new Thread(altera);
         t.start();
+        mandarParticipacao();
+        esperarIniciacao(); //FALTA IMPLEMENTAR
+    }
+    
+    private void mandarParticipacao() {
+        IpAndPorta ipAndPorta = ManterPrincipal.resolverPin(pin);
+        try {
+            Socket socket = new Socket(ipAndPorta.getIp(), Integer.valueOf(ipAndPorta.getPorta()));
+            System.out.println("Conectado com o servidor");
+            ObjectOutputStream mandarMensagem = new ObjectOutputStream(socket.getOutputStream());
+            Participante participante = new Participante();
+            participante.setNick(nick);
+            Mensagem mensagem = new Mensagem();
+            mensagem.setParticipante(participante);
+            mandarMensagem.writeObject(mensagem);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void esperarIniciacao() {
+        
     }
 
     /**

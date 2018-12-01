@@ -5,6 +5,7 @@
  */
 package br.com.quinkas.manter;
 
+import br.com.quinkas.entidade.IpAndPorta;
 import br.com.quinkas.view.Principal;
 
 /**
@@ -22,4 +23,11 @@ public class ManterPrincipal {
         ManterPrincipal.principal = principal;
     }
     
+    public static String gerarPin() {
+        return "Não implementado ainda";
+    }
+    
+    public static IpAndPorta resolverPin(String pin) {
+        return new IpAndPorta();
+    }
 }

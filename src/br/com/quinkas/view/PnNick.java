@@ -14,11 +14,15 @@ import javax.swing.SwingUtilities;
  * @author Felipe-Sistema
  */
 public class PnNick extends javax.swing.JPanel {
+    
+    private String pin;
+    private String nick;
 
     /**
      * Creates new form PnNick
      */
-    public PnNick() {
+    public PnNick(String pin) {
+        this.pin = pin;
         initComponents();
         pnErro.setVisible(false);
         CorPainel altera = new CorPainel(this);
@@ -204,7 +208,7 @@ public class PnNick extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        PnEspera pn1 = new PnEspera();
+        PnEspera pn1 = new PnEspera(pin, nick);
         ManterPrincipal.getPrincipal().setContentPane(pn1);
         ManterPrincipal.getPrincipal().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
