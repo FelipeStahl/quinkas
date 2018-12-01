@@ -143,11 +143,11 @@ public class PnPin extends javax.swing.JPanel {
             }
         });
         lbProfessor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbProfessorMouseClicked(evt);
+            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 lbProfessorMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                lbProfessorMousePressed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -242,18 +242,15 @@ public class PnPin extends javax.swing.JPanel {
     }//GEN-LAST:event_lbProfessorMouseExited
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        PnNick pn1 = new PnNick();
-        ManterPrincipal.getPrincipal().setContentPane(pn1);
-        ManterPrincipal.getPrincipal().setVisible(true);
         // ERRO DE PIN:
-        //erroPin();
+        erroPin();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void lbProfessorMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbProfessorMousePressed
+    private void lbProfessorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbProfessorMouseClicked
         PnProfessor pn = new PnProfessor();
         ManterPrincipal.getPrincipal().setContentPane(pn);
         ManterPrincipal.getPrincipal().setVisible(true);
-    }//GEN-LAST:event_lbProfessorMousePressed
+    }//GEN-LAST:event_lbProfessorMouseClicked
     
     private void erroPin(){
         ErroEfeito altera = new ErroEfeito(pnErro);

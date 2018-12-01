@@ -7,7 +7,6 @@ package br.com.quinkas.view;
 
 import br.com.quinkas.manter.ManterPrincipal;
 import br.com.quinkas.util.CorPainel;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -24,11 +23,6 @@ public class PnProfessor extends javax.swing.JPanel {
         CorPainel altera = new CorPainel(this);
         Thread t = new Thread(altera);
         t.start();
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                txLogin.requestFocus();
-            }
-        });
     }
 
     /**
@@ -41,6 +35,10 @@ public class PnProfessor extends javax.swing.JPanel {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        pnErro = new javax.swing.JPanel();
+        lbMensagemErro = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         txLogin = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -48,10 +46,6 @@ public class PnProfessor extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         txSenha = new javax.swing.JPasswordField();
         lbCadastrar = new javax.swing.JLabel();
-        pnErro = new javax.swing.JPanel();
-        lbMensagemErro = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
@@ -66,6 +60,41 @@ public class PnProfessor extends javax.swing.JPanel {
 
         setMinimumSize(new java.awt.Dimension(800, 600));
         setLayout(new java.awt.GridBagLayout());
+
+        pnErro.setBackground(new java.awt.Color(102, 0, 0));
+        pnErro.setMinimumSize(new java.awt.Dimension(0, 0));
+        pnErro.setPreferredSize(new java.awt.Dimension(600, 40));
+        pnErro.setLayout(new java.awt.GridBagLayout());
+
+        lbMensagemErro.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lbMensagemErro.setForeground(new java.awt.Color(255, 255, 255));
+        lbMensagemErro.setText("Login/Senha Inválida.");
+        pnErro.add(lbMensagemErro, new java.awt.GridBagConstraints());
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 8;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
+        gridBagConstraints.weightx = 0.1;
+        add(pnErro, gridBagConstraints);
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/quinkas/imagem/senac_logo.png"))); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_END;
+        add(jLabel5, gridBagConstraints);
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Desenvolvido pelos alunos: Érick, Felipe, Luiza e Robson.");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_END;
+        add(jLabel3, gridBagConstraints);
 
         jPanel1.setOpaque(false);
         jPanel1.setPreferredSize(new java.awt.Dimension(319, 250));
@@ -119,11 +148,11 @@ public class PnProfessor extends javax.swing.JPanel {
             }
         });
         lbCadastrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbCadastrarMouseClicked(evt);
+            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 lbCadastrarMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                lbCadastrarMousePressed(evt);
             }
         });
 
@@ -174,61 +203,6 @@ public class PnProfessor extends javax.swing.JPanel {
         gridBagConstraints.gridy = 4;
         add(jPanel1, gridBagConstraints);
 
-        pnErro.setBackground(new java.awt.Color(102, 0, 0));
-        pnErro.setMinimumSize(new java.awt.Dimension(0, 0));
-        pnErro.setPreferredSize(new java.awt.Dimension(600, 40));
-        pnErro.setLayout(new java.awt.GridBagLayout());
-
-        lbMensagemErro.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lbMensagemErro.setForeground(new java.awt.Color(255, 255, 255));
-        lbMensagemErro.setText("Login/Senha Inválida.");
-        pnErro.add(lbMensagemErro, new java.awt.GridBagConstraints());
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 8;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
-        gridBagConstraints.weightx = 0.1;
-        add(pnErro, gridBagConstraints);
-
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/quinkas/imagem/senac_logo.png"))); // NOI18N
-        jLabel5.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(java.awt.event.MouseEvent evt) {
-                jLabel3MouseMoved(evt);
-            }
-        });
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel3MousePressed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 6;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_END;
-        add(jLabel5, gridBagConstraints);
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Desenvolvido pelos alunos: Érick, Felipe, Luiza e Robson.");
-        jLabel3.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(java.awt.event.MouseEvent evt) {
-                jLabel3MouseMoved(evt);
-            }
-        });
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel3MousePressed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_END;
-        add(jLabel3, gridBagConstraints);
-
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/quinkas/imagem/logo_prof.png"))); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
@@ -272,14 +246,9 @@ public class PnProfessor extends javax.swing.JPanel {
         lbRetorno.setText("Retornar ");
         lbRetorno.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lbRetorno.setInheritsPopupMenu(false);
-        lbRetorno.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(java.awt.event.MouseEvent evt) {
-                lbRetornoMouseMoved(evt);
-            }
-        });
         lbRetorno.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel3MousePressed(evt);
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbRetornoMouseClicked(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -303,10 +272,15 @@ public class PnProfessor extends javax.swing.JPanel {
     }//GEN-LAST:event_btEntrarMouseClicked
 
     private void btEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEntrarActionPerformed
-        PnEsperaProfessor pn1 = new PnEsperaProfessor();
-        ManterPrincipal.getPrincipal().setContentPane(pn1);
-        ManterPrincipal.getPrincipal().setVisible(true);
+        // ERRO DE PIN:
+       // erroPin();
     }//GEN-LAST:event_btEntrarActionPerformed
+
+    private void lbRetornoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbRetornoMouseClicked
+        PnPin pnl = new PnPin();
+        ManterPrincipal.getPrincipal().setContentPane(pnl);
+        ManterPrincipal.getPrincipal().setVisible(true);
+    }//GEN-LAST:event_lbRetornoMouseClicked
 
     private void lbCadastrarMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbCadastrarMouseMoved
         //180 75 67
@@ -314,29 +288,15 @@ public class PnProfessor extends javax.swing.JPanel {
 
     }//GEN-LAST:event_lbCadastrarMouseMoved
 
+    private void lbCadastrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbCadastrarMouseClicked
+        PnProfessor pn = new PnProfessor();
+        ManterPrincipal.getPrincipal().setContentPane(pn);
+        ManterPrincipal.getPrincipal().setVisible(true);
+    }//GEN-LAST:event_lbCadastrarMouseClicked
+
     private void lbCadastrarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbCadastrarMouseExited
         lbCadastrar.setForeground(new java.awt.Color(51, 255, 255));
     }//GEN-LAST:event_lbCadastrarMouseExited
-
-    private void jLabel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MousePressed
-        PnPin pnl = new PnPin();
-        ManterPrincipal.getPrincipal().setContentPane(pnl);
-        ManterPrincipal.getPrincipal().setVisible(true);
-    }//GEN-LAST:event_jLabel3MousePressed
-
-    private void jLabel3MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseMoved
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel3MouseMoved
-
-    private void lbRetornoMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbRetornoMouseMoved
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lbRetornoMouseMoved
-
-    private void lbCadastrarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbCadastrarMousePressed
-        PnProfessorCadastro pnl = new PnProfessorCadastro();
-        ManterPrincipal.getPrincipal().setContentPane(pnl);
-        ManterPrincipal.getPrincipal().setVisible(true);
-    }//GEN-LAST:event_lbCadastrarMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
