@@ -13,17 +13,18 @@ import javax.swing.SwingUtilities;
  *
  * @author Felipe-Sistema
  */
-public class PnProfessorCadastro extends javax.swing.JPanel {
+public class PnCadastroProfessor extends javax.swing.JPanel {
 
     /**
      * Creates new form pnProfessorCadastro
      */
-    public PnProfessorCadastro() {
+    public PnCadastroProfessor() {
         initComponents();
         pnErro.setVisible(false);
         CorPainel altera = new CorPainel(this);
         Thread t = new Thread(altera);
         t.start();
+        System.out.println("que porra é essa?");
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 txNome.requestFocus();
@@ -154,16 +155,15 @@ public class PnProfessorCadastro extends javax.swing.JPanel {
                                 .addComponent(txEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel6)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jLabel6)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addComponent(txSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(0, 0, Short.MAX_VALUE))))
-                        .addComponent(btEntrar, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, 556, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGap(0, 0, Short.MAX_VALUE)
-                            .addComponent(txNome, javax.swing.GroupLayout.PREFERRED_SIZE, 552, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btEntrar, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, 556, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txNome, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 552, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jLabel4)
