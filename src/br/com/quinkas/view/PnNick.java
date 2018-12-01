@@ -7,26 +7,28 @@ package br.com.quinkas.view;
 
 import br.com.quinkas.manter.ManterPrincipal;
 import br.com.quinkas.util.CorPainel;
-import br.com.quinkas.util.ErroEfeito;
-import java.awt.Graphics;
-import java.awt.Image;
-import javax.swing.ImageIcon;
+import javax.swing.SwingUtilities;
 
 /**
  *
  * @author Felipe-Sistema
  */
-public class PnPin extends javax.swing.JPanel {
+public class PnNick extends javax.swing.JPanel {
 
     /**
-     * Creates new form pnPIN
+     * Creates new form PnNick
      */
-    public PnPin() {
+    public PnNick() {
         initComponents();
         pnErro.setVisible(false);
         CorPainel altera = new CorPainel(this);
         Thread t = new Thread(altera);
         t.start();
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                txNick.requestFocus();
+            }
+        });
     }
 
     /**
@@ -39,44 +41,61 @@ public class PnPin extends javax.swing.JPanel {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        pnErro = new javax.swing.JPanel();
+        lbMensagemErro = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        txPin = new javax.swing.JTextField();
+        txNick = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 20), new java.awt.Dimension(0, 20), new java.awt.Dimension(32767, 10));
-        lbProfessor = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
-        filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
+        filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
         filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
-        filler5 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
-        filler6 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 20), new java.awt.Dimension(0, 20), new java.awt.Dimension(32767, 20));
-        filler7 = new javax.swing.Box.Filler(new java.awt.Dimension(20, 0), new java.awt.Dimension(20, 0), new java.awt.Dimension(20, 32767));
-        filler8 = new javax.swing.Box.Filler(new java.awt.Dimension(78, 0), new java.awt.Dimension(78, 0), new java.awt.Dimension(78, 32767));
-        pnErro = new javax.swing.JPanel();
-        lbMensagemErro = new javax.swing.JLabel();
+        filler5 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 20), new java.awt.Dimension(0, 20), new java.awt.Dimension(32767, 20));
+        filler6 = new javax.swing.Box.Filler(new java.awt.Dimension(20, 0), new java.awt.Dimension(20, 0), new java.awt.Dimension(20, 32767));
+        filler7 = new javax.swing.Box.Filler(new java.awt.Dimension(78, 0), new java.awt.Dimension(78, 0), new java.awt.Dimension(20, 32767));
 
         setMinimumSize(new java.awt.Dimension(800, 600));
+        setPreferredSize(new java.awt.Dimension(800, 600));
         setLayout(new java.awt.GridBagLayout());
+
+        pnErro.setBackground(new java.awt.Color(102, 0, 0));
+        pnErro.setMinimumSize(new java.awt.Dimension(0, 0));
+        pnErro.setPreferredSize(new java.awt.Dimension(600, 40));
+        pnErro.setLayout(new java.awt.GridBagLayout());
+
+        lbMensagemErro.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lbMensagemErro.setForeground(new java.awt.Color(255, 255, 255));
+        lbMensagemErro.setText("Tarde demais, este nick já está em uso!");
+        pnErro.add(lbMensagemErro, new java.awt.GridBagConstraints());
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 6;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.1;
+        add(pnErro, gridBagConstraints);
 
         jPanel1.setOpaque(false);
         jPanel1.setPreferredSize(new java.awt.Dimension(319, 180));
 
-        txPin.setFont(new java.awt.Font("Segoe UI", 0, 30)); // NOI18N
-        txPin.setForeground(new java.awt.Color(0, 102, 204));
-        txPin.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txPin.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 102, 255)));
+        txNick.setFont(new java.awt.Font("Segoe UI", 0, 30)); // NOI18N
+        txNick.setForeground(new java.awt.Color(0, 102, 204));
+        txNick.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txNick.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 102, 255)));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Digite um PIN para entrar");
+        jLabel4.setText("Digite um NICK");
 
         jButton1.setBackground(new java.awt.Color(4, 12, 167));
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("ENTRAR");
+        jButton1.setText("COMEÇAR");
         jButton1.setBorder(null);
         jButton1.setBorderPainted(false);
         jButton1.setContentAreaFilled(false);
@@ -102,7 +121,7 @@ public class PnPin extends javax.swing.JPanel {
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel4)
-                    .addComponent(txPin, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
+                    .addComponent(txNick, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(35, 35, 35))
         );
@@ -112,7 +131,7 @@ public class PnPin extends javax.swing.JPanel {
                 .addGap(20, 20, 20)
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
-                .addComponent(txPin, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txNick, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(29, Short.MAX_VALUE))
@@ -128,101 +147,54 @@ public class PnPin extends javax.swing.JPanel {
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
         add(jLabel1, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 3;
-        add(filler1, gridBagConstraints);
-
-        lbProfessor.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lbProfessor.setForeground(new java.awt.Color(51, 255, 255));
-        lbProfessor.setText("Você é professor? Clique aqui!");
-        lbProfessor.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lbProfessor.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(java.awt.event.MouseEvent evt) {
-                lbProfessorMouseMoved(evt);
-            }
-        });
-        lbProfessor.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lbProfessorMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                lbProfessorMousePressed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
-        add(lbProfessor, gridBagConstraints);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Desenvolvido pelos alunos: Érick, Felipe, Luiza e Robson.");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_END;
         add(jLabel3, gridBagConstraints);
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/quinkas/imagem/senac_logo.png"))); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_END;
         add(jLabel5, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipady = 1;
-        gridBagConstraints.weighty = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(3, 0, 2, 0);
-        add(filler2, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.weighty = 0.1;
+        add(filler1, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.weighty = 0.1;
+        add(filler2, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.weightx = 0.1;
         add(filler3, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.weightx = 0.1;
         add(filler4, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 7;
         add(filler5, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 6;
         add(filler6, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 5;
-        gridBagConstraints.gridy = 8;
-        add(filler7, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 7;
-        add(filler8, gridBagConstraints);
-
-        pnErro.setBackground(new java.awt.Color(102, 0, 0));
-        pnErro.setMinimumSize(new java.awt.Dimension(0, 0));
-        pnErro.setPreferredSize(new java.awt.Dimension(600, 40));
-        pnErro.setLayout(new java.awt.GridBagLayout());
-
-        lbMensagemErro.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lbMensagemErro.setForeground(new java.awt.Color(255, 255, 255));
-        lbMensagemErro.setText("PIN INVÁLIDO!");
-        pnErro.add(lbMensagemErro, new java.awt.GridBagConstraints());
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 6;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        add(pnErro, gridBagConstraints);
+        gridBagConstraints.gridy = 6;
+        add(filler7, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
@@ -231,38 +203,12 @@ public class PnPin extends javax.swing.JPanel {
         //        this.jframe.setVisible(true);
     }//GEN-LAST:event_jButton1MouseClicked
 
-    private void lbProfessorMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbProfessorMouseMoved
-        //180 75 67
-        lbProfessor.setForeground(new java.awt.Color(20, 205, 255));
-        
-    }//GEN-LAST:event_lbProfessorMouseMoved
-
-    private void lbProfessorMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbProfessorMouseExited
-        lbProfessor.setForeground(new java.awt.Color(51, 255, 255));
-    }//GEN-LAST:event_lbProfessorMouseExited
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        PnNick pn1 = new PnNick();
+        PnEspera pn1 = new PnEspera();
         ManterPrincipal.getPrincipal().setContentPane(pn1);
         ManterPrincipal.getPrincipal().setVisible(true);
-        // ERRO DE PIN:
-        //erroPin();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void lbProfessorMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbProfessorMousePressed
-        PnProfessor pn = new PnProfessor();
-        ManterPrincipal.getPrincipal().setContentPane(pn);
-        ManterPrincipal.getPrincipal().setVisible(true);
-    }//GEN-LAST:event_lbProfessorMousePressed
-    
-    private void erroPin(){
-        ErroEfeito altera = new ErroEfeito(pnErro);
-        Thread t = new Thread(altera);
-        t.start();
-        txPin.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(152, 0, 0)));
-        txPin.setText("");
-        txPin.requestFocus();
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.Box.Filler filler1;
@@ -272,7 +218,6 @@ public class PnPin extends javax.swing.JPanel {
     private javax.swing.Box.Filler filler5;
     private javax.swing.Box.Filler filler6;
     private javax.swing.Box.Filler filler7;
-    private javax.swing.Box.Filler filler8;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
@@ -280,8 +225,7 @@ public class PnPin extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lbMensagemErro;
-    private javax.swing.JLabel lbProfessor;
     private javax.swing.JPanel pnErro;
-    private javax.swing.JTextField txPin;
+    private javax.swing.JTextField txNick;
     // End of variables declaration//GEN-END:variables
 }
