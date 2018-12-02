@@ -18,8 +18,8 @@ import java.sql.Statement;
  */
 public class ConnectionFactory {
     public static Connection getConnection() throws SQLException, ClassNotFoundException, IOException {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        return DriverManager.getConnection("jdbc:mysql://localhost:3306/kahoot?useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false", "root", "");
+        Class.forName("com.mysql.jdbc.Driver");
+        return DriverManager.getConnection("jdbc:mysql://localhost:3306/kahoot?useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false", "root", "root");
     }
 
     public static void close(Connection conn, Statement stmt, ResultSet rs) {

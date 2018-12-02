@@ -26,4 +26,6 @@ public interface ProfessorDAO {
     List<Professor> list(String termo) throws Exception;
     
     List<Professor> listAll() throws Exception;
+    
+    Professor validarLogin(String email, String senha) throws Exception;
 }

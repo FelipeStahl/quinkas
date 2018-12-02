@@ -6,7 +6,9 @@
 package br.com.quinkas.view;
 
 import br.com.quinkas.manter.ManterPrincipal;
+import br.com.quinkas.manter.ManterProfessor;
 import br.com.quinkas.util.CorPainel;
+import br.com.quinkas.util.ErroEfeito;
 import javax.swing.SwingUtilities;
 
 /**
@@ -70,14 +72,14 @@ public class PnProfessor extends javax.swing.JPanel {
         jPanel1.setOpaque(false);
         jPanel1.setPreferredSize(new java.awt.Dimension(319, 250));
 
-        txLogin.setFont(new java.awt.Font("Segoe UI", 0, 30)); // NOI18N
+        txLogin.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         txLogin.setForeground(new java.awt.Color(0, 102, 204));
         txLogin.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txLogin.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 102, 255)));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Login");
+        jLabel4.setText("Email");
 
         btEntrar.setBackground(new java.awt.Color(4, 12, 167));
         btEntrar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -104,7 +106,7 @@ public class PnProfessor extends javax.swing.JPanel {
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Senha");
 
-        txSenha.setFont(new java.awt.Font("Segoe UI", 0, 30)); // NOI18N
+        txSenha.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txSenha.setForeground(new java.awt.Color(0, 102, 204));
         txSenha.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txSenha.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 102, 255)));
@@ -132,24 +134,25 @@ public class PnProfessor extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(txLogin)
-                    .addComponent(btEntrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                                .addComponent(jLabel4)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                    .addGap(6, 6, 6)
-                                    .addComponent(jLabel6)))
-                            .addComponent(txSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lbCadastrar)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(btEntrar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
+                                .addComponent(txLogin, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txSenha, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(lbCadastrar)
-                        .addGap(3, 3, 3)))
-                .addGap(35, 35, 35))
+                        .addGap(0, 134, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(139, 139, 139))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(136, 136, 136))))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -303,11 +306,30 @@ public class PnProfessor extends javax.swing.JPanel {
     }//GEN-LAST:event_btEntrarMouseClicked
 
     private void btEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEntrarActionPerformed
-        PnProfessorQuestionarios pn1 = new PnProfessorQuestionarios();
-        ManterPrincipal.getPrincipal().setContentPane(pn1);
-        ManterPrincipal.getPrincipal().setVisible(true);
+        String passText = new String(txSenha.getPassword());
+        if (txLogin.getText().equals("") || passText.equals("")) {
+            erroLogin();
+            return;
+        }
+        Boolean existe = ManterProfessor.validarLogin(this.txLogin.getText(), passText);
+        if (existe) {
+            PnProfessorQuestionarios pn1 = new PnProfessorQuestionarios();
+            ManterPrincipal.getPrincipal().setContentPane(pn1);
+            ManterPrincipal.getPrincipal().setVisible(true);
+        } else {
+            erroLogin();
+        }
     }//GEN-LAST:event_btEntrarActionPerformed
 
+    private void erroLogin() {
+        ErroEfeito altera = new ErroEfeito(pnErro);
+        Thread t = new Thread(altera);
+        t.start();
+        txLogin.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(152, 0, 0)));
+        txSenha.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(152, 0, 0)));
+        txSenha.setText("");
+        txLogin.requestFocus();
+    }
     private void lbCadastrarMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbCadastrarMouseMoved
         //180 75 67
         lbCadastrar.setForeground(new java.awt.Color(20, 205, 255));

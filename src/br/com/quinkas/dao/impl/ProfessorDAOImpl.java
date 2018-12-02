@@ -94,5 +94,31 @@ public class ProfessorDAOImpl implements br.com.quinkas.dao.ProfessorDAO{
     public List<Professor> listAll() throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public Professor validarLogin(String email, String senha) throws Exception {
+        try {
+            Professor professor = new Professor();
+            conn = ConnectionFactory.getConnection();
+            ps = conn.prepareStatement("select * from professor where email=? AND senha = ?");
+            ps.setString(1, email);
+            ps.setString(2, senha);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                professor.setId(rs.getInt("id"));
+                professor.setNome(rs.getString("nome"));
+                professor.setEmail(rs.getString("email"));
+                professor.setSenha(rs.getString("senha"));
+                return professor;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            System.out.println("Erro ao validar login. " + e);
+        } finally {
+            ConnectionFactory.close(conn, ps, rs);
+        }
+        return null;
+    }
     
 }
