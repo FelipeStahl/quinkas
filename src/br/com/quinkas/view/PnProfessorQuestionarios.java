@@ -6,6 +6,7 @@
 package br.com.quinkas.view;
 
 import br.com.quinkas.manter.ManterPrincipal;
+import br.com.quinkas.manter.ManterProfessor;
 import br.com.quinkas.util.CorPainel;
 
 /**
@@ -174,6 +175,7 @@ public class PnProfessorQuestionarios extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lbRetornoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbRetornoMousePressed
+        ManterProfessor.deslogar();
         PnProfessor pnl = new PnProfessor();
         ManterPrincipal.getPrincipal().setContentPane(pnl);
         ManterPrincipal.getPrincipal().setVisible(true);

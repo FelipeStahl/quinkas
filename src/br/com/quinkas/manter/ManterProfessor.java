@@ -15,14 +15,15 @@ import java.util.logging.Logger;
  * @author Felipe-Sistema
  */
 public class ManterProfessor {
-    private static Professor professor;
-
+    private static Professor PROFESSOR;
+    private static ProfessorDAOImpl professorDao;
+    
     public static Professor getProfessor() {
-        return professor;
+        return PROFESSOR;
     }
         
     public static Boolean validarLogin(String email, String senha){
-        ProfessorDAOImpl professorDao = new ProfessorDAOImpl();
+        professorDao = new ProfessorDAOImpl();
         Professor professorLogin;
         try {
             professorLogin = professorDao.validarLogin(email, senha);
@@ -32,7 +33,37 @@ public class ManterProfessor {
         if(professorLogin == null){
             return false;
         }else{
+            PROFESSOR = professorLogin;
             return true;
         }       
+    }
+    
+    public static Boolean emailExiste(String email){
+        professorDao = new ProfessorDAOImpl();
+        try {
+            return professorDao.emailExiste(email);
+        } catch (Exception ex) {
+            Logger.getLogger(ManterProfessor.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+    public static void cadastrarProfessor(Professor professor) throws Exception{
+        professorDao = new ProfessorDAOImpl();
+        try {
+            if(professor.getId() == null){
+                professor.setId(professorDao.insert(professor));
+               PROFESSOR = professor;
+            }else{
+                professorDao.update(professor);
+                PROFESSOR = professor;
+            }
+        } catch (Exception ex) {
+            throw new UnsupportedOperationException("Erro ao cadastrar/alterar professor." + ex.getMessage());
+        }
+    }
+    
+    public static void deslogar(){
+        PROFESSOR = null;
     }
 }

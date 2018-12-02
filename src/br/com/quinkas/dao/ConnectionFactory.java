@@ -38,15 +38,11 @@ public class ConnectionFactory {
         }
     }
 
-    public static void closeConnection(Connection conn) throws Exception {
+    public static void close(Connection conn) throws Exception {
         close(conn, null, null);
     }
 
-    public static void closeConnection(Connection conn, Statement stmt) throws Exception {
+    public static void close(Connection conn, Statement stmt) throws Exception {
         close(conn, stmt, null);
-    }
-
-    public static void closeConnection(Connection conn, Statement stmt, ResultSet rs) throws Exception {
-        close(conn, stmt, rs);
     }
 }

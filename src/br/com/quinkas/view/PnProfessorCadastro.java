@@ -5,8 +5,16 @@
  */
 package br.com.quinkas.view;
 
+import br.com.quinkas.dao.impl.ProfessorDAOImpl;
+import br.com.quinkas.entidade.Professor;
 import br.com.quinkas.manter.ManterPrincipal;
+import br.com.quinkas.manter.ManterProfessor;
 import br.com.quinkas.util.CorPainel;
+import br.com.quinkas.util.ErroEfeito;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 /**
@@ -271,10 +279,58 @@ public class PnProfessorCadastro extends javax.swing.JPanel {
     }//GEN-LAST:event_btEntrarMouseClicked
 
     private void btEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEntrarActionPerformed
-        // ERRO DE PIN:
-        // erroPin();
+        String passText = new String(txSenha.getPassword());
+        passText = passText.trim();
+        String nome = txNome.getText().trim();
+        String email = txEmail.getText().trim();
+        txNome.setText(nome);
+        txSenha.setText(passText);
+        txEmail.setText(email);
+        if (nome.equals("") || email.equals("") || passText.equals("")) {
+            erroCadastro();
+            return;
+        }
+        if (ManterProfessor.emailExiste(email)) {
+            JOptionPane.showMessageDialog(null, "Email já cadastrado!");
+        } else {
+            Professor professor = new Professor();
+            professor.setNome(nome);
+            professor.setSenha(passText);
+            professor.setEmail(email);
+            try {
+                ManterProfessor.cadastrarProfessor(professor);
+                PnProfessorQuestionarios pn1 = new PnProfessorQuestionarios();
+                ManterPrincipal.getPrincipal().setContentPane(pn1);
+                ManterPrincipal.getPrincipal().setVisible(true);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(lbRetorno, "Erro grave ao salvar. Verifique sua conexão. " + e.getMessage());
+            }
+        }
     }//GEN-LAST:event_btEntrarActionPerformed
 
+    private void erroCadastro() {
+        ErroEfeito altera = new ErroEfeito(pnErro);
+        Thread t = new Thread(altera);
+        t.start();
+
+        String passText = new String(txSenha.getPassword());
+        passText = passText.trim();
+        String nome = txNome.getText().trim();
+        String email = txEmail.getText().trim();
+        if (passText.equals("")) {
+            txSenha.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(152, 0, 0)));
+            txSenha.requestFocus();
+        }
+        if (email.equals("")) {
+            txEmail.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(152, 0, 0)));
+            txEmail.requestFocus();
+        }
+        if (nome.equals("")) {
+            txNome.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(152, 0, 0)));
+            txNome.requestFocus();
+        }
+        txSenha.setText("");
+    }
     private void lbRetornoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbRetornoMousePressed
         PnProfessor pnl = new PnProfessor();
         ManterPrincipal.getPrincipal().setContentPane(pnl);

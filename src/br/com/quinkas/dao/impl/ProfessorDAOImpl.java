@@ -10,21 +10,41 @@ import br.com.quinkas.entidade.Professor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.List;
 
 /**
  *
  * @author erick
  */
-public class ProfessorDAOImpl implements br.com.quinkas.dao.ProfessorDAO{
-    
+public class ProfessorDAOImpl implements br.com.quinkas.dao.ProfessorDAO {
+
     Connection conn;
     PreparedStatement ps;
     ResultSet rs;
 
     @Override
     public Integer insert(Professor professor) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            conn = ConnectionFactory.getConnection();
+            ps = conn.prepareStatement("insert into professor (nome, senha, email) values (?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, professor.getNome());
+            ps.setString(2, professor.getSenha());
+            ps.setString(3, professor.getEmail());
+            ps.executeUpdate();
+            rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                int ultimoId = rs.getInt(1);
+                return ultimoId;
+            }else{
+                return null;
+            }
+
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Erro ao inserir professor. " + e.getMessage());
+        } finally {
+            ConnectionFactory.close(conn, ps, rs);
+        }
     }
 
     @Override
@@ -50,29 +70,26 @@ public class ProfessorDAOImpl implements br.com.quinkas.dao.ProfessorDAO{
         }
         return professor;
     }
-    
+
     @Override
-    public Professor select(String email) throws Exception {
+    public Boolean emailExiste(String email) throws Exception {
         Professor professor = new Professor();
         try {
             conn = ConnectionFactory.getConnection();
-            ps = conn.prepareStatement("select id, nome, email, senha from professor where email=?");
+            ps = conn.prepareStatement("select id from professor where email=?");
             ps.setString(1, email);
             rs = ps.executeQuery();
             if (rs.next()) {
-                professor.setId(rs.getInt("id"));
-                professor.setNome(rs.getString("nome"));
-                professor.setEmail(rs.getString("email"));
-                professor.setSenha(rs.getString("senha"));
+                return true;
             } else {
-                System.out.println("Não existe Professor com este Email");
+                return false;
             }
         } catch (Exception e) {
-            System.out.println("Erro ao pesquisar professor" + e);
+            System.out.println("Erro ao pesquisar professor. " + e);
         } finally {
             ConnectionFactory.close(conn, ps, rs);
         }
-        return professor;
+        return false;
     }
 
     @Override
@@ -120,5 +137,5 @@ public class ProfessorDAOImpl implements br.com.quinkas.dao.ProfessorDAO{
         }
         return null;
     }
-    
+
 }

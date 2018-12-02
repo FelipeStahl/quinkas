@@ -17,7 +17,7 @@ public interface ProfessorDAO {
     
     Professor select(Integer id) throws Exception;
     
-    Professor select(String email) throws Exception;
+    Boolean emailExiste(String email) throws Exception;
     
     void update(Professor professor) throws Exception;
     
