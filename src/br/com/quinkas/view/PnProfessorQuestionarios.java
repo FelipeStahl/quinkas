@@ -5,16 +5,20 @@
  */
 package br.com.quinkas.view;
 
+import br.com.quinkas.dao.impl.QuestionarioDAOImpl;
+import br.com.quinkas.entidade.Questionario;
 import br.com.quinkas.manter.ManterPrincipal;
 import br.com.quinkas.manter.ManterProfessor;
 import br.com.quinkas.util.CorPainel;
+import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Felipe-Sistema
  */
 public class PnProfessorQuestionarios extends javax.swing.JPanel {
-
+    List<Questionario> questionarios;
     /**
      * Creates new form PnProfessorQuestoes
      */
@@ -23,7 +27,17 @@ public class PnProfessorQuestionarios extends javax.swing.JPanel {
         CorPainel altera = new CorPainel(this);
         Thread t = new Thread(altera);
         t.start();
-        addQuestionario("Questionário nível fácil de Java", "11/11/2011");
+        try {
+            QuestionarioDAOImpl questionarioDao = new QuestionarioDAOImpl();
+            questionarios = questionarioDao.pesquisar(ManterProfessor.getProfessor());
+            for (Questionario questionario : questionarios) {
+                addQuestionario(questionario);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(lbRetorno, "Erro ao pegar questionário do banco de dados. " + e.getMessage());
+        }
+        
+        
     }
 
     /**
@@ -190,12 +204,12 @@ public class PnProfessorQuestionarios extends javax.swing.JPanel {
     }//GEN-LAST:event_pnQuestionarioNovoMouseExited
 
     private void pnQuestionarioNovoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnQuestionarioNovoMousePressed
-        PnProfessorQuestionario pn1 = new PnProfessorQuestionario();
+        PnProfessorQuestionario pn1 = new PnProfessorQuestionario(null);
         ManterPrincipal.getPrincipal().setContentPane(pn1);
         ManterPrincipal.getPrincipal().setVisible(true);
     }//GEN-LAST:event_pnQuestionarioNovoMousePressed
 
-    private void addQuestionario(String nome, String data) {
+    private void addQuestionario(Questionario questionario) {
         java.awt.GridBagConstraints gridBagConstraints;
         javax.swing.JPanel pnQuestionario = new javax.swing.JPanel();
         javax.swing.JLabel lbNome = new javax.swing.JLabel();
@@ -216,7 +230,7 @@ public class PnProfessorQuestionarios extends javax.swing.JPanel {
             }
 
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                PnProfessorQuestionario pn1 = new PnProfessorQuestionario();
+                PnProfessorQuestionario pn1 = new PnProfessorQuestionario(questionario);
                 ManterPrincipal.getPrincipal().setContentPane(pn1);
                 ManterPrincipal.getPrincipal().setVisible(true);
             }
@@ -225,13 +239,13 @@ public class PnProfessorQuestionarios extends javax.swing.JPanel {
 
         lbNome.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lbNome.setForeground(new java.awt.Color(0, 0, 0));
-        lbNome.setText("<html>" + nome + "</html>");
+        lbNome.setText("<html>" + questionario.getNome() + "</html>");
         lbNome.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         pnQuestionario.add(lbNome, new java.awt.GridBagConstraints());
 
         lbData.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbData.setForeground(new java.awt.Color(102, 102, 102));
-        lbData.setText(data);
+        lbData.setText(questionario.getDatacriacao().toString());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;

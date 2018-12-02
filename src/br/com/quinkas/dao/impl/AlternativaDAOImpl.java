@@ -32,7 +32,7 @@ public class AlternativaDAOImpl implements br.com.quinkas.dao.AlternativaDAO {
     public Integer inserir(Object objeto) throws Exception {
         try {
             Alternativa alternativa = (Alternativa) objeto;
-            if (alternativa.getId() != null) {
+            if (alternativa.getId() == null) {
                 conn = ConnectionFactory.getConnection();
                 ps = conn.prepareStatement("insert into alternativa (resposta, isTrue, pergunta_id) values (?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
                 ps.setString(1, alternativa.getResposta());

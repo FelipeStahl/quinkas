@@ -32,7 +32,7 @@ public class QuestionarioDAOImpl implements br.com.quinkas.dao.QuestionarioDAO {
     public Integer inserir(Object objeto) throws Exception {
         try {
             Questionario questionario = (Questionario) objeto;
-            if (questionario.getId() != null) {
+            if (questionario.getId() == null) {
                 conn = ConnectionFactory.getConnection();
                 ps = conn.prepareStatement("insert into questionario (nome, datacriacao, professor_id) values (?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
                 ps.setString(1, questionario.getNome());

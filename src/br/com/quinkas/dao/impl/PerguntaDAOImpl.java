@@ -29,7 +29,7 @@ public class PerguntaDAOImpl implements br.com.quinkas.dao.PerguntaDAO {
     public Integer inserir(Object objeto) throws Exception {
         try {
             Pergunta pergunta = (Pergunta) objeto;
-            if (pergunta.getId() != null) {
+            if (pergunta.getId() == null) {
                 conn = ConnectionFactory.getConnection();
                 ps = conn.prepareStatement("insert into pergunta (pergunta, questionario_id) values (?, ?);", Statement.RETURN_GENERATED_KEYS);
                 ps.setString(1, pergunta.getPergunta());

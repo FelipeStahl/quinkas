@@ -5,6 +5,7 @@
  */
 package br.com.quinkas.view;
 
+import br.com.quinkas.entidade.Questionario;
 import br.com.quinkas.manter.ManterPrincipal;
 import br.com.quinkas.util.CorPainel;
 
@@ -13,15 +14,16 @@ import br.com.quinkas.util.CorPainel;
  * @author Felipe-Sistema
  */
 public class PnProfessorPerguntas extends javax.swing.JPanel {
-
+    private Questionario questionarioAtual;
     /**
      * Creates new form PnProfessorPerguntas
      */
-    public PnProfessorPerguntas() {
+    public PnProfessorPerguntas(Questionario questionario) {
         initComponents();
+        questionarioAtual = questionario;
         CorPainel altera = new CorPainel(this);
         Thread t = new Thread(altera);
-        t.start();
+        t.start();      
     }
 
     /**
@@ -153,7 +155,7 @@ public class PnProfessorPerguntas extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lbRetornoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbRetornoMousePressed
-        PnProfessorQuestionario pnl = new PnProfessorQuestionario();
+        PnProfessorQuestionario pnl = new PnProfessorQuestionario(questionarioAtual);
         ManterPrincipal.getPrincipal().setContentPane(pnl);
         ManterPrincipal.getPrincipal().setVisible(true);
     }//GEN-LAST:event_lbRetornoMousePressed
