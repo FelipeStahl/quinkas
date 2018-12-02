@@ -303,7 +303,7 @@ public class PnProfessor extends javax.swing.JPanel {
     }//GEN-LAST:event_btEntrarMouseClicked
 
     private void btEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEntrarActionPerformed
-        PnEsperaProfessor pn1 = new PnEsperaProfessor();
+        PnProfessorQuestionarios pn1 = new PnProfessorQuestionarios();
         ManterPrincipal.getPrincipal().setContentPane(pn1);
         ManterPrincipal.getPrincipal().setVisible(true);
     }//GEN-LAST:event_btEntrarActionPerformed
@@ -333,7 +333,7 @@ public class PnProfessor extends javax.swing.JPanel {
     }//GEN-LAST:event_lbRetornoMouseMoved
 
     private void lbCadastrarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbCadastrarMousePressed
-        PnCadastroProfessor pnl = new PnCadastroProfessor();
+        PnProfessorCadastro pnl = new PnProfessorCadastro();
         ManterPrincipal.getPrincipal().setContentPane(pnl);
         ManterPrincipal.getPrincipal().setVisible(true);
     }//GEN-LAST:event_lbCadastrarMousePressed

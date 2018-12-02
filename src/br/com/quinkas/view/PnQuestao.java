@@ -5,6 +5,8 @@
  */
 package br.com.quinkas.view;
 
+import br.com.quinkas.manter.ManterPrincipal;
+
 /**
  *
  * @author Felipe-Sistema
@@ -158,6 +160,11 @@ public class PnQuestao extends javax.swing.JPanel {
         jPanel3.setMinimumSize(new java.awt.Dimension(400, 120));
         jPanel3.setPreferredSize(new java.awt.Dimension(400, 130));
         jPanel3.setRequestFocusEnabled(false);
+        jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPanel3MousePressed(evt);
+            }
+        });
         jPanel3.setLayout(new java.awt.GridBagLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -213,6 +220,11 @@ public class PnQuestao extends javax.swing.JPanel {
         jPanel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel4.setMinimumSize(new java.awt.Dimension(400, 120));
         jPanel4.setPreferredSize(new java.awt.Dimension(510, 120));
+        jPanel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPanel4MousePressed(evt);
+            }
+        });
         jPanel4.setLayout(new java.awt.GridBagLayout());
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -401,6 +413,21 @@ public class PnQuestao extends javax.swing.JPanel {
         add(jPanel2, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jPanel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MousePressed
+        painelEspera();
+    }//GEN-LAST:event_jPanel3MousePressed
+
+    private void jPanel4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MousePressed
+        PnQuestaoResultado pn1 = new PnQuestaoResultado();
+        ManterPrincipal.getPrincipal().setContentPane(pn1);
+        ManterPrincipal.getPrincipal().setVisible(true);
+    }//GEN-LAST:event_jPanel4MousePressed
+
+    private void painelEspera() {
+        PnQuestaoEspera pn1 = new PnQuestaoEspera();
+        ManterPrincipal.getPrincipal().setContentPane(pn1);
+        ManterPrincipal.getPrincipal().setVisible(true);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.Box.Filler filler1;

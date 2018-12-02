@@ -5,6 +5,8 @@
  */
 package br.com.quinkas.view;
 
+import br.com.quinkas.util.CorPainel;
+
 /**
  *
  * @author Felipe-Sistema
@@ -16,6 +18,9 @@ public class PnJogoFinal extends javax.swing.JPanel {
      */
     public PnJogoFinal() {
         initComponents();
+        CorPainel altera = new CorPainel(this);
+        Thread t = new Thread(altera);
+        t.start();
     }
 
     /**
@@ -26,22 +31,75 @@ public class PnJogoFinal extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
+
+        jPanel2 = new javax.swing.JPanel();
+        lbPodio = new javax.swing.JLabel();
+        lbJogador2 = new javax.swing.JLabel();
+        lbJogador3 = new javax.swing.JLabel();
+        lbJogador1 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setMinimumSize(new java.awt.Dimension(800, 600));
+        setLayout(new java.awt.GridBagLayout());
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
-        );
+        jPanel2.setOpaque(false);
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lbPodio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/quinkas/imagem/podio.png"))); // NOI18N
+        jPanel2.add(lbPodio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, -1, -1));
+
+        lbJogador2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lbJogador2.setForeground(new java.awt.Color(255, 255, 255));
+        lbJogador2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbJogador2.setText("Jogador 2");
+        lbJogador2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPanel2.add(lbJogador2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 250, 40));
+
+        lbJogador3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lbJogador3.setForeground(new java.awt.Color(255, 255, 255));
+        lbJogador3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbJogador3.setText("Jogador 3");
+        lbJogador3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPanel2.add(lbJogador3, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 202, 260, 30));
+
+        lbJogador1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lbJogador1.setForeground(new java.awt.Color(255, 255, 255));
+        lbJogador1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbJogador1.setText("Jogador 1");
+        lbJogador1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPanel2.add(lbJogador1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 30, 260, -1));
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        add(jPanel2, gridBagConstraints);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/quinkas/imagem/logo.png"))); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        add(jLabel1, gridBagConstraints);
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Desenvolvido pelos alunos: Érick, Felipe, Luiza e Robson.");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_END;
+        add(jLabel3, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lbJogador1;
+    private javax.swing.JLabel lbJogador2;
+    private javax.swing.JLabel lbJogador3;
+    private javax.swing.JLabel lbPodio;
     // End of variables declaration//GEN-END:variables
 }

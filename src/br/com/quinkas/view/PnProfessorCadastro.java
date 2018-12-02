@@ -13,18 +13,17 @@ import javax.swing.SwingUtilities;
  *
  * @author Felipe-Sistema
  */
-public class PnCadastroProfessor extends javax.swing.JPanel {
+public class PnProfessorCadastro extends javax.swing.JPanel {
 
     /**
      * Creates new form pnProfessorCadastro
      */
-    public PnCadastroProfessor() {
+    public PnProfessorCadastro() {
         initComponents();
         pnErro.setVisible(false);
         CorPainel altera = new CorPainel(this);
         Thread t = new Thread(altera);
         t.start();
-        System.out.println("que porra é essa?");
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 txNome.requestFocus();
@@ -156,9 +155,8 @@ public class PnCadastroProfessor extends javax.swing.JPanel {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel6)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(txSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(0, 0, Short.MAX_VALUE))))
+                                .addComponent(txSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(0, 0, Short.MAX_VALUE))
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGap(0, 0, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
