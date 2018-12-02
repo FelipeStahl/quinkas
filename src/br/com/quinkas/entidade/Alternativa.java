@@ -11,7 +11,6 @@ package br.com.quinkas.entidade;
  */
 public class Alternativa {
     private Integer id;
-    private Integer alternativa;
     private String resposta;
     private Boolean isTrue;
     private Pergunta pergunta;
@@ -22,14 +21,6 @@ public class Alternativa {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getAlternativa() {
-        return alternativa;
-    }
-
-    public void setAlternativa(Integer alternativa) {
-        this.alternativa = alternativa;
     }
 
     public String getResposta() {

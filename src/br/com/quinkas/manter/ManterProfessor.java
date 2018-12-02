@@ -52,10 +52,10 @@ public class ManterProfessor {
         professorDao = new ProfessorDAOImpl();
         try {
             if(professor.getId() == null){
-                professor.setId(professorDao.insert(professor));
+                professor.setId(professorDao.inserir(professor));
                PROFESSOR = professor;
             }else{
-                professorDao.update(professor);
+                professorDao.alterar(professor);
                 PROFESSOR = professor;
             }
         } catch (Exception ex) {

@@ -5,17 +5,14 @@
  */
 package br.com.quinkas.dao.impl;
 
-import br.com.quinkas.dao.AlternativaDAO;
 import br.com.quinkas.dao.ConnectionFactory;
-import br.com.quinkas.dao.MateriaDAO;
-import br.com.quinkas.dao.QuestionarioPerguntaDAO;
 import br.com.quinkas.entidade.Alternativa;
 import br.com.quinkas.entidade.Pergunta;
-import java.io.IOException;
+import br.com.quinkas.entidade.Questionario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,204 +21,121 @@ import java.util.List;
  * @author erick
  */
 public class PerguntaDAOImpl implements br.com.quinkas.dao.PerguntaDAO {
-    
     Connection conn;
     PreparedStatement ps;
     ResultSet rs;
-
+    
     @Override
-    public Integer insert(Pergunta pergunta) throws Exception {
-        /* Quando chamar este método, garanta que você já tenha em mãos o questionário que você irá relacionar à essa pergunta, se não o estiver chamando
-         *      pelo método insert do QuestionarioDAOImpl.
-         * Este método irá retornar o ID da pergunta gerada, e você cria o relacionamento na tabela 'questionario_pergunta' com o id dos dois.
-         * Este método NÃO cria o relacionamento do questionário com a pergunta,
-         *      apenas cria a pergunta, as alternativas, e relaciona as alternativas com a pergunta.
-         */
+    public Integer inserir(Object objeto) throws Exception {
         try {
-            conn = ConnectionFactory.getConnection();
-            ps = conn.prepareStatement("insert into pergunta (pergunta, escopo, materia_id, imagepath) "
-                    + "values (?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
-            ps.setString(1, pergunta.getPergunta());
-            ps.setString(2, pergunta.getEscopo());
-            ps.setInt(3, pergunta.getMateria().getId());
-            ps.setString(4, pergunta.getImagePath());
-            pergunta.setId(ps.executeUpdate()); // Executa o insert e seta o id retornado na pergunta
-            if (pergunta.getAlternativas().size() > 0) {
-                // Insert das alternativas da pergunta
-                AlternativaDAO alternativaDAO = new AlternativaDAOImpl();
-                for (Alternativa alternativa : pergunta.getAlternativas()) {
-                    alternativa.setPergunta(pergunta);
-                    alternativa.setId(alternativaDAO.insert(alternativa)); // Insere alternativa no banco e seta id criado na instancia da alternativa
+            Pergunta pergunta = (Pergunta) objeto;
+            if (pergunta.getId() != null) {
+                conn = ConnectionFactory.getConnection();
+                ps = conn.prepareStatement("insert into pergunta (pergunta, questionario_id) values (?, ?);", Statement.RETURN_GENERATED_KEYS);
+                ps.setString(1, pergunta.getPergunta());
+                ps.setInt(2, pergunta.getQuestionario().getId());
+                ps.executeUpdate();
+                rs = ps.getGeneratedKeys();
+                if (rs.next()) {
+                    int ultimoId = rs.getInt(1);
+                    return ultimoId;
+                } else {
+                    return null;
                 }
-            }
-        } catch (IOException | ClassNotFoundException | SQLException e) {
-            System.out.println("Pergunta não pôde ser criada" + e);
-        } finally {
-            ConnectionFactory.close(conn, ps, rs);
-        }
-        return pergunta.getId();
-    }
-
-    @Override
-    public Pergunta select(Integer id) throws Exception {
-        // Este método NÃO retorna a pergunta com os os questionários em que ela pertence.
-        // Se você quer a lista de questionarios com esta pergunta, use o método listPorPergunta do QuestionarioDAOImpl
-        Pergunta pergunta = new Pergunta();
-        try {
-            conn = ConnectionFactory.getConnection();
-            ps = conn.prepareStatement("select id, pergunta, escopo, materia_id, imagepath from pergunta where id=?");
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                MateriaDAO materiaDao = new MateriaDAOImpl();
-                pergunta.setId(rs.getInt("id"));
-                pergunta.setPergunta(rs.getString("pergunta"));
-                pergunta.setEscopo(rs.getString("escopo"));
-                pergunta.setImagePath(rs.getString("imagepath"));
-                pergunta.setMateria(materiaDao.select(rs.getInt("Materia_id")));
-                AlternativaDAO alternativaDao = new AlternativaDAOImpl();
-                pergunta.setAlternativas(alternativaDao.listPorPergunta(pergunta.getId()));
             } else {
-                System.out.println("Não existe Pergunta neste ID");
+                return alterar(pergunta);
             }
         } catch (Exception e) {
-            System.out.println("Erro ao pesquisar pergunta" + e);
+            throw new UnsupportedOperationException("Erro ao inserir questionario. " + e.getMessage());
         } finally {
             ConnectionFactory.close(conn, ps, rs);
         }
-        return pergunta;
     }
 
     @Override
-    public void update(Pergunta pergunta) throws Exception {
+    public Integer alterar(Object objeto) throws Exception {
         try {
+            Pergunta pergunta = (Pergunta) objeto;
             conn = ConnectionFactory.getConnection();
-            ps = conn.prepareStatement("update pergunta set pergunta=?, escopo?, materia_id=?, imagepath=? where id=?)");
+            ps = conn.prepareStatement("update pergunta set nome = ?, questionario_id = ? where id = ?;", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, pergunta.getPergunta());
-            ps.setString(2, pergunta.getEscopo());
-            ps.setInt(3, pergunta.getMateria().getId());
-            ps.setString(4, pergunta.getImagePath());
-            ps.setInt(5, pergunta.getId());
-            ps.executeUpdate();
-        } catch (IOException | ClassNotFoundException | SQLException e) {
-            System.out.println("Pergunta não pôde ser atualizada" + e);
+            ps.setInt(2,pergunta.getQuestionario().getId());
+            ps.setInt(3, pergunta.getId());
+            int executeUpdate = ps.executeUpdate();
+            if (executeUpdate != 0) {
+                return pergunta.getId();
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Erro ao alterar questionario. " + e.getMessage());
         } finally {
             ConnectionFactory.close(conn, ps, rs);
         }
+    }
+
+    @Override
+    public Object select(Integer id) throws Exception {
+        throw new UnsupportedOperationException("Este método não está disponível na versão grátis.");
     }
 
     @Override
     public void delete(Integer id) throws Exception {
         try {
-            QuestionarioPerguntaDAO questPerguntaDao = new QuestionarioPerguntaDAOImpl();
-            questPerguntaDao.deleteAllPergunta(id);
+            excluirDependente(id);
             conn = ConnectionFactory.getConnection();
-            ps = conn.prepareStatement("delete from pergunta where id=?");
+            ps = conn.prepareStatement("DELETE FROM pergunta where id = ?;");
             ps.setInt(1, id);
-            ps.executeUpdate();
         } catch (Exception e) {
-            System.out.println("Não foi possivel deletar pergunta" + e);
+            e.printStackTrace();
         } finally {
-            ConnectionFactory.close(conn, ps, rs);
+            ConnectionFactory.close(conn, ps);
         }
     }
 
     @Override
-    public List<Pergunta> list(String termo) throws Exception {
-        List<Pergunta> perguntas = new ArrayList<Pergunta>();
+    public List pesquisar(String termo) throws Exception {
+        throw new UnsupportedOperationException("Este método não está disponível na versão grátis.");
+    }
+
+    @Override
+    public List pesquisar(Object objeto) throws Exception {
+        List<Pergunta> perguntas = new ArrayList();
+        Questionario questionario = (Questionario)objeto;
         try {
             conn = ConnectionFactory.getConnection();
-            ps = conn.prepareStatement("select id, pergunta, escopo, materia_id, imagepath from pergunta where pergunta like ? or escopo like ?");
-            ps.setString(1, "%" + termo + "%");
-            ps.setString(2, "%" + termo + "%");
+            ps = conn.prepareStatement("select id, pergunta, questionario_id from pergunta where questionario_id=?");
+            ps.setInt(1, questionario.getId());
             rs = ps.executeQuery();
             while (rs.next()) {
-                Pergunta pergunta = new Pergunta();
-                MateriaDAO materiaDao = new MateriaDAOImpl();
+                Pergunta pergunta = new Pergunta();               
                 pergunta.setId(rs.getInt("id"));
-                pergunta.setPergunta(rs.getString("pergunta"));
-                pergunta.setEscopo(rs.getString("escopo"));
-                pergunta.setImagePath(rs.getString("imagepath"));
-                pergunta.setMateria(materiaDao.select(rs.getInt("Materia_id")));
-                AlternativaDAO alternativaDao = new AlternativaDAOImpl();
-                pergunta.setAlternativas(alternativaDao.listPorPergunta(pergunta.getId()));
+                pergunta.setPergunta(rs.getString("nome"));
+                pergunta.setQuestionario(questionario);
+
+                AlternativaDAOImpl alternativaDao = new AlternativaDAOImpl();
+                pergunta.setAlternativas(alternativaDao.pesquisar(pergunta));
                 perguntas.add(pergunta);
             }
+            return perguntas;
         } catch (Exception e) {
             System.out.println("Erro ao pesquisar perguntas" + e);
         } finally {
             ConnectionFactory.close(conn, ps, rs);
         }
-        return perguntas;
-    }
-
-    @Override
-    public List<Pergunta> listPorMateria(Integer idMateria) throws Exception {
-        List<Pergunta> perguntas = new ArrayList<Pergunta>();
-        try {
-            conn = ConnectionFactory.getConnection();
-            ps = conn.prepareStatement("select id, pergunta, escopo, Materia_id, imagepath from pergunta where Materia_id=?");
-            ps.setInt(1, idMateria);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                Pergunta pergunta = new Pergunta();
-                MateriaDAO materiaDao = new MateriaDAOImpl();
-                pergunta.setId(rs.getInt("id"));
-                pergunta.setPergunta(rs.getString("pergunta"));
-                pergunta.setEscopo(rs.getString("escopo"));
-                pergunta.setImagePath(rs.getString("imagepath"));
-                pergunta.setMateria(materiaDao.select(rs.getInt("Materia_id")));
-                AlternativaDAO alternativaDao = new AlternativaDAOImpl();
-                pergunta.setAlternativas(alternativaDao.listPorPergunta(pergunta.getId()));
-                perguntas.add(pergunta);
-            }
-        } catch (Exception e) {
-            System.out.println("Erro ao pesquisar perguntas" + e);
-        } finally {
-            ConnectionFactory.close(conn, ps, rs);
-        }
-        return perguntas;
-    }
-
-    @Override
-    public List<Pergunta> listPorQuestionario(Integer idQuestionario) throws Exception {
-        List<Pergunta> perguntas = new ArrayList<Pergunta>();
-        try {
-            QuestionarioPerguntaDAO questPerguntaDao = new QuestionarioPerguntaDAOImpl();
-            perguntas = questPerguntaDao.selectPerguntas(idQuestionario);
-        } catch (Exception e) {
-            System.out.println("Erro ao pesquisar perguntas" + e);
-        } finally {
-            ConnectionFactory.close(conn, ps, rs);
-        }
-        return perguntas;
-    }
-
-    @Override
-    public List<Pergunta> listAll() throws Exception {
-        List<Pergunta> perguntas = new ArrayList<Pergunta>();
-        try {
-            conn = ConnectionFactory.getConnection();
-            ps = conn.prepareStatement("select id, pergunta, escopo, Materia_id, imagepath from pergunta");
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                Pergunta pergunta = new Pergunta();
-                MateriaDAO materiaDao = new MateriaDAOImpl();
-                pergunta.setId(rs.getInt("id"));
-                pergunta.setPergunta(rs.getString("pergunta"));
-                pergunta.setEscopo(rs.getString("escopo"));
-                pergunta.setImagePath("imagepath");
-                pergunta.setMateria(materiaDao.select(rs.getInt("Materia_id")));
-                AlternativaDAO alternativaDao = new AlternativaDAOImpl();
-                pergunta.setAlternativas(alternativaDao.listPorPergunta(pergunta.getId()));
-                perguntas.add(pergunta);
-            }
-        } catch (Exception e) {
-            System.out.println("Erro ao pesquisar perguntas" + e);
-        } finally {
-            ConnectionFactory.close(conn, ps, rs);
-        }
-        return perguntas;
+        return null;
     }
     
+    @Override
+    public void excluirDependente(Integer id) throws Exception {
+        try {
+            AlternativaDAOImpl alternativaDao = new AlternativaDAOImpl();
+            List<Alternativa> alternativas = alternativaDao.pesquisar(id);
+            for (Alternativa alternativa : alternativas) {
+                alternativaDao.delete(alternativa.getId());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    } 
 }

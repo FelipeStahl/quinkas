@@ -18,14 +18,14 @@ import java.util.List;
  * @author erick
  */
 public class ProfessorDAOImpl implements br.com.quinkas.dao.ProfessorDAO {
-
     Connection conn;
     PreparedStatement ps;
     ResultSet rs;
-
+    
     @Override
-    public Integer insert(Professor professor) throws Exception {
+    public Integer inserir(Object objeto) throws Exception {
         try {
+            Professor professor = (Professor)objeto;
             conn = ConnectionFactory.getConnection();
             ps = conn.prepareStatement("insert into professor (nome, senha, email) values (?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, professor.getNome());
@@ -36,7 +36,7 @@ public class ProfessorDAOImpl implements br.com.quinkas.dao.ProfessorDAO {
             if (rs.next()) {
                 int ultimoId = rs.getInt(1);
                 return ultimoId;
-            }else{
+            } else {
                 return null;
             }
 
@@ -48,7 +48,31 @@ public class ProfessorDAOImpl implements br.com.quinkas.dao.ProfessorDAO {
     }
 
     @Override
-    public Professor select(Integer id) throws Exception {
+    public Integer alterar(Object objeto) throws Exception {
+        try {
+            Professor professor = (Professor)objeto;
+            conn = ConnectionFactory.getConnection();
+            ps = conn.prepareStatement("update professor set nome = ?, senha = ?, email = ? where id = ?;", Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, professor.getNome());
+            ps.setString(2, professor.getSenha());
+            ps.setString(3, professor.getEmail());
+            ps.setInt(4, professor.getId());
+            int executeUpdate = ps.executeUpdate();
+            if(executeUpdate != 0){
+                return professor.getId();
+            }else{
+                return null;
+            }
+            
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Erro ao alterar questionario. " + e.getMessage());
+        } finally {
+            ConnectionFactory.close(conn, ps, rs);
+        }
+    }
+
+    @Override
+    public Object select(Integer id) throws Exception {
         Professor professor = new Professor();
         try {
             conn = ConnectionFactory.getConnection();
@@ -72,8 +96,22 @@ public class ProfessorDAOImpl implements br.com.quinkas.dao.ProfessorDAO {
     }
 
     @Override
+    public void delete(Integer id) throws Exception {
+        throw new UnsupportedOperationException("Este método não está disponível na versão grátis.");
+    }
+
+    @Override
+    public List pesquisar(String termo) throws Exception {
+        throw new UnsupportedOperationException("Este método não está disponível na versão grátis.");
+    }
+
+    @Override
+    public List pesquisar(Object objeto) throws Exception {
+        throw new UnsupportedOperationException("Este método não está disponível na versão grátis.");
+    }
+    
+    @Override
     public Boolean emailExiste(String email) throws Exception {
-        Professor professor = new Professor();
         try {
             conn = ConnectionFactory.getConnection();
             ps = conn.prepareStatement("select id from professor where email=?");
@@ -90,26 +128,6 @@ public class ProfessorDAOImpl implements br.com.quinkas.dao.ProfessorDAO {
             ConnectionFactory.close(conn, ps, rs);
         }
         return false;
-    }
-
-    @Override
-    public void update(Professor professor) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void delete(Integer id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<Professor> list(String termo) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<Professor> listAll() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -136,6 +154,11 @@ public class ProfessorDAOImpl implements br.com.quinkas.dao.ProfessorDAO {
             ConnectionFactory.close(conn, ps, rs);
         }
         return null;
+    }
+    
+    @Override
+    public void excluirDependente(Integer id) throws Exception {
+        throw new UnsupportedOperationException("Este método não está disponível na versão grátis.");
     }
 
 }

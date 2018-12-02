@@ -13,22 +13,6 @@ import java.util.List;
  *
  * @author erick
  */
-public interface QuestionarioDAO {
-    Integer insert(Questionario questionario) throws Exception;
-    
-    Questionario select(Integer id) throws Exception;
-    
-    void update(Questionario questionario) throws Exception;
-    
-    void updatePerguntas(Questionario questionario) throws Exception;
-    
-    void delete(Integer id) throws Exception;
+public interface QuestionarioDAO extends BaseDAO{
 
-    List<Questionario> listPorProfessor(Integer idProfessor) throws Exception;
-    
-    List<Questionario> listPorPergunta(Integer idPergunta) throws Exception;
-    
-    List<Questionario> listPorMateria(Integer idMateria) throws Exception;
-    
-    List<Questionario> listAll() throws Exception;
 }

@@ -8,11 +8,13 @@ package br.com.quinkas.dao.impl;
 import br.com.quinkas.dao.ConnectionFactory;
 import br.com.quinkas.dao.PerguntaDAO;
 import br.com.quinkas.entidade.Alternativa;
+import br.com.quinkas.entidade.Pergunta;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,161 +23,113 @@ import java.util.List;
  * @author erick
  */
 public class AlternativaDAOImpl implements br.com.quinkas.dao.AlternativaDAO {
-    
+
     Connection conn;
     PreparedStatement ps;
     ResultSet rs;
 
     @Override
-    public Integer insert(Alternativa alternativa) throws Exception {
+    public Integer inserir(Object objeto) throws Exception {
         try {
-            conn = ConnectionFactory.getConnection();
-            ps = conn.prepareStatement("insert into alternativa (alternativa, resposta, istrue, pergunta_id) "
-                    + "values (?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, alternativa.getAlternativa());
-            ps.setString(2, alternativa.getResposta());
-            ps.setBoolean(3, alternativa.getIsTrue());
-            ps.setInt(4, alternativa.getPergunta().getId());
-            alternativa.setId(ps.executeUpdate()); // Executa o insert e seta o id retornado na alternativa
-        } catch (IOException | ClassNotFoundException | SQLException e) {
-            System.out.println("Alternativa não pôde ser criada" + e);
-        } finally {
-            ConnectionFactory.close(conn, ps, rs);
-        }
-        return alternativa.getId();
-    }
-
-    @Override
-    public Alternativa select(Integer id) throws Exception {
-        Alternativa alternativa = new Alternativa();
-        try {
-            conn = ConnectionFactory.getConnection();
-            ps = conn.prepareStatement("select id, alternativa, resposta, istrue, pergunta_id from alternativa where id=?");
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                PerguntaDAO perguntaDao = new PerguntaDAOImpl();
-                alternativa.setId(rs.getInt("id"));
-                alternativa.setAlternativa(rs.getInt("alternativa"));
-                alternativa.setResposta(rs.getString("resposta"));
-                alternativa.setIsTrue(rs.getBoolean("isTrue"));
-                alternativa.setPergunta(perguntaDao.select(rs.getInt("Pergunta_id")));
+            Alternativa alternativa = (Alternativa) objeto;
+            if (alternativa.getId() != null) {
+                conn = ConnectionFactory.getConnection();
+                ps = conn.prepareStatement("insert into alternativa (resposta, isTrue, pergunta_id) values (?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
+                ps.setString(1, alternativa.getResposta());
+                ps.setBoolean(2, alternativa.getIsTrue());
+                ps.setInt(3, alternativa.getPergunta().getId());
+                ps.executeUpdate();
+                rs = ps.getGeneratedKeys();
+                if (rs.next()) {
+                    int ultimoId = rs.getInt(1);
+                    return ultimoId;
+                } else {
+                    return null;
+                }
             } else {
-                System.out.println("Não existe Alternativa neste ID");
+                return alterar(alternativa);
             }
         } catch (Exception e) {
-            System.out.println("Erro ao pesquisar alternativa" + e);
+            throw new UnsupportedOperationException("Erro ao inserir alternativa. " + e.getMessage());
         } finally {
             ConnectionFactory.close(conn, ps, rs);
         }
-        return alternativa;
     }
 
     @Override
-    public void update(Alternativa alternativa) throws Exception {
+    public Integer alterar(Object objeto) throws Exception {
         try {
+            Alternativa alternativa = (Alternativa) objeto;
             conn = ConnectionFactory.getConnection();
-            ps = conn.prepareStatement("update alternativa set alternativa=?, resposta=?, istrue=?, Pergunda_id=? where id=?)");
-            ps.setInt(1, alternativa.getAlternativa());
-            ps.setString(2, alternativa.getResposta());
-            ps.setBoolean(3, alternativa.getIsTrue());
-            ps.setInt(4, alternativa.getPergunta().getId());
-            ps.setInt(5, alternativa.getId());
-            ps.executeUpdate();
-        } catch (IOException | ClassNotFoundException | SQLException e) {
-            System.out.println("Matéria não pôde ser atualizada" + e);
+            ps = conn.prepareStatement("update alternativa set resposta = ?, isTrue, pergunta_id = ? where id = ?;", Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, alternativa.getResposta());
+            ps.setBoolean(2, alternativa.getIsTrue());
+            ps.setInt(3, alternativa.getPergunta().getId());
+            ps.setInt(4, alternativa.getId());
+            int executeUpdate = ps.executeUpdate();
+            if (executeUpdate != 0) {
+                return alternativa.getId();
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Erro ao alterar alternativa. " + e.getMessage());
         } finally {
             ConnectionFactory.close(conn, ps, rs);
         }
+    }
+
+    @Override
+    public Object select(Integer id) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void delete(Integer id) throws Exception {
-        try {
+       try {
             conn = ConnectionFactory.getConnection();
-            ps = conn.prepareStatement("delete from alternativa where id=?");
+            ps = conn.prepareStatement("DELETE FROM alternativa where id = ?;");
             ps.setInt(1, id);
-            ps.executeUpdate();
         } catch (Exception e) {
-            System.out.println("Não foi possivel deletar alternativa" + e);
+            e.printStackTrace();
         } finally {
-            ConnectionFactory.close(conn, ps, rs);
+            ConnectionFactory.close(conn, ps);
         }
     }
 
     @Override
-    public List<Alternativa> list(String termo) throws Exception {
-        List<Alternativa> alternativas = new ArrayList<Alternativa>();
+    public List pesquisar(String termo) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List pesquisar(Object objeto) throws Exception {
+        List<Alternativa> alternativas = new ArrayList();
+        Pergunta pergunta = (Pergunta)objeto;
         try {
             conn = ConnectionFactory.getConnection();
-            ps = conn.prepareStatement("select id, alternativa, resposta, isTrue, Pergunta_id from alternativa where resposta like ?");
-            ps.setString(1, "%" + termo + "%");
+            ps = conn.prepareStatement("select id, pergunta, questionario_id from pergunta where questionario_id=?");
+            ps.setInt(1, pergunta.getId());
             rs = ps.executeQuery();
-            PerguntaDAO perguntaDao = new PerguntaDAOImpl();
             while (rs.next()) {
-                Alternativa alternativa = new Alternativa();
+                Alternativa alternativa = new Alternativa();               
                 alternativa.setId(rs.getInt("id"));
-                alternativa.setAlternativa(rs.getInt("alternativa"));
                 alternativa.setResposta(rs.getString("resposta"));
                 alternativa.setIsTrue(rs.getBoolean("isTrue"));
-                alternativa.setPergunta(perguntaDao.select(rs.getInt("Pergunta_id")));
+                alternativa.setPergunta(pergunta);
             }
+            return alternativas;
         } catch (Exception e) {
             System.out.println("Erro ao pesquisar alternativas" + e);
         } finally {
             ConnectionFactory.close(conn, ps, rs);
         }
-        return alternativas;
+        return null;
     }
 
     @Override
-    public List<Alternativa> listPorPergunta(Integer idPergunta) throws Exception {
-        List<Alternativa> alternativas = new ArrayList<Alternativa>();
-        try {
-            conn = ConnectionFactory.getConnection();
-            ps = conn.prepareStatement("select id, alternativa, resposta, isTrue, Pergunta_id from alternativa where Pergunta_id=? order by alternativa");
-            ps.setInt(1, idPergunta);
-            rs = ps.executeQuery();
-            PerguntaDAO perguntaDao = new PerguntaDAOImpl();
-            while (rs.next()) {
-                Alternativa alternativa = new Alternativa();
-                alternativa.setId(rs.getInt("id"));
-                alternativa.setAlternativa(rs.getInt("alternativa"));
-                alternativa.setResposta(rs.getString("resposta"));
-                alternativa.setIsTrue(rs.getBoolean("isTrue"));
-                alternativa.setPergunta(perguntaDao.select(rs.getInt("Pergunta_id")));
-                alternativas.add(alternativa);
-            }
-        } catch (Exception e) {
-            System.out.println("Erro ao pesquisar alternativas" + e);
-        } finally {
-            ConnectionFactory.close(conn, ps, rs);
-        }
-        return alternativas;
+    public void excluirDependente(Integer id) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public List<Alternativa> listAll() throws Exception {
-        List<Alternativa> alternativas = new ArrayList<Alternativa>();
-        try {
-            conn = ConnectionFactory.getConnection();
-            ps = conn.prepareStatement("select id, alternativa, resposta, isTrue, Pergunta_id from alternativa");
-            rs = ps.executeQuery();
-            PerguntaDAO perguntaDao = new PerguntaDAOImpl();
-            while (rs.next()) {
-                Alternativa alternativa = new Alternativa();
-                alternativa.setId(rs.getInt("id"));
-                alternativa.setAlternativa(rs.getInt("alternativa"));
-                alternativa.setResposta(rs.getString("resposta"));
-                alternativa.setIsTrue(rs.getBoolean("isTrue"));
-                alternativa.setPergunta(perguntaDao.select(rs.getInt("Pergunta_id")));
-            }
-        } catch (Exception e) {
-            System.out.println("Erro ao pesquisar alternativas" + e);
-        } finally {
-            ConnectionFactory.close(conn, ps, rs);
-        }
-        return alternativas;
-    }
-    
 }

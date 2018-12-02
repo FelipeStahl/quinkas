@@ -12,20 +12,9 @@ import java.util.List;
  *
  * @author erick
  */
-public interface ProfessorDAO {
-    Integer insert(Professor professor) throws Exception;
-    
-    Professor select(Integer id) throws Exception;
-    
+public interface ProfessorDAO extends BaseDAO {
+
     Boolean emailExiste(String email) throws Exception;
-    
-    void update(Professor professor) throws Exception;
-    
-    void delete(Integer id) throws Exception;
-    
-    List<Professor> list(String termo) throws Exception;
-    
-    List<Professor> listAll() throws Exception;
-    
+
     Professor validarLogin(String email, String senha) throws Exception;
 }
