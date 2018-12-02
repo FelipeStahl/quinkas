@@ -5,7 +5,11 @@
  */
 package br.com.quinkas.view;
 
+import br.com.quinkas.dao.ConnectionFactory;
 import br.com.quinkas.manter.ManterPrincipal;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,6 +22,17 @@ public class Principal extends javax.swing.JFrame {
      */
     public Principal() {
         initComponents();
+        try {
+            ConnectionFactory.getConnection();        
+        } catch (Exception ex) {
+            try {
+                ConnectionFactory.criarBancoDeDados();
+            } catch (Exception ex2) {
+                JOptionPane.showMessageDialog(null, "Erro de conexão com o banco de dados!\nVerifique se a senha de conexão com o banco está correta na classe ConnectionFactory ou se o servidor MySQL está iniciado.");
+                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex2);
+                this.dispose();
+            }
+        }
         ManterPrincipal.setPrincipal(this);
         PnPin pnPin = new PnPin();
         this.setContentPane(pnPin);

@@ -5,9 +5,11 @@
  */
 package br.com.quinkas.dao;
 
+import br.com.quinkas.util.CriarBanco;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -17,9 +19,12 @@ import java.sql.Statement;
  * @author erick
  */
 public class ConnectionFactory {
+    private static String USER = "root";
+    private static String SENHA = "root";
+    
     public static Connection getConnection() throws SQLException, ClassNotFoundException, IOException {
         Class.forName("com.mysql.jdbc.Driver");
-        return DriverManager.getConnection("jdbc:mysql://localhost:3306/quinkasbd?useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false", "root", "root");
+        return DriverManager.getConnection("jdbc:mysql://localhost:3306/quinkasbd?useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false", USER, SENHA);
     }
 
     public static void close(Connection conn, Statement stmt, ResultSet rs) {
@@ -44,5 +49,24 @@ public class ConnectionFactory {
 
     public static void close(Connection conn, Statement stmt) throws Exception {
         close(conn, stmt, null);
+    }
+    
+    public static void criarBancoDeDados() throws Exception{
+        for (String sql : CriarBanco.sqlBanco()) {
+            executarSql(sql);
+        }
+    }
+    
+    private static void executarSql(String sql) throws Exception{
+        Class.forName("com.mysql.jdbc.Driver");  
+        Connection conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306?useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false", USER, SENHA);
+        try {          
+            PreparedStatement statement = conexao.prepareStatement(sql);
+            statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            conexao.close();
+        }
     }
 }
