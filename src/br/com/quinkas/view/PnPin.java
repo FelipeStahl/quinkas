@@ -237,9 +237,7 @@ public class PnPin extends javax.swing.JPanel {
     private void btEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEntrarActionPerformed
         String pin = txPin.getText().trim();
         if (!pin.equals("")) {
-            IpAndPorta ipServidor = new IpAndPorta();
-            ipServidor = ManterIp.reverterPin(pin);
-
+            IpAndPorta ipServidor = ManterIp.reverterPin(pin);
             if (testeConexao(ipServidor)) {
                 ManterIp.setIpServidor(ipServidor);
                 PnNick pn1 = new PnNick();

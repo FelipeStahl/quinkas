@@ -20,7 +20,7 @@ import java.sql.Statement;
  */
 public class ConnectionFactory {
     private static String USER = "root";
-    private static String SENHA = "root";
+    private static String SENHA = "";
     
     public static Connection getConnection() throws SQLException, ClassNotFoundException, IOException {
         Class.forName("com.mysql.jdbc.Driver");

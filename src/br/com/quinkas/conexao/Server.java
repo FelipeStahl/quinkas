@@ -5,6 +5,7 @@
  */
 package br.com.quinkas.conexao;
 
+import br.com.quinkas.manter.ManterIp;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -31,7 +32,7 @@ public class Server extends Thread {
     public void run() {
         ServerSocket servidor;
         try {
-            servidor = new ServerSocket(8787);
+            servidor = new ServerSocket(Integer.parseInt(ManterIp.getIpServidor().getPorta()));
             System.out.println("Servidor iniciado...");
             Socket cliente = null;
             ObjectInputStream ois;          

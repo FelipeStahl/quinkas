@@ -11,7 +11,11 @@ import br.com.quinkas.manter.ManterIp;
 import br.com.quinkas.manter.ManterPrincipal;
 import br.com.quinkas.util.CorPainel;
 import java.io.ObjectOutputStream;
+import java.net.InetAddress;
 import java.net.Socket;
+import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
@@ -218,10 +222,10 @@ public class PnNick extends javax.swing.JPanel {
                 participante.setNick(nick);
 
                 IpAndPorta ipParticipante = new IpAndPorta();
-                ipParticipante.setIp("192.168.0.0");
+                ipParticipante.setIp(retornarIp());
                 ipParticipante.setPorta("8787");
-                participante.setIpParticipante(ipParticipante);
                 cliente = new Socket(ManterIp.getIpServidor().getIp(), Integer.parseInt(ManterIp.getIpServidor().getPorta()));
+                participante.setSocket(cliente);
                 ObjectOutputStream oos = new ObjectOutputStream(cliente.getOutputStream());
                 oos.writeObject(participante);
                 cliente.close();
@@ -234,18 +238,16 @@ public class PnNick extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_btComecarActionPerformed
-
-    private Boolean testeConexao() {
-
+   private String retornarIp() {
+        InetAddress ipAtual;
         try {
-
-            return true;
-        } catch (Exception ex) {
-            System.out.println("erro");
-            return false;
+            ipAtual = InetAddress.getLocalHost();
+            return ipAtual.getHostAddress();
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(PnEsperaProfessor.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return null;
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btComecar;
     private javax.swing.Box.Filler filler1;

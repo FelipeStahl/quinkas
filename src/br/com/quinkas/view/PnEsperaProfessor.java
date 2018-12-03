@@ -8,6 +8,7 @@ package br.com.quinkas.view;
 import br.com.quinkas.conexao.ISocket;
 import br.com.quinkas.conexao.Server;
 import br.com.quinkas.entidade.IpAndPorta;
+import br.com.quinkas.entidade.Participante;
 import br.com.quinkas.entidade.Pergunta;
 import br.com.quinkas.entidade.Questionario;
 import br.com.quinkas.estrutura.ListaEncadeada;
@@ -15,6 +16,10 @@ import br.com.quinkas.manter.ManterIp;
 import br.com.quinkas.manter.ManterLista;
 import br.com.quinkas.manter.ManterPrincipal;
 import br.com.quinkas.util.CorPainel;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -30,10 +35,7 @@ public class PnEsperaProfessor extends javax.swing.JPanel implements ISocket {
         CorPainel altera = new CorPainel(this);
         Thread t = new Thread(altera);
         t.start();
-        
-        Server serv = new Server(this);
-        Thread tServ = new Thread(serv);
-        tServ.start();
+
         numJogadores = 0;
         questionarioAtual = questionario;
         ListaEncadeada lista = new ListaEncadeada();
@@ -42,13 +44,31 @@ public class PnEsperaProfessor extends javax.swing.JPanel implements ISocket {
         }
         ManterLista.setLista(lista);
 
-        IpAndPorta ipServidor = new IpAndPorta();
-        ipServidor.setIp("192.168.25.1");
-        ipServidor.setPorta("80");
-        lbPin.setText(ManterIp.converterPin(ipServidor));
-        //enviar lista por socket para o usuario que conectar e fica recebendo jogadores.
-        addJogador("Jogador exemplo");
+        String ipAtual = retornarIp();
+        if (ipAtual != null) {
+            IpAndPorta ipServidor = new IpAndPorta();
+            ipServidor.setIp(ipAtual);
+            ipServidor.setPorta("8787");
+            ManterIp.setIpServidor(ipServidor);
+            lbPin.setText(ManterIp.converterPin(ipServidor));
+        }
+        Server serv = new Server(this);
+        Thread tServ = new Thread(serv);
+        tServ.start();
 
+        //enviar lista por socket para o usuario que conectar e fica recebendo jogadores.
+        //addJogador("Jogador exemplo");
+    }
+
+    private String retornarIp() {
+        InetAddress ipAtual;
+        try {
+            ipAtual = InetAddress.getLocalHost();
+            return ipAtual.getHostAddress();
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(PnEsperaProfessor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     private void addJogador(String nome) {
@@ -232,7 +252,16 @@ public class PnEsperaProfessor extends javax.swing.JPanel implements ISocket {
 
     @Override
     public void recebeObjeto(Object objeto) {
-        String jog = (String)objeto;
-        addJogador(jog);
+        try {
+            if (objeto instanceof String) {
+                System.out.println((String)objeto);
+            }else if(objeto instanceof Participante) {
+                addJogador(((Participante)objeto).getNick());
+            }
+            
+        } catch (Exception e) {
+
+        }
+
     }
 }
