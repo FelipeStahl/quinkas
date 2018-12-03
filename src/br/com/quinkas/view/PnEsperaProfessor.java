@@ -229,6 +229,7 @@ public class PnEsperaProfessor extends javax.swing.JPanel implements ISocket {
     }//GEN-LAST:event_btEntrarMouseClicked
 
     private void btEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEntrarActionPerformed
+        iniciarJogo();
         PnQuestaoInicial pn1 = new PnQuestaoInicial();
         ManterPrincipal.getPrincipal().setContentPane(pn1);
         ManterPrincipal.getPrincipal().setVisible(true);
