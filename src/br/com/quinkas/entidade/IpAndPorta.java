@@ -5,11 +5,13 @@
  */
 package br.com.quinkas.entidade;
 
+import java.io.Serializable;
+
 /**
  *
  * @author erick
  */
-public class IpAndPorta {
+public class IpAndPorta implements Serializable{
     private String ip;
     private String porta;
 

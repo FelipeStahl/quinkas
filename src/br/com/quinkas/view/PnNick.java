@@ -5,8 +5,14 @@
  */
 package br.com.quinkas.view;
 
+import br.com.quinkas.entidade.IpAndPorta;
+import br.com.quinkas.entidade.Participante;
+import br.com.quinkas.manter.ManterIp;
 import br.com.quinkas.manter.ManterPrincipal;
 import br.com.quinkas.util.CorPainel;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 /**
@@ -46,7 +52,7 @@ public class PnNick extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         txNick = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btComecar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -92,24 +98,24 @@ public class PnNick extends javax.swing.JPanel {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Digite um NICK");
 
-        jButton1.setBackground(new java.awt.Color(4, 12, 167));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("COMEÇAR");
-        jButton1.setBorder(null);
-        jButton1.setBorderPainted(false);
-        jButton1.setContentAreaFilled(false);
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.setFocusPainted(false);
-        jButton1.setOpaque(true);
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btComecar.setBackground(new java.awt.Color(4, 12, 167));
+        btComecar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btComecar.setForeground(new java.awt.Color(255, 255, 255));
+        btComecar.setText("COMEÇAR");
+        btComecar.setBorder(null);
+        btComecar.setBorderPainted(false);
+        btComecar.setContentAreaFilled(false);
+        btComecar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btComecar.setFocusPainted(false);
+        btComecar.setOpaque(true);
+        btComecar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                btComecarMouseClicked(evt);
             }
         });
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btComecar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btComecarActionPerformed(evt);
             }
         });
 
@@ -121,8 +127,8 @@ public class PnNick extends javax.swing.JPanel {
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel4)
-                    .addComponent(txNick, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txNick)
+                    .addComponent(btComecar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(35, 35, 35))
         );
         jPanel1Layout.setVerticalGroup(
@@ -133,8 +139,8 @@ public class PnNick extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(txNick, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addComponent(btComecar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -197,20 +203,51 @@ public class PnNick extends javax.swing.JPanel {
         add(filler7, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void btComecarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btComecarMouseClicked
         //        FrameNick nick = new FrameNick(this.jframe, jTextField1.getText());
         //        this.jframe.setContentPane(nick);
         //        this.jframe.setVisible(true);
-    }//GEN-LAST:event_jButton1MouseClicked
+    }//GEN-LAST:event_btComecarMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        PnEspera pn1 = new PnEspera();
-        ManterPrincipal.getPrincipal().setContentPane(pn1);
-        ManterPrincipal.getPrincipal().setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btComecarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btComecarActionPerformed
+        String nick = this.txNick.getText().trim();
+        if (!nick.equals("")) {
+            Socket cliente;
+            try {
+                Participante participante = new Participante();
+                participante.setNick(nick);
 
+                IpAndPorta ipParticipante = new IpAndPorta();
+                ipParticipante.setIp("192.168.0.0");
+                ipParticipante.setPorta("8787");
+                participante.setIpParticipante(ipParticipante);
+                cliente = new Socket(ManterIp.getIpServidor().getIp(), Integer.parseInt(ManterIp.getIpServidor().getPorta()));
+                ObjectOutputStream oos = new ObjectOutputStream(cliente.getOutputStream());
+                oos.writeObject(participante);
+                cliente.close();
+                oos.close();
+                PnEspera pn1 = new PnEspera();
+                ManterPrincipal.getPrincipal().setContentPane(pn1);
+                ManterPrincipal.getPrincipal().setVisible(true);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(btComecar, "Erro de conexão com o servidor. " + e.getMessage());
+            }
+        }
+    }//GEN-LAST:event_btComecarActionPerformed
+
+    private Boolean testeConexao() {
+
+        try {
+
+            return true;
+        } catch (Exception ex) {
+            System.out.println("erro");
+            return false;
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btComecar;
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
     private javax.swing.Box.Filler filler3;
@@ -218,7 +255,6 @@ public class PnNick extends javax.swing.JPanel {
     private javax.swing.Box.Filler filler5;
     private javax.swing.Box.Filler filler6;
     private javax.swing.Box.Filler filler7;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

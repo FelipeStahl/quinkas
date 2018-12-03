@@ -14,6 +14,8 @@ import br.com.quinkas.util.CorPainel;
 import br.com.quinkas.util.ErroEfeito;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 import javax.swing.ImageIcon;
 
 /**
@@ -233,16 +235,13 @@ public class PnPin extends javax.swing.JPanel {
     }//GEN-LAST:event_lbProfessorMouseExited
 
     private void btEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEntrarActionPerformed
-        Boolean conectado = false; // implementar conexão com socket
-
         String pin = txPin.getText().trim();
         if (!pin.equals("")) {
             IpAndPorta ipServidor = new IpAndPorta();
             ipServidor = ManterIp.reverterPin(pin);
 
-            // testar conexão com socket
-            if (conectado) {
-                //receberLista(receber lista por socket)
+            if (testeConexao(ipServidor)) {
+                ManterIp.setIpServidor(ipServidor);
                 PnNick pn1 = new PnNick();
                 ManterPrincipal.getPrincipal().setContentPane(pn1);
                 ManterPrincipal.getPrincipal().setVisible(true);
@@ -255,6 +254,21 @@ public class PnPin extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btEntrarActionPerformed
 
+    private Boolean testeConexao(IpAndPorta ipServidor){
+        Socket cliente;
+        try {
+            cliente = new Socket(ipServidor.getIp(), Integer.parseInt(ipServidor.getPorta()));
+            ObjectOutputStream oos = new ObjectOutputStream(cliente.getOutputStream());
+            oos.writeObject("oii");
+            cliente.close();
+            oos.close();
+            return true;
+        } catch (Exception ex) {
+            System.out.println("erro");
+            return false;
+        }
+    }
+    
     private void receberLista(ListaEncadeada lista) {
         ManterLista.setLista(lista);
     }

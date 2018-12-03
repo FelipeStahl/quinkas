@@ -5,6 +5,8 @@
  */
 package br.com.quinkas.view;
 
+import br.com.quinkas.conexao.ISocket;
+import br.com.quinkas.conexao.Server;
 import br.com.quinkas.entidade.IpAndPorta;
 import br.com.quinkas.entidade.Pergunta;
 import br.com.quinkas.entidade.Questionario;
@@ -18,7 +20,7 @@ import br.com.quinkas.util.CorPainel;
  *
  * @author Felipe-Sistema
  */
-public class PnEsperaProfessor extends javax.swing.JPanel {
+public class PnEsperaProfessor extends javax.swing.JPanel implements ISocket {
 
     Questionario questionarioAtual;
     Integer numJogadores;
@@ -28,6 +30,10 @@ public class PnEsperaProfessor extends javax.swing.JPanel {
         CorPainel altera = new CorPainel(this);
         Thread t = new Thread(altera);
         t.start();
+        
+        Server serv = new Server(this);
+        Thread tServ = new Thread(serv);
+        tServ.start();
         numJogadores = 0;
         questionarioAtual = questionario;
         ListaEncadeada lista = new ListaEncadeada();
@@ -223,4 +229,10 @@ public class PnEsperaProfessor extends javax.swing.JPanel {
     private javax.swing.JLabel lbJogadores;
     private javax.swing.JLabel lbPin;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void recebeObjeto(Object objeto) {
+        String jog = (String)objeto;
+        addJogador(jog);
+    }
 }
