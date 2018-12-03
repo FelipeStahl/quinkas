@@ -10,6 +10,8 @@ import br.com.quinkas.entidade.Participante;
 import br.com.quinkas.manter.ManterParticipante;
 import br.com.quinkas.manter.ManterPrincipal;
 import br.com.quinkas.util.CorPainel;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -168,12 +170,14 @@ public class PnQuestaoProfessorRank extends javax.swing.JPanel {
         ManterPrincipal.getPrincipal().setVisible(true);
     }//GEN-LAST:event_btProximoActionPerformed
 
-        private void iniciarJogo(){
-        for (Participante participante : ManterParticipante.getParticipantes()) {
+    private void iniciarJogo() {
+        for (Map.Entry<String, Participante> entry : ManterParticipante.getParticipantes().entrySet()) {
+            Participante participante = entry.getValue();
             Boolean iniciar = true;
             EnviaSocket.enviarObjeto(iniciar, participante);
         }
     }
+
     private void preencherJogadores(String primeiro, String segundo, String terceiro, String quarto) {
         lbJogador1.setText(primeiro);
         lbJogador2.setText(segundo);

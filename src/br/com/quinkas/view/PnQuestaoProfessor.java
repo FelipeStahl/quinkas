@@ -5,12 +5,17 @@
  */
 package br.com.quinkas.view;
 
+import br.com.quinkas.conexao.EnviaSocket;
 import br.com.quinkas.conexao.ISocket;
 import br.com.quinkas.conexao.Server;
 import br.com.quinkas.entidade.Alternativa;
+import br.com.quinkas.entidade.Mensagem;
+import br.com.quinkas.entidade.Participante;
+import br.com.quinkas.manter.ManterParticipante;
 import br.com.quinkas.manter.ManterPergunta;
 import br.com.quinkas.manter.ManterPrincipal;
 import java.util.Date;
+import java.util.Map;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -224,7 +229,6 @@ public class PnQuestaoProfessor extends javax.swing.JPanel implements ISocket {
         jPanel2.add(lbTempo, gridBagConstraints);
 
         lbPergunta.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        lbPergunta.setForeground(new java.awt.Color(0, 0, 0));
         lbPergunta.setText("Pergunta?");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -538,11 +542,19 @@ public class PnQuestaoProfessor extends javax.swing.JPanel implements ISocket {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btProximoActionPerformed
+        enviarParticipante();
         PnQuestaoProfessorRank pn1 = new PnQuestaoProfessorRank();
         ManterPrincipal.getPrincipal().setContentPane(pn1);
         ManterPrincipal.getPrincipal().setVisible(true);
     }//GEN-LAST:event_btProximoActionPerformed
 
+    private void enviarParticipante(){
+        for (Map.Entry<String, Participante> entry : ManterParticipante.getParticipantes().entrySet()) {
+            Participante participante = entry.getValue();
+            Boolean iniciar = true;
+            EnviaSocket.enviarObjeto(iniciar, participante);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btProximo;
@@ -600,8 +612,16 @@ public class PnQuestaoProfessor extends javax.swing.JPanel implements ISocket {
 
     @Override
     public void recebeObjeto(Object objeto) {
-        if(objeto instanceof Alternativa){
-            System.out.println(((Alternativa)objeto).getResposta());
+        if(objeto instanceof Mensagem){
+            calcularPontos((Mensagem)objeto);
         }
+    }
+    
+    private void calcularPontos(Mensagem mensagem){     
+        Participante participante = ManterParticipante.getParticipantes().get(mensagem.getParticipante().getIpAndPorta().getIp());
+        //calcular os pontos
+        //setar o valor no participante
+        participante.setPosicao(24);
+        EnviaSocket.enviarObjeto(participante, participante);        
     }
 }

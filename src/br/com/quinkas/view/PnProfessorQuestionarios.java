@@ -67,6 +67,7 @@ public class PnProfessorQuestionarios extends javax.swing.JPanel {
         filler9 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
         filler10 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
 
+        setBackground(new java.awt.Color(0, 0, 102));
         setMinimumSize(new java.awt.Dimension(800, 600));
         setLayout(new java.awt.GridBagLayout());
 
@@ -99,7 +100,6 @@ public class PnProfessorQuestionarios extends javax.swing.JPanel {
         pnQuestionarioNovo.setLayout(new java.awt.GridBagLayout());
 
         lbNomeNovo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lbNomeNovo.setForeground(new java.awt.Color(0, 0, 0));
         lbNomeNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/quinkas/imagem/novo.png"))); // NOI18N
         lbNomeNovo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         pnQuestionarioNovo.add(lbNomeNovo, new java.awt.GridBagConstraints());

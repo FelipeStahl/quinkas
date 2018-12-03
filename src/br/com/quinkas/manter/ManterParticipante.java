@@ -6,28 +6,39 @@
 package br.com.quinkas.manter;
 
 import br.com.quinkas.entidade.Participante;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
  * @author Alunos
  */
 public class ManterParticipante {
-    private static List<Participante> participantes;
+    private static Map<String, Participante> participantes;
+    private static Participante participanteAtual;
 
-    public static List<Participante> getParticipantes() {
+    public static Map<String, Participante> getParticipantes() {
         return participantes;
     }
 
-    public static void setParticipantes(List<Participante> participantes) {
+    public static void setParticipantes(Map<String, Participante> participantes) {
         ManterParticipante.participantes = participantes;
     }
+
+    public static Participante getParticipanteAtual() {
+        return participanteAtual;
+    }
+
+    public static void setParticipanteAtual(Participante participanteAtual) {
+        ManterParticipante.participanteAtual = participanteAtual;
+    }
+
+
    
     public static void addParticipante(Participante participante){
         if(participantes == null){
-            participantes = new ArrayList();
+            participantes = new HashMap();
         }
-        participantes.add(participante);
+        participantes.put(participante.getIpAndPorta().getIp(), participante);
     }
 }

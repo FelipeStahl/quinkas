@@ -20,6 +20,7 @@ import br.com.quinkas.manter.ManterPrincipal;
 import br.com.quinkas.util.CorPainel;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -238,7 +239,8 @@ public class PnEsperaProfessor extends javax.swing.JPanel implements ISocket {
     }//GEN-LAST:event_btEntrarActionPerformed
 
     private void iniciarJogo(){
-        for (Participante participante : ManterParticipante.getParticipantes()) {
+        for (Map.Entry<String, Participante> entry : ManterParticipante.getParticipantes().entrySet()) {
+            Participante participante = entry.getValue();
             Boolean iniciar = true;
             EnviaSocket.enviarObjeto(iniciar, participante);
         }
