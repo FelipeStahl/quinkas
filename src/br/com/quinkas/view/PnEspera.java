@@ -18,9 +18,8 @@ import br.com.quinkas.util.CorPainel;
  */
 public class PnEspera extends javax.swing.JPanel implements ISocket {
     Integer numJogadores;
-    /**
-     * Creates new form PnEspera
-     */
+    Server serv;
+    
     public PnEspera() {
         initComponents();
         CorPainel altera = new CorPainel(this);
@@ -31,7 +30,7 @@ public class PnEspera extends javax.swing.JPanel implements ISocket {
         Boolean iniciar = false;
         addJogador("Nome Jogador"); //exemplo
         
-        Server serv = new Server(this);
+        serv = new Server(this);
         Thread tServ = new Thread(serv);
         tServ.start();
 //        while(!iniciar){
@@ -41,6 +40,7 @@ public class PnEspera extends javax.swing.JPanel implements ISocket {
     }
     
     private void iniciarJogo(){
+        serv.interrupt();
         PnQuestaoInicial pn1 = new PnQuestaoInicial();
         ManterPrincipal.getPrincipal().setContentPane(pn1);
         ManterPrincipal.getPrincipal().setVisible(true);
