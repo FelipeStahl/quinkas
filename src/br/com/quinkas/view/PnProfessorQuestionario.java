@@ -207,7 +207,7 @@ public class PnProfessorQuestionario extends javax.swing.JPanel {
     }//GEN-LAST:event_lbRetornoMousePressed
 
     private void btInicarJogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInicarJogoActionPerformed
-        PnEsperaProfessor pnl = new PnEsperaProfessor();
+        PnEsperaProfessor pnl = new PnEsperaProfessor(questionarioAtual);
         ManterPrincipal.getPrincipal().setContentPane(pnl);
         ManterPrincipal.getPrincipal().setVisible(true);
     }//GEN-LAST:event_btInicarJogoActionPerformed

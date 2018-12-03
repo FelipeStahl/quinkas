@@ -32,7 +32,8 @@ public class ManterIp {
         ManterIp.meuIp = meuIp;
     }
 
-    public static String converterPin(String ip){
+    public static String converterPin(IpAndPorta servidor){
+        String ip = servidor.getIp() + "." + servidor.getPorta();
         String pin = "";
         String[] ips = ip.split("[.]");
         
@@ -56,7 +57,7 @@ public class ManterIp {
         return pin;
     }
     
-    public static void reverterPin(String pin){
+    public static IpAndPorta reverterPin(String pin){
         String ip = "";
         char[] pins = pin.toCharArray();
         for (int i = 0; i < pins.length; i++) {
@@ -72,6 +73,6 @@ public class ManterIp {
         IpAndPorta servidor = new IpAndPorta();
         servidor.setIp(ip);
         servidor.setPorta(porta);
-        setIpServidor(servidor);
+        return servidor;
     }        
 }

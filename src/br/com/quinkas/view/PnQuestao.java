@@ -5,19 +5,28 @@
  */
 package br.com.quinkas.view;
 
+import br.com.quinkas.entidade.Alternativa;
+import br.com.quinkas.manter.ManterPergunta;
 import br.com.quinkas.manter.ManterPrincipal;
+import java.util.Random;
 
 /**
  *
  * @author Felipe-Sistema
  */
 public class PnQuestao extends javax.swing.JPanel {
-
-    /**
-     * Creates new form PnQuestao
-     */
+    Alternativa altA;
+    Alternativa altB;
+    Alternativa altC;
+    Alternativa altD;
+    
     public PnQuestao() {
         initComponents();
+        Random r = new Random();
+        Integer num = r.nextInt(4);
+        for (Alternativa alternativa : ManterPergunta.getPerguntaAtual().getAlternativas()) {
+            
+        }
         lbRespostaA.setText("<html>" + "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad." + "</html>");
         lbRespostaB.setText("<html>" + "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad." + "</html>");
         lbRespostaC.setText("<html>" + "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad." + "</html>");
@@ -45,7 +54,7 @@ public class PnQuestao extends javax.swing.JPanel {
         filler30 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
         filler31 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
         jPanel2 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
+        pnA = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         filler6 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(5, 32767));
         filler7 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
@@ -53,7 +62,7 @@ public class PnQuestao extends javax.swing.JPanel {
         filler20 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
         lbRespostaA = new javax.swing.JLabel();
         filler23 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
-        jPanel4 = new javax.swing.JPanel();
+        pnB = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         filler11 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
         filler12 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
@@ -61,7 +70,7 @@ public class PnQuestao extends javax.swing.JPanel {
         lbRespostaB = new javax.swing.JLabel();
         filler24 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
         filler25 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
-        jPanel5 = new javax.swing.JPanel();
+        pnC = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         filler14 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         filler15 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
@@ -69,7 +78,7 @@ public class PnQuestao extends javax.swing.JPanel {
         lbRespostaC = new javax.swing.JLabel();
         filler26 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
         filler27 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
-        jPanel6 = new javax.swing.JPanel();
+        pnD = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         filler17 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
         filler18 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
@@ -154,18 +163,18 @@ public class PnQuestao extends javax.swing.JPanel {
         jPanel2.setPreferredSize(new java.awt.Dimension(800, 260));
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
-        jPanel3.setBackground(new java.awt.Color(153, 0, 0));
-        jPanel3.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel3.setMinimumSize(new java.awt.Dimension(400, 120));
-        jPanel3.setPreferredSize(new java.awt.Dimension(400, 130));
-        jPanel3.setRequestFocusEnabled(false);
-        jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
+        pnA.setBackground(new java.awt.Color(153, 0, 0));
+        pnA.setForeground(new java.awt.Color(255, 255, 255));
+        pnA.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        pnA.setMinimumSize(new java.awt.Dimension(400, 120));
+        pnA.setPreferredSize(new java.awt.Dimension(400, 130));
+        pnA.setRequestFocusEnabled(false);
+        pnA.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jPanel3MousePressed(evt);
+                pnAMousePressed(evt);
             }
         });
-        jPanel3.setLayout(new java.awt.GridBagLayout());
+        pnA.setLayout(new java.awt.GridBagLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -174,23 +183,23 @@ public class PnQuestao extends javax.swing.JPanel {
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        jPanel3.add(jLabel1, gridBagConstraints);
+        pnA.add(jLabel1, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
-        jPanel3.add(filler6, gridBagConstraints);
+        pnA.add(filler6, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        jPanel3.add(filler7, gridBagConstraints);
+        pnA.add(filler7, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 1;
-        jPanel3.add(filler10, gridBagConstraints);
+        pnA.add(filler10, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 0;
-        jPanel3.add(filler20, gridBagConstraints);
+        pnA.add(filler20, gridBagConstraints);
 
         lbRespostaA.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lbRespostaA.setForeground(new java.awt.Color(255, 255, 255));
@@ -202,11 +211,11 @@ public class PnQuestao extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.weightx = 0.2;
         gridBagConstraints.weighty = 0.1;
-        jPanel3.add(lbRespostaA, gridBagConstraints);
+        pnA.add(lbRespostaA, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 2;
-        jPanel3.add(filler23, gridBagConstraints);
+        pnA.add(filler23, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -214,18 +223,18 @@ public class PnQuestao extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.weighty = 0.1;
-        jPanel2.add(jPanel3, gridBagConstraints);
+        jPanel2.add(pnA, gridBagConstraints);
 
-        jPanel4.setBackground(new java.awt.Color(0, 102, 204));
-        jPanel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel4.setMinimumSize(new java.awt.Dimension(400, 120));
-        jPanel4.setPreferredSize(new java.awt.Dimension(510, 120));
-        jPanel4.addMouseListener(new java.awt.event.MouseAdapter() {
+        pnB.setBackground(new java.awt.Color(0, 102, 204));
+        pnB.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        pnB.setMinimumSize(new java.awt.Dimension(400, 120));
+        pnB.setPreferredSize(new java.awt.Dimension(510, 120));
+        pnB.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jPanel4MousePressed(evt);
+                pnBMousePressed(evt);
             }
         });
-        jPanel4.setLayout(new java.awt.GridBagLayout());
+        pnB.setLayout(new java.awt.GridBagLayout());
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -234,19 +243,19 @@ public class PnQuestao extends javax.swing.JPanel {
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        jPanel4.add(jLabel2, gridBagConstraints);
+        pnB.add(jLabel2, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 0;
-        jPanel4.add(filler11, gridBagConstraints);
+        pnB.add(filler11, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
-        jPanel4.add(filler12, gridBagConstraints);
+        pnB.add(filler12, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        jPanel4.add(filler13, gridBagConstraints);
+        pnB.add(filler13, gridBagConstraints);
 
         lbRespostaB.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lbRespostaB.setForeground(new java.awt.Color(255, 255, 255));
@@ -258,15 +267,15 @@ public class PnQuestao extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.weightx = 0.2;
         gridBagConstraints.weighty = 0.1;
-        jPanel4.add(lbRespostaB, gridBagConstraints);
+        pnB.add(lbRespostaB, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 2;
-        jPanel4.add(filler24, gridBagConstraints);
+        pnB.add(filler24, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 1;
-        jPanel4.add(filler25, gridBagConstraints);
+        pnB.add(filler25, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
@@ -274,33 +283,33 @@ public class PnQuestao extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.weighty = 0.1;
-        jPanel2.add(jPanel4, gridBagConstraints);
+        jPanel2.add(pnB, gridBagConstraints);
 
-        jPanel5.setBackground(new java.awt.Color(153, 153, 0));
-        jPanel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel5.setMinimumSize(new java.awt.Dimension(0, 120));
-        jPanel5.setLayout(new java.awt.GridBagLayout());
+        pnC.setBackground(new java.awt.Color(153, 153, 0));
+        pnC.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        pnC.setMinimumSize(new java.awt.Dimension(0, 120));
+        pnC.setLayout(new java.awt.GridBagLayout());
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("B)");
+        jLabel5.setText("C)");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        jPanel5.add(jLabel5, gridBagConstraints);
+        pnC.add(jLabel5, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        jPanel5.add(filler14, gridBagConstraints);
+        pnC.add(filler14, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
-        jPanel5.add(filler15, gridBagConstraints);
+        pnC.add(filler15, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 0;
-        jPanel5.add(filler16, gridBagConstraints);
+        pnC.add(filler16, gridBagConstraints);
 
         lbRespostaC.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lbRespostaC.setForeground(new java.awt.Color(255, 255, 255));
@@ -312,15 +321,15 @@ public class PnQuestao extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.weightx = 0.2;
         gridBagConstraints.weighty = 0.1;
-        jPanel5.add(lbRespostaC, gridBagConstraints);
+        pnC.add(lbRespostaC, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 2;
-        jPanel5.add(filler26, gridBagConstraints);
+        pnC.add(filler26, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 1;
-        jPanel5.add(filler27, gridBagConstraints);
+        pnC.add(filler27, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -328,13 +337,13 @@ public class PnQuestao extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.weighty = 0.1;
-        jPanel2.add(jPanel5, gridBagConstraints);
+        jPanel2.add(pnC, gridBagConstraints);
 
-        jPanel6.setBackground(new java.awt.Color(0, 102, 0));
-        jPanel6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel6.setMinimumSize(new java.awt.Dimension(0, 120));
-        jPanel6.setPreferredSize(new java.awt.Dimension(400, 130));
-        jPanel6.setLayout(new java.awt.GridBagLayout());
+        pnD.setBackground(new java.awt.Color(0, 102, 0));
+        pnD.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        pnD.setMinimumSize(new java.awt.Dimension(0, 120));
+        pnD.setPreferredSize(new java.awt.Dimension(400, 130));
+        pnD.setLayout(new java.awt.GridBagLayout());
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -343,19 +352,19 @@ public class PnQuestao extends javax.swing.JPanel {
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        jPanel6.add(jLabel4, gridBagConstraints);
+        pnD.add(jLabel4, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 0;
-        jPanel6.add(filler17, gridBagConstraints);
+        pnD.add(filler17, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
-        jPanel6.add(filler18, gridBagConstraints);
+        pnD.add(filler18, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        jPanel6.add(filler19, gridBagConstraints);
+        pnD.add(filler19, gridBagConstraints);
 
         lbRespostaD.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lbRespostaD.setForeground(new java.awt.Color(255, 255, 255));
@@ -367,15 +376,15 @@ public class PnQuestao extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.weightx = 0.2;
         gridBagConstraints.weighty = 0.1;
-        jPanel6.add(lbRespostaD, gridBagConstraints);
+        pnD.add(lbRespostaD, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 2;
-        jPanel6.add(filler28, gridBagConstraints);
+        pnD.add(filler28, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 1;
-        jPanel6.add(filler29, gridBagConstraints);
+        pnD.add(filler29, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
@@ -383,7 +392,7 @@ public class PnQuestao extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.weighty = 0.1;
-        jPanel2.add(jPanel6, gridBagConstraints);
+        jPanel2.add(pnD, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
@@ -413,15 +422,15 @@ public class PnQuestao extends javax.swing.JPanel {
         add(jPanel2, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jPanel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MousePressed
+    private void pnAMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnAMousePressed
         painelEspera();
-    }//GEN-LAST:event_jPanel3MousePressed
+    }//GEN-LAST:event_pnAMousePressed
 
-    private void jPanel4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MousePressed
+    private void pnBMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnBMousePressed
         PnQuestaoResultado pn1 = new PnQuestaoResultado();
         ManterPrincipal.getPrincipal().setContentPane(pn1);
         ManterPrincipal.getPrincipal().setVisible(true);
-    }//GEN-LAST:event_jPanel4MousePressed
+    }//GEN-LAST:event_pnBMousePressed
 
     private void painelEspera() {
         PnQuestaoEspera pn1 = new PnQuestaoEspera();
@@ -469,14 +478,14 @@ public class PnQuestao extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JLabel lbPergunta;
     private javax.swing.JLabel lbRespostaA;
     private javax.swing.JLabel lbRespostaB;
     private javax.swing.JLabel lbRespostaC;
     private javax.swing.JLabel lbRespostaD;
+    private javax.swing.JPanel pnA;
+    private javax.swing.JPanel pnB;
+    private javax.swing.JPanel pnC;
+    private javax.swing.JPanel pnD;
     // End of variables declaration//GEN-END:variables
 }

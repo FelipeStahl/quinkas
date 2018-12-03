@@ -5,6 +5,10 @@
  */
 package br.com.quinkas.view;
 
+import br.com.quinkas.entidade.IpAndPorta;
+import br.com.quinkas.estrutura.ListaEncadeada;
+import br.com.quinkas.manter.ManterIp;
+import br.com.quinkas.manter.ManterLista;
 import br.com.quinkas.manter.ManterPrincipal;
 import br.com.quinkas.util.CorPainel;
 import br.com.quinkas.util.ErroEfeito;
@@ -42,7 +46,7 @@ public class PnPin extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         txPin = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btEntrar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 20), new java.awt.Dimension(0, 20), new java.awt.Dimension(32767, 10));
         lbProfessor = new javax.swing.JLabel();
@@ -73,24 +77,19 @@ public class PnPin extends javax.swing.JPanel {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Digite um PIN para entrar");
 
-        jButton1.setBackground(new java.awt.Color(4, 12, 167));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("ENTRAR");
-        jButton1.setBorder(null);
-        jButton1.setBorderPainted(false);
-        jButton1.setContentAreaFilled(false);
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.setFocusPainted(false);
-        jButton1.setOpaque(true);
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
-            }
-        });
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btEntrar.setBackground(new java.awt.Color(4, 12, 167));
+        btEntrar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btEntrar.setForeground(new java.awt.Color(255, 255, 255));
+        btEntrar.setText("ENTRAR");
+        btEntrar.setBorder(null);
+        btEntrar.setBorderPainted(false);
+        btEntrar.setContentAreaFilled(false);
+        btEntrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btEntrar.setFocusPainted(false);
+        btEntrar.setOpaque(true);
+        btEntrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btEntrarActionPerformed(evt);
             }
         });
 
@@ -103,7 +102,7 @@ public class PnPin extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel4)
                     .addComponent(txPin, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btEntrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(35, 35, 35))
         );
         jPanel1Layout.setVerticalGroup(
@@ -114,7 +113,7 @@ public class PnPin extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(txPin, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(29, Short.MAX_VALUE))
         );
 
@@ -225,37 +224,48 @@ public class PnPin extends javax.swing.JPanel {
         add(pnErro, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        //        FrameNick nick = new FrameNick(this.jframe, jTextField1.getText());
-        //        this.jframe.setContentPane(nick);
-        //        this.jframe.setVisible(true);
-    }//GEN-LAST:event_jButton1MouseClicked
-
     private void lbProfessorMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbProfessorMouseMoved
-        //180 75 67
         lbProfessor.setForeground(new java.awt.Color(20, 205, 255));
-        
     }//GEN-LAST:event_lbProfessorMouseMoved
 
     private void lbProfessorMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbProfessorMouseExited
         lbProfessor.setForeground(new java.awt.Color(51, 255, 255));
     }//GEN-LAST:event_lbProfessorMouseExited
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-//        PnNick pn1 = new PnNick();
-//        ManterPrincipal.getPrincipal().setContentPane(pn1);
-//        ManterPrincipal.getPrincipal().setVisible(true);
-        // ERRO DE PIN:
-        erroPin();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEntrarActionPerformed
+        Boolean conectado = false; // implementar conexão com socket
 
+        String pin = txPin.getText().trim();
+        if (!pin.equals("")) {
+            IpAndPorta ipServidor = new IpAndPorta();
+            ipServidor = ManterIp.reverterPin(pin);
+
+            // testar conexão com socket
+            if (conectado) {
+                //receberLista(receber lista por socket)
+                PnNick pn1 = new PnNick();
+                ManterPrincipal.getPrincipal().setContentPane(pn1);
+                ManterPrincipal.getPrincipal().setVisible(true);
+            } else {
+                erroPin();
+            }
+        } else {
+            erroPin();
+        }
+
+    }//GEN-LAST:event_btEntrarActionPerformed
+
+    private void receberLista(ListaEncadeada lista) {
+        ManterLista.setLista(lista);
+    }
+    
     private void lbProfessorMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbProfessorMousePressed
         PnProfessor pn = new PnProfessor();
         ManterPrincipal.getPrincipal().setContentPane(pn);
         ManterPrincipal.getPrincipal().setVisible(true);
     }//GEN-LAST:event_lbProfessorMousePressed
-    
-    private void erroPin(){
+
+    private void erroPin() {
         ErroEfeito altera = new ErroEfeito(pnErro);
         Thread t = new Thread(altera);
         t.start();
@@ -265,6 +275,7 @@ public class PnPin extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btEntrar;
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
     private javax.swing.Box.Filler filler3;
@@ -273,7 +284,6 @@ public class PnPin extends javax.swing.JPanel {
     private javax.swing.Box.Filler filler6;
     private javax.swing.Box.Filler filler7;
     private javax.swing.Box.Filler filler8;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

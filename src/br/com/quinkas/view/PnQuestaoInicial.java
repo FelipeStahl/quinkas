@@ -5,6 +5,9 @@
  */
 package br.com.quinkas.view;
 
+import br.com.quinkas.entidade.Pergunta;
+import br.com.quinkas.manter.ManterLista;
+import br.com.quinkas.manter.ManterPergunta;
 import br.com.quinkas.manter.ManterPrincipal;
 import br.com.quinkas.util.CorPainel;
 import java.util.logging.Level;
@@ -26,7 +29,8 @@ public class PnQuestaoInicial extends javax.swing.JPanel {
         CorPainel altera = new CorPainel(jPanel1);
         Thread t = new Thread(altera);
         t.start();
-
+        ManterPergunta.setPerguntaAtual((Pergunta)ManterLista.getLista().getProximo());
+        lbPergunta.setText("<html>" + ManterPergunta.getPerguntaAtual().getPergunta() + "</html>");
         contagem();
     }
 
