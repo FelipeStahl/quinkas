@@ -23,19 +23,32 @@ public class Server extends Thread {
 
     private String porta;
     private ISocket painelAtual;
+    private ServerSocket servidor;
+    private Socket cliente;
+    private ObjectInputStream ois;
 
     public Server(ISocket painel) {
         painelAtual = painel;
     }
 
+    public void dispose() {
+        try {
+            servidor.close();
+            cliente.close();
+            ois.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
     @Override
     public void run() {
-        ServerSocket servidor;
+
         try {
             servidor = new ServerSocket(Integer.parseInt(ManterIp.getIpServidor().getPorta()));
             System.out.println("Servidor iniciado...");
-            Socket cliente = null;
-            ObjectInputStream ois;          
+            cliente = null;
             while (true) {
                 String texto = "";
                 cliente = servidor.accept();

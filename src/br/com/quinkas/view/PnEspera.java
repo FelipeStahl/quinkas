@@ -40,7 +40,7 @@ public class PnEspera extends javax.swing.JPanel implements ISocket {
     }
     
     private void iniciarJogo(){
-        serv.interrupt();
+        serv.dispose();
         PnQuestaoInicial pn1 = new PnQuestaoInicial();
         ManterPrincipal.getPrincipal().setContentPane(pn1);
         ManterPrincipal.getPrincipal().setVisible(true);
