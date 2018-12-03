@@ -223,7 +223,7 @@ public class PnNick extends javax.swing.JPanel {
 
                 IpAndPorta ipParticipante = new IpAndPorta();
                 ipParticipante.setIp(retornarIp());
-                ipParticipante.setPorta("8787");
+                ipParticipante.setPorta("157");
                 cliente = new Socket(ManterIp.getIpServidor().getIp(), Integer.parseInt(ManterIp.getIpServidor().getPorta()));
                 participante.setSocket(cliente);
                 ObjectOutputStream oos = new ObjectOutputStream(cliente.getOutputStream());

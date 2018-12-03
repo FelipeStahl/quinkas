@@ -48,7 +48,7 @@ public class PnEsperaProfessor extends javax.swing.JPanel implements ISocket {
         if (ipAtual != null) {
             IpAndPorta ipServidor = new IpAndPorta();
             ipServidor.setIp(ipAtual);
-            ipServidor.setPorta("8787");
+            ipServidor.setPorta("157");
             ManterIp.setIpServidor(ipServidor);
             lbPin.setText(ManterIp.converterPin(ipServidor));
         }
@@ -64,6 +64,7 @@ public class PnEsperaProfessor extends javax.swing.JPanel implements ISocket {
         InetAddress ipAtual;
         try {
             ipAtual = InetAddress.getLocalHost();
+            System.out.println(ipAtual.getHostAddress());
             return ipAtual.getHostAddress();
         } catch (UnknownHostException ex) {
             Logger.getLogger(PnEsperaProfessor.class.getName()).log(Level.SEVERE, null, ex);
