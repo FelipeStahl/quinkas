@@ -5,6 +5,7 @@
  */
 package br.com.quinkas.view;
 
+import br.com.quinkas.entidade.Alternativa;
 import br.com.quinkas.manter.ManterPrincipal;
 import br.com.quinkas.util.CorPainel;
 import java.util.logging.Level;
@@ -18,17 +19,42 @@ import javax.swing.SwingUtilities;
 public class PnQuestaoEspera extends javax.swing.JPanel {
 
     private Integer tempo;
+    private Boolean respostaJogador;
 
-    /**
-     * Creates new form PnQuestaoEspera
-     */
-    public PnQuestaoEspera() {
+    public PnQuestaoEspera(Alternativa resposta) {
         initComponents();
         tempo = 5;
-
+        if (resposta == null) {
+            respostaJogador = false;
+        } else {
+            respostaJogador = resposta.getIsTrue();
+        }
         CorPainel altera = new CorPainel(this);
         Thread t = new Thread(altera);
         t.start();
+        esperaSocket(); //implementar
+
+    }
+
+    private void esperaSocket() {
+        new Thread() {
+
+            @Override
+            public void run() {
+                for (int i = 0; i < tempo; i++) {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(PnQuestaoInicial.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                Integer posicao = 0; // receber posiçao por socket
+                PnQuestaoResultado pn1 = new PnQuestaoResultado(respostaJogador, posicao);
+                ManterPrincipal.getPrincipal().setContentPane(pn1);
+                ManterPrincipal.getPrincipal().setVisible(true);
+            }
+        }.start();
+
     }
 
     /**

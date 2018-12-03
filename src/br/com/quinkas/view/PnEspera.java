@@ -13,7 +13,7 @@ import br.com.quinkas.util.CorPainel;
  * @author Felipe-Sistema
  */
 public class PnEspera extends javax.swing.JPanel {
-
+    Integer numJogadores;
     /**
      * Creates new form PnEspera
      */
@@ -22,7 +22,8 @@ public class PnEspera extends javax.swing.JPanel {
         CorPainel altera = new CorPainel(this);
         Thread t = new Thread(altera);
         t.start();
-                
+        numJogadores = 0;
+        
         Boolean iniciar = false;
         addJogador("Nome Jogador"); //exemplo
 //        while(!iniciar){
@@ -45,6 +46,8 @@ public class PnEspera extends javax.swing.JPanel {
         javax.swing.Box.Filler espaceJog = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10), new java.awt.Dimension(0, 0));
         jPanel2.add(lbJogador);
         jPanel2.add(espaceJog);
+        numJogadores++;
+        this.lbJoradores.setText("Jogadores: " + numJogadores.toString());
     }
 
     @SuppressWarnings("unchecked")

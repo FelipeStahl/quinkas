@@ -17,16 +17,18 @@ import java.util.logging.Logger;
  *
  * @author Felipe-Sistema
  */
-public class PnQuestao extends javax.swing.JPanel {
+public class PnQuestaoProfessor extends javax.swing.JPanel {
 
     private Alternativa altA;
     private Alternativa altB;
     private Alternativa altC;
     private Alternativa altD;
-    private Date tempoInicial;
     private Integer tempo;
 
-    public PnQuestao() {
+    /**
+     * Creates new form PnQuestaoProfessor
+     */
+    public PnQuestaoProfessor() {
         initComponents();
         Random r = new Random();
         Integer num = r.nextInt(4);
@@ -57,13 +59,59 @@ public class PnQuestao extends javax.swing.JPanel {
                     num++;
                     break;
             }
-            if(num > 4){
+            if (num > 4) {
                 num = 1;
             }
         }
         tempo = 10;
-        tempoInicial = new Date();
         contagem();
+        btProximo.setVisible(false);
+    }
+
+    private void contagem() {
+        new Thread() {
+
+            @Override
+            public void run() {
+                for (int i = 0; i < tempo; i++) {
+                    Integer resta = tempo - i;
+                    lbTempo.setText(resta.toString());
+                    lbTempo.repaint();
+                    lbTempo.revalidate();
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(PnQuestaoInicial.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                respotaCorreta();
+            }
+        }.start();
+    }
+
+    private void respotaCorreta() {
+        if (altA.getIsTrue()) {
+            pnA.setBackground(new java.awt.Color(0, 102, 0));
+            pnB.setBackground(new java.awt.Color(153, 0, 0));
+            pnC.setBackground(new java.awt.Color(153, 0, 0));
+            pnD.setBackground(new java.awt.Color(153, 0, 0));
+        } else if (altB.getIsTrue()) {
+            pnB.setBackground(new java.awt.Color(0, 102, 0));
+            pnA.setBackground(new java.awt.Color(153, 0, 0));
+            pnC.setBackground(new java.awt.Color(153, 0, 0));
+            pnD.setBackground(new java.awt.Color(153, 0, 0));
+        } else if (altC.getIsTrue()) {
+            pnC.setBackground(new java.awt.Color(0, 102, 0));
+            pnB.setBackground(new java.awt.Color(153, 0, 0));
+            pnA.setBackground(new java.awt.Color(153, 0, 0));
+            pnD.setBackground(new java.awt.Color(153, 0, 0));
+        } else if (altD.getIsTrue()) {
+            pnD.setBackground(new java.awt.Color(0, 102, 0));
+            pnB.setBackground(new java.awt.Color(153, 0, 0));
+            pnC.setBackground(new java.awt.Color(153, 0, 0));
+            pnA.setBackground(new java.awt.Color(153, 0, 0));
+        }
+        btProximo.setVisible(true);
     }
 
     /**
@@ -77,6 +125,7 @@ public class PnQuestao extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         filler8 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
         filler9 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
@@ -86,7 +135,9 @@ public class PnQuestao extends javax.swing.JPanel {
         lbPergunta = new javax.swing.JLabel();
         filler30 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
         filler31 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
-        jPanel2 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        btProximo = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
         pnA = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         filler6 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(5, 32767));
@@ -125,88 +176,114 @@ public class PnQuestao extends javax.swing.JPanel {
         filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         filler5 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
 
-        setMinimumSize(new java.awt.Dimension(800, 600));
-        setPreferredSize(new java.awt.Dimension(800, 600));
         setLayout(new java.awt.GridBagLayout());
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setMinimumSize(new java.awt.Dimension(800, 600));
+        jPanel1.setPreferredSize(new java.awt.Dimension(800, 600));
         jPanel1.setLayout(new java.awt.GridBagLayout());
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(new java.awt.GridBagLayout());
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 102, 102));
         jLabel3.setText("TEMPO");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
-        jPanel1.add(jLabel3, gridBagConstraints);
+        jPanel2.add(jLabel3, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 6;
-        jPanel1.add(filler8, gridBagConstraints);
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
+        jPanel2.add(filler8, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        jPanel1.add(filler9, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 1;
-        jPanel1.add(filler21, gridBagConstraints);
+        jPanel2.add(filler9, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
+        jPanel2.add(filler21, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
-        jPanel1.add(filler22, gridBagConstraints);
+        jPanel2.add(filler22, gridBagConstraints);
 
         lbTempo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lbTempo.setForeground(new java.awt.Color(0, 102, 102));
         lbTempo.setText("10s");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
-        jPanel1.add(lbTempo, gridBagConstraints);
+        jPanel2.add(lbTempo, gridBagConstraints);
 
         lbPergunta.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         lbPergunta.setForeground(new java.awt.Color(0, 0, 0));
         lbPergunta.setText("Pergunta?");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
-        jPanel1.add(lbPergunta, gridBagConstraints);
+        jPanel2.add(lbPergunta, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.weighty = 0.1;
-        jPanel1.add(filler30, gridBagConstraints);
+        jPanel2.add(filler30, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 5;
         gridBagConstraints.weighty = 0.1;
-        jPanel1.add(filler31, gridBagConstraints);
+        jPanel2.add(filler31, gridBagConstraints);
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel7.setText("Respondidos: 01");
+        jLabel7.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 7;
+        jPanel2.add(jLabel7, gridBagConstraints);
+
+        btProximo.setBackground(new java.awt.Color(0, 0, 102));
+        btProximo.setForeground(new java.awt.Color(255, 255, 255));
+        btProximo.setText("Próximo");
+        btProximo.setBorder(null);
+        btProximo.setMaximumSize(new java.awt.Dimension(48, 40));
+        btProximo.setMinimumSize(new java.awt.Dimension(48, 40));
+        btProximo.setPreferredSize(new java.awt.Dimension(48, 40));
+        btProximo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btProximoActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_END;
+        jPanel2.add(btProximo, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.weighty = 0.2;
-        add(jPanel1, gridBagConstraints);
+        jPanel1.add(jPanel2, gridBagConstraints);
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setMinimumSize(new java.awt.Dimension(100, 260));
-        jPanel2.setName(""); // NOI18N
-        jPanel2.setPreferredSize(new java.awt.Dimension(800, 260));
-        jPanel2.setLayout(new java.awt.GridBagLayout());
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setMinimumSize(new java.awt.Dimension(100, 260));
+        jPanel3.setName(""); // NOI18N
+        jPanel3.setPreferredSize(new java.awt.Dimension(800, 260));
+        jPanel3.setLayout(new java.awt.GridBagLayout());
 
         pnA.setBackground(new java.awt.Color(153, 0, 0));
         pnA.setForeground(new java.awt.Color(255, 255, 255));
-        pnA.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        pnA.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnA.setMinimumSize(new java.awt.Dimension(400, 120));
         pnA.setPreferredSize(new java.awt.Dimension(400, 130));
         pnA.setRequestFocusEnabled(false);
-        pnA.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                pnAMousePressed(evt);
-            }
-        });
         pnA.setLayout(new java.awt.GridBagLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -256,17 +333,12 @@ public class PnQuestao extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.weighty = 0.1;
-        jPanel2.add(pnA, gridBagConstraints);
+        jPanel3.add(pnA, gridBagConstraints);
 
         pnB.setBackground(new java.awt.Color(0, 102, 204));
-        pnB.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        pnB.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnB.setMinimumSize(new java.awt.Dimension(400, 120));
         pnB.setPreferredSize(new java.awt.Dimension(510, 120));
-        pnB.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                pnBMousePressed(evt);
-            }
-        });
         pnB.setLayout(new java.awt.GridBagLayout());
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -316,16 +388,11 @@ public class PnQuestao extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.weighty = 0.1;
-        jPanel2.add(pnB, gridBagConstraints);
+        jPanel3.add(pnB, gridBagConstraints);
 
         pnC.setBackground(new java.awt.Color(153, 153, 0));
-        pnC.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        pnC.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnC.setMinimumSize(new java.awt.Dimension(0, 120));
-        pnC.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                pnCMousePressed(evt);
-            }
-        });
         pnC.setLayout(new java.awt.GridBagLayout());
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -375,17 +442,12 @@ public class PnQuestao extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.weighty = 0.1;
-        jPanel2.add(pnC, gridBagConstraints);
+        jPanel3.add(pnC, gridBagConstraints);
 
         pnD.setBackground(new java.awt.Color(0, 102, 0));
-        pnD.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        pnD.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnD.setMinimumSize(new java.awt.Dimension(0, 120));
         pnD.setPreferredSize(new java.awt.Dimension(400, 130));
-        pnD.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                pnDMousePressed(evt);
-            }
-        });
         pnD.setLayout(new java.awt.GridBagLayout());
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -435,86 +497,51 @@ public class PnQuestao extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.weighty = 0.1;
-        jPanel2.add(pnD, gridBagConstraints);
+        jPanel3.add(pnD, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
-        jPanel2.add(filler1, gridBagConstraints);
+        jPanel3.add(filler1, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 3;
-        jPanel2.add(filler2, gridBagConstraints);
+        jPanel3.add(filler2, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        jPanel2.add(filler3, gridBagConstraints);
+        jPanel3.add(filler3, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
-        jPanel2.add(filler4, gridBagConstraints);
+        jPanel3.add(filler4, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 0;
-        jPanel2.add(filler5, gridBagConstraints);
+        jPanel3.add(filler5, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 0.1;
-        add(jPanel2, gridBagConstraints);
+        jPanel1.add(jPanel3, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.weighty = 0.1;
+        add(jPanel1, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void pnAMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnAMousePressed
-        painelEspera(altA);
-    }//GEN-LAST:event_pnAMousePressed
-
-    private void pnBMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnBMousePressed
-        painelEspera(altB);
-    }//GEN-LAST:event_pnBMousePressed
-
-    private void pnCMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnCMousePressed
-        painelEspera(altC);
-    }//GEN-LAST:event_pnCMousePressed
-
-    private void pnDMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnDMousePressed
-        painelEspera(altD);
-    }//GEN-LAST:event_pnDMousePressed
-
-    private void painelEspera(Alternativa resposta) {
-        enviarPorSocket(resposta);
-        PnQuestaoEspera pn1 = new PnQuestaoEspera(resposta);
+    private void btProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btProximoActionPerformed
+        PnQuestaoProfessorRank pn1 = new PnQuestaoProfessorRank();
         ManterPrincipal.getPrincipal().setContentPane(pn1);
-        ManterPrincipal.getPrincipal().setVisible(true);      
-    }
-    
-    private void enviarPorSocket(Alternativa resposta){
-        Date tempoFinal = new Date();
-        //tempoInicial - tempoFinal
-    }
-    
-       private void contagem() {
-        new Thread() {
+        ManterPrincipal.getPrincipal().setVisible(true);
+    }//GEN-LAST:event_btProximoActionPerformed
 
-            @Override
-            public void run() {
-                for (int i = 0; i < tempo; i++) {
-                    Integer resta = tempo - i;
-                    lbTempo.setText(resta.toString());
-                    lbTempo.repaint();
-                    lbTempo.revalidate();
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(PnQuestaoInicial.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-                painelEspera(null);
-            }
-        }.start();
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btProximo;
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler10;
     private javax.swing.Box.Filler filler11;
@@ -551,8 +578,10 @@ public class PnQuestao extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel lbPergunta;
     private javax.swing.JLabel lbRespostaA;
     private javax.swing.JLabel lbRespostaB;

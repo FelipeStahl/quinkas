@@ -5,6 +5,11 @@
  */
 package br.com.quinkas.view;
 
+import br.com.quinkas.entidade.Alternativa;
+import br.com.quinkas.manter.ManterPrincipal;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Felipe-Sistema
@@ -14,19 +19,47 @@ public class PnQuestaoResultado extends javax.swing.JPanel {
     /**
      * Creates new form PnQuestaoResultado
      */
-    public PnQuestaoResultado() {
+    public PnQuestaoResultado(Boolean resposta, Integer posicao) {
         initComponents();
-        preencherBG(true);
+        preencherBG(resposta);
+        lbPosicao.setText("Sua posição é " + posicao.toString() + "° lugar.");
+        esperaSocket(); //implementar esperando um ok do servidor para iniciar.
     }
 
-    
-    private void preencherBG(Boolean acertou){
-        if(acertou){
+    private void iniciarJogo() {
+        PnQuestaoInicial pn1 = new PnQuestaoInicial();
+        ManterPrincipal.getPrincipal().setContentPane(pn1);
+        ManterPrincipal.getPrincipal().setVisible(true);
+    }
+
+    private void esperaSocket() {
+        new Thread() {
+
+            @Override
+            public void run() {
+                for (int i = 0; i < 5; i++) {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(PnQuestaoInicial.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                iniciarJogo();
+            }
+        }.start();
+
+    }
+
+    private void preencherBG(Boolean acertou) {
+        if (acertou) {
             setBackground(new java.awt.Color(0, 204, 51));
-        }else{
+            lbDesempenho.setText("Você acertou!");
+        } else {
             setBackground(new java.awt.Color(102, 0, 0));
+            lbDesempenho.setText("Você errou!");
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -38,8 +71,8 @@ public class PnQuestaoResultado extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        lbDesempenho = new javax.swing.JLabel();
+        lbPosicao = new javax.swing.JLabel();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 50), new java.awt.Dimension(0, 50), new java.awt.Dimension(32767, 50));
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 20), new java.awt.Dimension(0, 20), new java.awt.Dimension(32767, 20));
 
@@ -53,21 +86,21 @@ public class PnQuestaoResultado extends javax.swing.JPanel {
         gridBagConstraints.gridy = 0;
         add(jLabel1, gridBagConstraints);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Mensagem sobre o desempenho na resposta!");
+        lbDesempenho.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
+        lbDesempenho.setForeground(new java.awt.Color(255, 255, 255));
+        lbDesempenho.setText("Mensagem sobre o desempenho na resposta!");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        add(jLabel2, gridBagConstraints);
+        add(lbDesempenho, gridBagConstraints);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Sua posição é 1° lugar.");
+        lbPosicao.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lbPosicao.setForeground(new java.awt.Color(255, 255, 255));
+        lbPosicao.setText("Sua posição é 1° lugar.");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
-        add(jLabel3, gridBagConstraints);
+        add(lbPosicao, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -83,7 +116,7 @@ public class PnQuestaoResultado extends javax.swing.JPanel {
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel lbDesempenho;
+    private javax.swing.JLabel lbPosicao;
     // End of variables declaration//GEN-END:variables
 }

@@ -21,24 +21,40 @@ import br.com.quinkas.util.CorPainel;
 public class PnEsperaProfessor extends javax.swing.JPanel {
 
     Questionario questionarioAtual;
-    
+    Integer numJogadores;
+
     public PnEsperaProfessor(Questionario questionario) {
         initComponents();
         CorPainel altera = new CorPainel(this);
         Thread t = new Thread(altera);
         t.start();
+        numJogadores = 0;
         questionarioAtual = questionario;
         ListaEncadeada lista = new ListaEncadeada();
         for (Pergunta pergunta : questionarioAtual.getPerguntas()) {
             lista.adicionar(pergunta);
         }
         ManterLista.setLista(lista);
-        
+
         IpAndPorta ipServidor = new IpAndPorta();
         ipServidor.setIp("192.168.25.1");
         ipServidor.setPorta("80");
         lbPin.setText(ManterIp.converterPin(ipServidor));
-        //enviar lista por socket para o usuario que conectar.
+        //enviar lista por socket para o usuario que conectar e fica recebendo jogadores.
+        addJogador("Jogador exemplo");
+
+    }
+
+    private void addJogador(String nome) {
+        javax.swing.JLabel lbJogador = new javax.swing.JLabel();
+        lbJogador.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lbJogador.setForeground(new java.awt.Color(0, 0, 0));
+        lbJogador.setText(nome);
+        javax.swing.Box.Filler espaceJog = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10), new java.awt.Dimension(0, 0));
+        jPanel2.add(lbJogador);
+        jPanel2.add(espaceJog);
+        numJogadores++;
+        this.lbJogadores.setText("Jogadores: " + numJogadores.toString());
     }
 
     @SuppressWarnings("unchecked")
@@ -49,7 +65,7 @@ public class PnEsperaProfessor extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        lbJogadores = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         lbPin = new javax.swing.JLabel();
         filler6 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 40), new java.awt.Dimension(0, 40), new java.awt.Dimension(32767, 40));
@@ -77,18 +93,6 @@ public class PnEsperaProfessor extends javax.swing.JPanel {
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 760, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 179, Short.MAX_VALUE)
-        );
-
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
@@ -97,14 +101,14 @@ public class PnEsperaProfessor extends javax.swing.JPanel {
         gridBagConstraints.weighty = 0.1;
         jPanel1.add(jPanel2, gridBagConstraints);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Joradores: 02");
+        lbJogadores.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lbJogadores.setForeground(new java.awt.Color(255, 255, 255));
+        lbJogadores.setText("Joradores: 02");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        jPanel1.add(jLabel2, gridBagConstraints);
+        jPanel1.add(lbJogadores, gridBagConstraints);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(153, 255, 255));
@@ -195,7 +199,7 @@ public class PnEsperaProfessor extends javax.swing.JPanel {
     }//GEN-LAST:event_btEntrarMouseClicked
 
     private void btEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEntrarActionPerformed
-        PnQuestao pn1 = new PnQuestao();
+        PnQuestaoInicial pn1 = new PnQuestaoInicial();
         ManterPrincipal.getPrincipal().setContentPane(pn1);
         ManterPrincipal.getPrincipal().setVisible(true);
 // ERRO DE PIN:
@@ -213,10 +217,10 @@ public class PnEsperaProfessor extends javax.swing.JPanel {
     private javax.swing.Box.Filler filler6;
     private javax.swing.Box.Filler filler7;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lbJogadores;
     private javax.swing.JLabel lbPin;
     // End of variables declaration//GEN-END:variables
 }

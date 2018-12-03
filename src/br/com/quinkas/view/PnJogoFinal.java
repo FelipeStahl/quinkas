@@ -21,6 +21,13 @@ public class PnJogoFinal extends javax.swing.JPanel {
         CorPainel altera = new CorPainel(this);
         Thread t = new Thread(altera);
         t.start();
+        preencherJogadores("Nome 1", "Nome 2", "Nome 3");
+    }
+    
+    private void preencherJogadores(String primeiro, String segundo, String terceiro){
+        lbJogador1.setText(primeiro);
+        lbJogador2.setText(segundo);
+        lbJogador3.setText(terceiro);
     }
 
     /**
