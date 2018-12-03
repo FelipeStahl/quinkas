@@ -5,6 +5,7 @@
  */
 package br.com.quinkas.view;
 
+import br.com.quinkas.conexao.EnviaSocket;
 import br.com.quinkas.entidade.Alternativa;
 import br.com.quinkas.manter.ManterPergunta;
 import br.com.quinkas.manter.ManterPrincipal;
@@ -466,18 +467,22 @@ public class PnQuestao extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void pnAMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnAMousePressed
+        EnviaSocket.enviarObjeto(altA);
         painelEspera(altA);
     }//GEN-LAST:event_pnAMousePressed
 
     private void pnBMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnBMousePressed
+        EnviaSocket.enviarObjeto(altB);
         painelEspera(altB);
     }//GEN-LAST:event_pnBMousePressed
 
     private void pnCMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnCMousePressed
+        EnviaSocket.enviarObjeto(altC);
         painelEspera(altC);
     }//GEN-LAST:event_pnCMousePressed
 
     private void pnDMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnDMousePressed
+        EnviaSocket.enviarObjeto(altD);
         painelEspera(altD);
     }//GEN-LAST:event_pnDMousePressed
 

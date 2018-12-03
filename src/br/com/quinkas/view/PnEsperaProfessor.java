@@ -236,6 +236,12 @@ public class PnEsperaProfessor extends javax.swing.JPanel implements ISocket {
         // erroPin();
     }//GEN-LAST:event_btEntrarActionPerformed
 
+    private void iniciarJogo(){
+        for (Participante participante : ManterParticipante.getParticipantes()) {
+            Boolean iniciar = true;
+            EnviaSocket.enviarObjeto(iniciar, participante);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btEntrar;

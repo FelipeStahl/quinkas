@@ -5,6 +5,8 @@
  */
 package br.com.quinkas.view;
 
+import br.com.quinkas.conexao.ISocket;
+import br.com.quinkas.conexao.Server;
 import br.com.quinkas.entidade.Alternativa;
 import br.com.quinkas.manter.ManterPergunta;
 import br.com.quinkas.manter.ManterPrincipal;
@@ -17,7 +19,7 @@ import java.util.logging.Logger;
  *
  * @author Felipe-Sistema
  */
-public class PnQuestaoProfessor extends javax.swing.JPanel {
+public class PnQuestaoProfessor extends javax.swing.JPanel implements ISocket {
 
     private Alternativa altA;
     private Alternativa altB;
@@ -30,6 +32,8 @@ public class PnQuestaoProfessor extends javax.swing.JPanel {
      */
     public PnQuestaoProfessor() {
         initComponents();
+        Server serv = new Server(this);
+        
         Random r = new Random();
         Integer num = r.nextInt(4);
         if (num.equals(0)) {
@@ -593,4 +597,11 @@ public class PnQuestaoProfessor extends javax.swing.JPanel {
     private javax.swing.JPanel pnC;
     private javax.swing.JPanel pnD;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void recebeObjeto(Object objeto) {
+        if(objeto instanceof Alternativa){
+            System.out.println(((Alternativa)objeto).getResposta());
+        }
+    }
 }

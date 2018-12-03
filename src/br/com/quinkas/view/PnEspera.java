@@ -162,6 +162,10 @@ public class PnEspera extends javax.swing.JPanel implements ISocket {
         if(objeto instanceof ListaEncadeada){
             ManterLista.setLista((ListaEncadeada)objeto);
             System.out.println(ManterLista.getLista());
+        }else if(objeto instanceof Boolean){
+            if((Boolean)objeto){
+                iniciarJogo();
+            }
         }
     }
 }
