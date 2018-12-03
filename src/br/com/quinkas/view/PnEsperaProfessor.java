@@ -7,9 +7,12 @@ package br.com.quinkas.view;
 
 import br.com.quinkas.entidade.Mensagem;
 import br.com.quinkas.entidade.Participante;
+import br.com.quinkas.entidade.Questionario;
+import br.com.quinkas.manter.ManterIp;
 import br.com.quinkas.manter.ManterPrincipal;
 import br.com.quinkas.util.CorPainel;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -26,6 +29,7 @@ public class PnEsperaProfessor extends javax.swing.JPanel {
     private String pin;
     private List<Participante> participantes;
     private Thread ouvir;
+    private Questionario questionario;
 
     /**
      * Creates new form PnEsperaProfessor
@@ -210,7 +214,7 @@ public class PnEsperaProfessor extends javax.swing.JPanel {
         Thread ouvir = new Thread() {
             public void run() {
                 try {
-                    ServerSocket servidor = new ServerSocket(Integer.valueOf(ManterPrincipal.resolverPin(pin).getPorta()));
+                    ServerSocket servidor = new ServerSocket(Integer.valueOf(ManterIp.reverterPin(pin).getPorta()));
                     System.out.println("Servidor iniciado");
                     while (iniciar) {
                         Socket cliente = servidor.accept();
@@ -229,13 +233,16 @@ public class PnEsperaProfessor extends javax.swing.JPanel {
         Thread thread = new Thread() {
             public void run() {
                 try {
+                    ObjectOutputStream mandarQuestionario = new ObjectOutputStream(cliente.getOutputStream());
                     ObjectInputStream entradaObjeto = new ObjectInputStream(cliente.getInputStream());
                     Mensagem mensagem = (Mensagem) entradaObjeto.readObject();
                     if (mensagem != null) {
                         Participante participante = mensagem.getParticipante();
                         participante.setIp(cliente.getInetAddress().getHostAddress());
+                        participante.setSocket(cliente);
                         participantes.add(participante);
                         adicionarParticipanteAoPainel();
+                        mandarQuestionario.writeObject(questionario);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

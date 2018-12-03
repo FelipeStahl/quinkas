@@ -8,8 +8,11 @@ package br.com.quinkas.view;
 import br.com.quinkas.entidade.IpAndPorta;
 import br.com.quinkas.entidade.Mensagem;
 import br.com.quinkas.entidade.Participante;
+import br.com.quinkas.entidade.Questionario;
+import br.com.quinkas.manter.ManterIp;
 import br.com.quinkas.manter.ManterPrincipal;
 import br.com.quinkas.util.CorPainel;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
@@ -33,20 +36,26 @@ public class PnEspera extends javax.swing.JPanel {
         Thread t = new Thread(altera);
         t.start();
         mandarParticipacao();
-        esperarIniciacao(); //FALTA IMPLEMENTAR
+        esperarIniciacao(); //FALTA IMPLEMENTAR //Não fechei o socket no mandarParticipaçao, acho que da pra usar o mesmo socket durante a aplicacao inteira, só passar por parametro
     }
     
     private void mandarParticipacao() {
-        IpAndPorta ipAndPorta = ManterPrincipal.resolverPin(pin);
+        IpAndPorta ipAndPorta = ManterIp.reverterPin(pin);
         try {
             Socket socket = new Socket(ipAndPorta.getIp(), Integer.valueOf(ipAndPorta.getPorta()));
             System.out.println("Conectado com o servidor");
             ObjectOutputStream mandarMensagem = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream receberQuestionario = new ObjectInputStream(socket.getInputStream());
             Participante participante = new Participante();
             participante.setNick(nick);
             Mensagem mensagem = new Mensagem();
             mensagem.setParticipante(participante);
             mandarMensagem.writeObject(mensagem);
+            Questionario questionario = (Questionario) receberQuestionario.readObject();
+            while (questionario == null) {
+                questionario = (Questionario) receberQuestionario.readObject();
+                System.out.println("Recebendo questionário");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

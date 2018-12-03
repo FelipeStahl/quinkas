@@ -6,6 +6,7 @@
 package br.com.quinkas.entidade;
 
 import java.io.Serializable;
+import java.net.Socket;
 
 /**
  *
@@ -14,6 +15,15 @@ import java.io.Serializable;
 public class Participante implements Serializable {
     private String nick;
     private String ip;
+    private Socket socket;
+
+    public Socket getSocket() {
+        return socket;
+    }
+
+    public void setSocket(Socket socket) {
+        this.socket = socket;
+    }
 
     public String getNick() {
         return nick;

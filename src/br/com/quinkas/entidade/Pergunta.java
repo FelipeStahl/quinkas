@@ -14,14 +14,11 @@ import java.util.List;
  */
 public class Pergunta {
     private Integer id;
-    private String pergunta, escopo;
-    private Materia materia;
-    private String imagePath;
-    private List<Questionario> questionarios;
+    private String pergunta;
+    private Questionario questionario;
     private List<Alternativa> alternativas;
 
     public Pergunta() {
-        this.questionarios = new ArrayList<Questionario>();
         this.alternativas = new ArrayList<Alternativa>();
     }
 
@@ -41,37 +38,15 @@ public class Pergunta {
         this.pergunta = pergunta;
     }
 
-    public String getEscopo() {
-        return escopo;
+    public Questionario getQuestionario() {
+        return questionario;
     }
 
-    public void setEscopo(String escopo) {
-        this.escopo = escopo;
+    public void setQuestionario(Questionario questionario) {
+        this.questionario = questionario;
     }
-
-    public Materia getMateria() {
-        return materia;
-    }
-
-    public void setMateria(Materia materia) {
-        this.materia = materia;
-    }
-
-    public String getImagePath() {
-        return imagePath;
-    }
-
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
-    }
-
-    public List<Questionario> getQuestionarios() {
-        return questionarios;
-    }
-
-    public void setQuestionarios(List<Questionario> questionarios) {
-        this.questionarios = questionarios;
-    }
+    
+    
 
     public List<Alternativa> getAlternativas() {
         return alternativas;

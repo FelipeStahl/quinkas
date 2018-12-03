@@ -5,7 +5,11 @@
  */
 package br.com.quinkas.view;
 
+import br.com.quinkas.dao.ConnectionFactory;
 import br.com.quinkas.manter.ManterPrincipal;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *

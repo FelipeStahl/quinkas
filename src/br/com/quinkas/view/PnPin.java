@@ -248,7 +248,7 @@ public class PnPin extends javax.swing.JPanel {
         ManterPrincipal.getPrincipal().setContentPane(pn1);
         ManterPrincipal.getPrincipal().setVisible(true);
         // ERRO DE PIN:
-        //erroPin();
+        erroPin();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void lbProfessorMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbProfessorMousePressed

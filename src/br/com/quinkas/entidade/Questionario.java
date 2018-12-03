@@ -5,6 +5,7 @@
  */
 package br.com.quinkas.entidade;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,17 +14,15 @@ import java.util.List;
  *
  * @author erick
  */
-public class Questionario {
+public class Questionario implements Serializable {
     private Integer id;
     private Professor professor;
     private String nome;
     private Date datacriacao;
     private List<Pergunta> perguntas;
-    private List<Materia> materias;
 
     public Questionario() {
         this.perguntas = new ArrayList<Pergunta>();
-        this.materias = new ArrayList<Materia>();
     }
 
     public Integer getId() {
@@ -64,14 +63,6 @@ public class Questionario {
 
     public void setPerguntas(List<Pergunta> perguntas) {
         this.perguntas = perguntas;
-    }
-
-    public List<Materia> getMaterias() {
-        return materias;
-    }
-
-    public void setMaterias(List<Materia> materias) {
-        this.materias = materias;
     }
     
     public String toString() {
