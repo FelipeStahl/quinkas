@@ -15,15 +15,15 @@ import java.net.Socket;
 public class Participante implements Serializable {
 
     private String nick;
-    private Socket socket;
+    private IpAndPorta ipAndPorta;
     private Integer pontos;
 
-    public Socket getSocket() {
-        return socket;
+    public IpAndPorta getIpAndPorta() {
+        return ipAndPorta;
     }
 
-    public void setSocket(Socket socket) {
-        this.socket = socket;
+    public void setIpAndPorta(IpAndPorta ipAndPorta) {
+        this.ipAndPorta = ipAndPorta;
     }
    
     public Participante() {
