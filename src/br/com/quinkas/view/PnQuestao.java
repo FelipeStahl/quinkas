@@ -58,7 +58,7 @@ public class PnQuestao extends javax.swing.JPanel {
                     num++;
                     break;
             }
-            if(num > 4){
+            if (num > 4) {
                 num = 1;
             }
         }
@@ -490,15 +490,22 @@ public class PnQuestao extends javax.swing.JPanel {
         enviarPorSocket(resposta);
         PnQuestaoEspera pn1 = new PnQuestaoEspera(resposta);
         ManterPrincipal.getPrincipal().setContentPane(pn1);
-        ManterPrincipal.getPrincipal().setVisible(true);      
+        ManterPrincipal.getPrincipal().setVisible(true);
     }
-    
-    private void enviarPorSocket(Alternativa resposta){
+
+    private void enviarPorSocket(Alternativa resposta) {
         Date tempoFinal = new Date();
         //tempoInicial - tempoFinal
     }
+
+    private Long calcuraTempo(){
+        Long tempoI = tempoInicial.getTime();
+        Date tempoFinal = new Date();
+        Long tempoF = tempoFinal.getTime();
+        return tempoF - tempoI;
+    }
     
-       private void contagem() {
+    private void contagem() {
         new Thread() {
 
             @Override

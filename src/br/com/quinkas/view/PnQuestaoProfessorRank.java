@@ -5,6 +5,9 @@
  */
 package br.com.quinkas.view;
 
+import br.com.quinkas.conexao.EnviaSocket;
+import br.com.quinkas.entidade.Participante;
+import br.com.quinkas.manter.ManterParticipante;
 import br.com.quinkas.manter.ManterPrincipal;
 import br.com.quinkas.util.CorPainel;
 
@@ -142,7 +145,6 @@ public class PnQuestaoProfessorRank extends javax.swing.JPanel {
         gridBagConstraints.gridy = 10;
         add(filler4, gridBagConstraints);
 
-        btProximo.setForeground(new java.awt.Color(0, 0, 0));
         btProximo.setText("Próximo");
         btProximo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -160,11 +162,18 @@ public class PnQuestaoProfessorRank extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btProximoActionPerformed
+        iniciarJogo();
         PnQuestaoInicial pn1 = new PnQuestaoInicial();
         ManterPrincipal.getPrincipal().setContentPane(pn1);
         ManterPrincipal.getPrincipal().setVisible(true);
     }//GEN-LAST:event_btProximoActionPerformed
 
+        private void iniciarJogo(){
+        for (Participante participante : ManterParticipante.getParticipantes()) {
+            Boolean iniciar = true;
+            EnviaSocket.enviarObjeto(iniciar, participante);
+        }
+    }
     private void preencherJogadores(String primeiro, String segundo, String terceiro, String quarto) {
         lbJogador1.setText(primeiro);
         lbJogador2.setText(segundo);

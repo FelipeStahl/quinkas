@@ -5,7 +5,11 @@
  */
 package br.com.quinkas.view;
 
+import br.com.quinkas.conexao.ISocket;
+import br.com.quinkas.conexao.Server;
 import br.com.quinkas.entidade.Alternativa;
+import br.com.quinkas.entidade.Participante;
+import br.com.quinkas.manter.ManterParticipante;
 import br.com.quinkas.manter.ManterPrincipal;
 import br.com.quinkas.util.CorPainel;
 import java.util.logging.Level;
@@ -16,7 +20,7 @@ import javax.swing.SwingUtilities;
  *
  * @author Felipe-Sistema
  */
-public class PnQuestaoEspera extends javax.swing.JPanel {
+public class PnQuestaoEspera extends javax.swing.JPanel implements ISocket {
 
     private Integer tempo;
     private Boolean respostaJogador;
@@ -32,30 +36,13 @@ public class PnQuestaoEspera extends javax.swing.JPanel {
         CorPainel altera = new CorPainel(this);
         Thread t = new Thread(altera);
         t.start();
-        esperaSocket(); //implementar
+
+        Server serv = new Server(this);
+        Thread tServ = new Thread(serv);
+        tServ.start();
 
     }
 
-    private void esperaSocket() {
-        new Thread() {
-
-            @Override
-            public void run() {
-                for (int i = 0; i < tempo; i++) {
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(PnQuestaoInicial.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-                Integer posicao = 0; // receber posiçao por socket
-                PnQuestaoResultado pn1 = new PnQuestaoResultado(respostaJogador, posicao);
-                ManterPrincipal.getPrincipal().setContentPane(pn1);
-                ManterPrincipal.getPrincipal().setVisible(true);
-            }
-        }.start();
-
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -76,6 +63,7 @@ public class PnQuestaoEspera extends javax.swing.JPanel {
         filler9 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
         filler10 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 20), new java.awt.Dimension(0, 20), new java.awt.Dimension(32767, 20));
 
+        setBackground(new java.awt.Color(0, 0, 102));
         setMinimumSize(new java.awt.Dimension(799, 600));
         setPreferredSize(new java.awt.Dimension(799, 600));
         setLayout(new java.awt.GridBagLayout());
@@ -134,4 +122,14 @@ public class PnQuestaoEspera extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lbPergunta;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void recebeObjeto(Object objeto) {
+        if (objeto instanceof Participante) {
+            Participante participante = (Participante)objeto;
+            PnQuestaoResultado pn1 = new PnQuestaoResultado(respostaJogador, participante);
+            ManterPrincipal.getPrincipal().setContentPane(pn1);
+            ManterPrincipal.getPrincipal().setVisible(true);
+        }
+    }
 }

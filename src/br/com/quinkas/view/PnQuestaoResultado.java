@@ -5,7 +5,10 @@
  */
 package br.com.quinkas.view;
 
+import br.com.quinkas.conexao.ISocket;
+import br.com.quinkas.conexao.Server;
 import br.com.quinkas.entidade.Alternativa;
+import br.com.quinkas.entidade.Participante;
 import br.com.quinkas.manter.ManterPrincipal;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,40 +17,25 @@ import java.util.logging.Logger;
  *
  * @author Felipe-Sistema
  */
-public class PnQuestaoResultado extends javax.swing.JPanel {
+public class PnQuestaoResultado extends javax.swing.JPanel implements ISocket{
 
     /**
      * Creates new form PnQuestaoResultado
      */
-    public PnQuestaoResultado(Boolean resposta, Integer posicao) {
+    public PnQuestaoResultado(Boolean resposta, Participante participante) {
         initComponents();
         preencherBG(resposta);
-        lbPosicao.setText("Sua posição é " + posicao.toString() + "° lugar.");
-        esperaSocket(); //implementar esperando um ok do servidor para iniciar.
+        lbPosicao.setText("Sua posição é " + participante.getPosicao().toString() + "° lugar.");
+
+        Server serv = new Server(this);
+        Thread tServ = new Thread(serv);
+        tServ.start();
     }
 
     private void iniciarJogo() {
         PnQuestaoInicial pn1 = new PnQuestaoInicial();
         ManterPrincipal.getPrincipal().setContentPane(pn1);
         ManterPrincipal.getPrincipal().setVisible(true);
-    }
-
-    private void esperaSocket() {
-        new Thread() {
-
-            @Override
-            public void run() {
-                for (int i = 0; i < 5; i++) {
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(PnQuestaoInicial.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-                iniciarJogo();
-            }
-        }.start();
-
     }
 
     private void preencherBG(Boolean acertou) {
@@ -119,4 +107,13 @@ public class PnQuestaoResultado extends javax.swing.JPanel {
     private javax.swing.JLabel lbDesempenho;
     private javax.swing.JLabel lbPosicao;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void recebeObjeto(Object objeto) {
+        if(objeto instanceof Boolean){
+            if((Boolean)objeto){
+                iniciarJogo();
+            }
+        }
+    }
 }

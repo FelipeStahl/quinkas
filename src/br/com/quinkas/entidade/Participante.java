@@ -17,6 +17,25 @@ public class Participante implements Serializable {
     private String nick;
     private IpAndPorta ipAndPorta;
     private Integer pontos;
+    private Integer acerto;
+    private Integer posicao;
+
+    public Integer getAcerto() {
+        return acerto;
+    }
+
+    public void setAcerto(Integer acerto) {
+        this.acerto = acerto;
+    }
+
+    public Integer getPosicao() {
+        return posicao;
+    }
+
+    public void setPosicao(Integer posicao) {
+        this.posicao = posicao;
+    }
+    
 
     public IpAndPorta getIpAndPorta() {
         return ipAndPorta;
