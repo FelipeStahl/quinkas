@@ -242,11 +242,11 @@ public class PnPin extends javax.swing.JPanel {
     }//GEN-LAST:event_lbProfessorMouseExited
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        PnNick pn1 = new PnNick();
-        ManterPrincipal.getPrincipal().setContentPane(pn1);
-        ManterPrincipal.getPrincipal().setVisible(true);
+//        PnNick pn1 = new PnNick();
+//        ManterPrincipal.getPrincipal().setContentPane(pn1);
+//        ManterPrincipal.getPrincipal().setVisible(true);
         // ERRO DE PIN:
-        //erroPin();
+        erroPin();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void lbProfessorMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbProfessorMousePressed

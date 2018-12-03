@@ -61,7 +61,7 @@ public class AlternativaDAOImpl implements br.com.quinkas.dao.AlternativaDAO {
         try {
             Alternativa alternativa = (Alternativa) objeto;
             conn = ConnectionFactory.getConnection();
-            ps = conn.prepareStatement("update alternativa set resposta = ?, isTrue, pergunta_id = ? where id = ?;", Statement.RETURN_GENERATED_KEYS);
+            ps = conn.prepareStatement("update alternativa set resposta = ?, isTrue = ?, pergunta_id = ? where id = ?;", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, alternativa.getResposta());
             ps.setBoolean(2, alternativa.getIsTrue());
             ps.setInt(3, alternativa.getPergunta().getId());
@@ -108,7 +108,7 @@ public class AlternativaDAOImpl implements br.com.quinkas.dao.AlternativaDAO {
         Pergunta pergunta = (Pergunta)objeto;
         try {
             conn = ConnectionFactory.getConnection();
-            ps = conn.prepareStatement("select id, pergunta, questionario_id from pergunta where questionario_id=?");
+            ps = conn.prepareStatement("select id, resposta, isTrue from alternativa where pergunta_id=?");
             ps.setInt(1, pergunta.getId());
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -117,6 +117,7 @@ public class AlternativaDAOImpl implements br.com.quinkas.dao.AlternativaDAO {
                 alternativa.setResposta(rs.getString("resposta"));
                 alternativa.setIsTrue(rs.getBoolean("isTrue"));
                 alternativa.setPergunta(pergunta);
+                alternativas.add(alternativa);
             }
             return alternativas;
         } catch (Exception e) {

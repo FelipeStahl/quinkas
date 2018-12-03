@@ -5,8 +5,16 @@
  */
 package br.com.quinkas.view;
 
+import br.com.quinkas.dao.impl.AlternativaDAOImpl;
+import br.com.quinkas.dao.impl.PerguntaDAOImpl;
+import br.com.quinkas.entidade.Alternativa;
+import br.com.quinkas.entidade.Pergunta;
+import br.com.quinkas.entidade.Questionario;
 import br.com.quinkas.manter.ManterPrincipal;
 import br.com.quinkas.util.CorPainel;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -14,14 +22,31 @@ import br.com.quinkas.util.CorPainel;
  */
 public class PnProfessorPergunta extends javax.swing.JPanel {
 
-    /**
-     * Creates new form PnProfessorPergunta
-     */
-    public PnProfessorPergunta() {
+    private Questionario questionarioAtual;
+    private Pergunta pergunta;
+    private Integer posicao;
+    List<Alternativa> alternativas;
+
+    public PnProfessorPergunta(Questionario questionario, Integer pos) {
         initComponents();
         CorPainel altera = new CorPainel(this);
         Thread t = new Thread(altera);
         t.start();
+        questionarioAtual = questionario;
+        posicao = pos;
+        if (posicao != null) {
+            pergunta = questionarioAtual.getPerguntas().get(posicao);
+            alternativas = pergunta.getAlternativas();
+            this.epPergunta.setText(pergunta.getPergunta());
+            this.txA.setText(pergunta.getAlternativas().get(0).getResposta());
+            this.rbA.setSelected(pergunta.getAlternativas().get(0).getIsTrue());
+            this.txB.setText(pergunta.getAlternativas().get(1).getResposta());
+            this.rbB.setSelected(pergunta.getAlternativas().get(1).getIsTrue());
+            this.txC.setText(pergunta.getAlternativas().get(2).getResposta());
+            this.rbC.setSelected(pergunta.getAlternativas().get(2).getIsTrue());
+            this.txD.setText(pergunta.getAlternativas().get(3).getResposta());
+            this.rbD.setSelected(pergunta.getAlternativas().get(3).getIsTrue());
+        }
     }
 
     /**
@@ -191,7 +216,7 @@ public class PnProfessorPergunta extends javax.swing.JPanel {
 
         lbPergunta.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lbPergunta.setForeground(new java.awt.Color(255, 255, 255));
-        lbPergunta.setText("Teste:");
+        lbPergunta.setText("Questão:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
@@ -304,15 +329,117 @@ public class PnProfessorPergunta extends javax.swing.JPanel {
     }//GEN-LAST:event_rbDActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+        String teste1 = epPergunta.getText().trim();
+        String teste2 = txA.getText().trim();
+        String teste3 = txB.getText().trim();
+        String teste4 = txC.getText().trim();
+        String teste5 = txD.getText().trim();
+        if (teste1.equals("") || teste2.equals("") || teste3.equals("") || teste4.equals("") || teste5.equals("")) {
+            JOptionPane.showMessageDialog(this, "Preencha corretamente os campos.");
+            return;
+        }
+        if (posicao == null) {
+            try {
+                PerguntaDAOImpl perguntaDao = new PerguntaDAOImpl();
+                AlternativaDAOImpl alternativaDAO;
+                pergunta = new Pergunta();
+                pergunta.setPergunta(this.epPergunta.getText());
+                pergunta.setQuestionario(questionarioAtual);
+                pergunta.setId(perguntaDao.inserir(pergunta));
 
+                alternativas = new ArrayList();
+                Alternativa alternativaA = new Alternativa();
+                alternativaA.setPergunta(pergunta);
+                alternativaA.setResposta(txA.getText());
+                alternativaA.setIsTrue(rbA.isSelected());
+                alternativaDAO = new AlternativaDAOImpl();
+                alternativaA.setId(alternativaDAO.inserir(alternativaA));
+                alternativas.add(alternativaA);
+
+                Alternativa alternativaB = new Alternativa();
+                alternativaB.setPergunta(pergunta);
+                alternativaB.setResposta(txB.getText());
+                alternativaB.setIsTrue(rbB.isSelected());
+                alternativaDAO = new AlternativaDAOImpl();
+                alternativaB.setId(alternativaDAO.inserir(alternativaB));
+                alternativas.add(alternativaB);
+
+                Alternativa alternativaC = new Alternativa();
+                alternativaC.setPergunta(pergunta);
+                alternativaC.setResposta(txC.getText());
+                alternativaC.setIsTrue(rbC.isSelected());
+                alternativaDAO = new AlternativaDAOImpl();
+                alternativaC.setId(alternativaDAO.inserir(alternativaC));
+                alternativas.add(alternativaC);
+
+                Alternativa alternativaD = new Alternativa();
+                alternativaD.setPergunta(pergunta);
+                alternativaD.setResposta(txD.getText());
+                alternativaD.setIsTrue(rbD.isSelected());
+                alternativaDAO = new AlternativaDAOImpl();
+                alternativaD.setId(alternativaDAO.inserir(alternativaD));
+                alternativas.add(alternativaD);
+                pergunta.setAlternativas(alternativas);
+
+                if (questionarioAtual.getPerguntas() == null) {
+                    List<Pergunta> perguntas = new ArrayList();
+                    perguntas.add(pergunta);
+                    questionarioAtual.setPerguntas(perguntas);
+                    posicao = 0;
+                } else {
+                    questionarioAtual.getPerguntas().add(pergunta);
+                    posicao = questionarioAtual.getPerguntas().size() - 1;
+                }
+                retornar();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Erro ao inserir os dados no banco.");
+            }
+        } else {
+            try {
+                PerguntaDAOImpl perguntaDao = new PerguntaDAOImpl();
+                AlternativaDAOImpl alternativaDAO;
+                pergunta.setPergunta(this.epPergunta.getText());
+                perguntaDao.alterar(pergunta);
+
+                alternativas.get(0).setPergunta(pergunta);
+                alternativas.get(0).setResposta(txA.getText());
+                alternativas.get(0).setIsTrue(rbA.isSelected());
+                alternativaDAO = new AlternativaDAOImpl();
+                alternativaDAO.alterar(alternativas.get(0));
+
+                alternativas.get(1).setPergunta(pergunta);
+                alternativas.get(1).setResposta(txB.getText());
+                alternativas.get(1).setIsTrue(rbB.isSelected());
+                alternativaDAO = new AlternativaDAOImpl();
+                alternativaDAO.alterar(alternativas.get(1));
+
+                alternativas.get(2).setPergunta(pergunta);
+                alternativas.get(2).setResposta(txC.getText());
+                alternativas.get(2).setIsTrue(rbC.isSelected());
+                alternativaDAO = new AlternativaDAOImpl();
+                alternativaDAO.alterar(alternativas.get(2));
+
+                alternativas.get(3).setPergunta(pergunta);
+                alternativas.get(3).setResposta(txD.getText());
+                alternativas.get(3).setIsTrue(rbD.isSelected());
+                alternativaDAO = new AlternativaDAOImpl();
+                alternativaDAO.alterar(alternativas.get(3));
+                retornar();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Erro ao alterar os dados no banco." + e.getMessage());
+            }
+        }
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void lbRetornoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbRetornoMousePressed
-        PnProfessorQuestionarios pnl = new PnProfessorQuestionarios();
-        ManterPrincipal.getPrincipal().setContentPane(pnl);
-        ManterPrincipal.getPrincipal().setVisible(true);
+        retornar();
     }//GEN-LAST:event_lbRetornoMousePressed
 
+    private void retornar() {
+        PnProfessorPerguntas pnl = new PnProfessorPerguntas(questionarioAtual);
+        ManterPrincipal.getPrincipal().setContentPane(pnl);
+        ManterPrincipal.getPrincipal().setVisible(true);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btSalvar;

@@ -57,7 +57,7 @@ public class PerguntaDAOImpl implements br.com.quinkas.dao.PerguntaDAO {
         try {
             Pergunta pergunta = (Pergunta) objeto;
             conn = ConnectionFactory.getConnection();
-            ps = conn.prepareStatement("update pergunta set nome = ?, questionario_id = ? where id = ?;", Statement.RETURN_GENERATED_KEYS);
+            ps = conn.prepareStatement("update pergunta set pergunta = ?, questionario_id = ? where id = ?;", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, pergunta.getPergunta());
             ps.setInt(2,pergunta.getQuestionario().getId());
             ps.setInt(3, pergunta.getId());
@@ -110,7 +110,7 @@ public class PerguntaDAOImpl implements br.com.quinkas.dao.PerguntaDAO {
             while (rs.next()) {
                 Pergunta pergunta = new Pergunta();               
                 pergunta.setId(rs.getInt("id"));
-                pergunta.setPergunta(rs.getString("nome"));
+                pergunta.setPergunta(rs.getString("pergunta"));
                 pergunta.setQuestionario(questionario);
 
                 AlternativaDAOImpl alternativaDao = new AlternativaDAOImpl();

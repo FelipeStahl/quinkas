@@ -33,7 +33,7 @@ public class PnProfessorQuestionario extends javax.swing.JPanel {
         if (questionarioAtual != null) {  
             this.txQuestionario.setText(questionarioAtual.getNome());
             this.btQuestoes.setEnabled(true);
-            if(questionarioAtual.getPerguntas() != null){
+            if(questionarioAtual.getPerguntas().size() != 0){
                 this.btInicarJogo.setEnabled(true);
             }
         }
