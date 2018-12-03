@@ -5,6 +5,10 @@
  */
 package br.com.quinkas.view;
 
+import br.com.quinkas.conexao.ISocket;
+import br.com.quinkas.conexao.Server;
+import br.com.quinkas.estrutura.ListaEncadeada;
+import br.com.quinkas.manter.ManterLista;
 import br.com.quinkas.manter.ManterPrincipal;
 import br.com.quinkas.util.CorPainel;
 
@@ -12,7 +16,7 @@ import br.com.quinkas.util.CorPainel;
  *
  * @author Felipe-Sistema
  */
-public class PnEspera extends javax.swing.JPanel {
+public class PnEspera extends javax.swing.JPanel implements ISocket {
     Integer numJogadores;
     /**
      * Creates new form PnEspera
@@ -26,6 +30,10 @@ public class PnEspera extends javax.swing.JPanel {
         
         Boolean iniciar = false;
         addJogador("Nome Jogador"); //exemplo
+        
+        Server serv = new Server(this);
+        Thread tServ = new Thread(serv);
+        tServ.start();
 //        while(!iniciar){
 //            //fazer uma thread esperando a iniciação do jogo e recebendo os nicks dos jogadores.
 //        }
@@ -66,6 +74,7 @@ public class PnEspera extends javax.swing.JPanel {
         filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(20, 0), new java.awt.Dimension(20, 0), new java.awt.Dimension(20, 32767));
         filler5 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 20), new java.awt.Dimension(0, 20), new java.awt.Dimension(32767, 20));
 
+        setBackground(new java.awt.Color(0, 0, 102));
         setMinimumSize(new java.awt.Dimension(800, 600));
         setPreferredSize(new java.awt.Dimension(800, 600));
         setLayout(new java.awt.GridBagLayout());
@@ -147,4 +156,12 @@ public class PnEspera extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lbJoradores;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void recebeObjeto(Object objeto) {
+        if(objeto instanceof ListaEncadeada){
+            ManterLista.setLista((ListaEncadeada)objeto);
+            System.out.println(ManterLista.getLista());
+        }
+    }
 }

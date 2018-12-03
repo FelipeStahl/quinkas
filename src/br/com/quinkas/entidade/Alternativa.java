@@ -5,11 +5,13 @@
  */
 package br.com.quinkas.entidade;
 
+import java.io.Serializable;
+
 /**
  *
  * @author erick
  */
-public class Alternativa {
+public class Alternativa implements Serializable{
     private Integer id;
     private String resposta;
     private Boolean isTrue;

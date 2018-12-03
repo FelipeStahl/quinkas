@@ -5,6 +5,7 @@
  */
 package br.com.quinkas.entidade;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
  *
  * @author erick
  */
-public class Questionario {
+public class Questionario implements Serializable{
     private Integer id;
     private Professor professor;
     private String nome;

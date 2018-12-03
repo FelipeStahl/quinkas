@@ -5,6 +5,7 @@
  */
 package br.com.quinkas.entidade;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  *
  * @author erick
  */
-public class Professor {
+public class Professor implements Serializable{
     private Integer id;
     private String senha;
     private String nome;

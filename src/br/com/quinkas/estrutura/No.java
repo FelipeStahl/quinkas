@@ -5,11 +5,13 @@
  */
 package br.com.quinkas.estrutura;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Felipe-Sistema
  */
-public class No {
+public class No implements Serializable{
 
     private Object elemento;
     private No proximo;

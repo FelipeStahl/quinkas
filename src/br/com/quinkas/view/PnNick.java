@@ -5,6 +5,7 @@
  */
 package br.com.quinkas.view;
 
+import br.com.quinkas.conexao.EnviaSocket;
 import br.com.quinkas.entidade.IpAndPorta;
 import br.com.quinkas.entidade.Participante;
 import br.com.quinkas.manter.ManterIp;
@@ -225,11 +226,8 @@ public class PnNick extends javax.swing.JPanel {
                 ipParticipante.setIp(retornarIp());
                 ipParticipante.setPorta("157");
                 participante.setIpAndPorta(ipParticipante);
-                cliente = new Socket(ManterIp.getIpServidor().getIp(), Integer.parseInt(ManterIp.getIpServidor().getPorta()));
-                ObjectOutputStream oos = new ObjectOutputStream(cliente.getOutputStream());
-                oos.writeObject(participante);
-                cliente.close();
-                oos.close();
+                EnviaSocket.enviarObjeto(participante);
+                
                 PnEspera pn1 = new PnEspera();
                 ManterPrincipal.getPrincipal().setContentPane(pn1);
                 ManterPrincipal.getPrincipal().setVisible(true);

@@ -5,6 +5,7 @@
  */
 package br.com.quinkas.view;
 
+import br.com.quinkas.conexao.EnviaSocket;
 import br.com.quinkas.conexao.ISocket;
 import br.com.quinkas.conexao.Server;
 import br.com.quinkas.entidade.IpAndPorta;
@@ -14,6 +15,7 @@ import br.com.quinkas.entidade.Questionario;
 import br.com.quinkas.estrutura.ListaEncadeada;
 import br.com.quinkas.manter.ManterIp;
 import br.com.quinkas.manter.ManterLista;
+import br.com.quinkas.manter.ManterParticipante;
 import br.com.quinkas.manter.ManterPrincipal;
 import br.com.quinkas.util.CorPainel;
 import java.net.InetAddress;
@@ -104,6 +106,7 @@ public class PnEsperaProfessor extends javax.swing.JPanel implements ISocket {
         filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(20, 0), new java.awt.Dimension(20, 0), new java.awt.Dimension(20, 32767));
         filler5 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 20), new java.awt.Dimension(0, 20), new java.awt.Dimension(32767, 20));
 
+        setBackground(new java.awt.Color(0, 0, 102));
         setMinimumSize(new java.awt.Dimension(800, 600));
         setPreferredSize(new java.awt.Dimension(800, 600));
         setLayout(new java.awt.GridBagLayout());
@@ -258,6 +261,8 @@ public class PnEsperaProfessor extends javax.swing.JPanel implements ISocket {
                 System.out.println((String)objeto);
             }else if(objeto instanceof Participante) {
                 addJogador(((Participante)objeto).getNick());
+                ManterParticipante.addParticipante((Participante)objeto);
+                EnviaSocket.enviarObjeto(ManterLista.getLista(), (Participante)objeto);
             }
             
         } catch (Exception e) {

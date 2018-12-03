@@ -5,11 +5,13 @@
  */
 package br.com.quinkas.estrutura;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Felipe-Sistema
  */
-public class ListaEncadeada {
+public class ListaEncadeada implements Serializable{
   
     private No inicio;
     private Integer tamanho;
