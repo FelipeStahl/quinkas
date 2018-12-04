@@ -32,14 +32,14 @@ public class PnQuestaoProfessor extends javax.swing.JPanel implements ISocket {
     private Alternativa altC;
     private Alternativa altD;
     private Integer tempo;
-
+    private Integer numResposta;
     /**
      * Creates new form PnQuestaoProfessor
      */
     public PnQuestaoProfessor() {
         initComponents();
         ManterServer.setPainelAtual(this);
-
+        numResposta = 0;
         Random r = new Random();
         Integer num = r.nextInt(4);
         if (num.equals(0)) {
@@ -614,6 +614,10 @@ public class PnQuestaoProfessor extends javax.swing.JPanel implements ISocket {
     public void recebeObjeto(Object objeto) {
         if (objeto instanceof Mensagem) {
             calcularPontos((Mensagem) objeto);
+            numResposta++;
+        }
+        if(numResposta == ManterParticipante.getNumParticipante()){
+            respotaCorreta();
         }
     }
 

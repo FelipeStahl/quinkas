@@ -5,6 +5,8 @@
  */
 package br.com.quinkas.view;
 
+import br.com.quinkas.entidade.Participante;
+import br.com.quinkas.manter.ManterParticipante;
 import br.com.quinkas.util.CorPainel;
 
 /**
@@ -21,7 +23,7 @@ public class PnJogoFinal extends javax.swing.JPanel {
         CorPainel altera = new CorPainel(this);
         Thread t = new Thread(altera);
         t.start();
-        preencherJogadores("Nome 1", "Nome 2", "Nome 3");
+        preencherJogadores();
     }
     
     private void preencherJogadores(String primeiro, String segundo, String terceiro){
@@ -29,7 +31,19 @@ public class PnJogoFinal extends javax.swing.JPanel {
         lbJogador2.setText(segundo);
         lbJogador3.setText(terceiro);
     }
-
+    private void preencherJogadores() {
+        Integer i = 0;
+        for (Participante listParticipante : ManterParticipante.listParticipantes()) {
+            i++;
+            if (i.equals(1)) {
+                lbJogador1.setText(ManterParticipante.listParticipantes().get(0).getNick());
+            }else if (i.equals(2)) {
+                lbJogador2.setText(ManterParticipante.listParticipantes().get(1).getNick());
+            }else if (i.equals(3)) {
+                lbJogador3.setText(ManterParticipante.listParticipantes().get(2).getNick());
+            }
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

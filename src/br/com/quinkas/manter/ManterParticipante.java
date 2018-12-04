@@ -22,7 +22,20 @@ import java.util.Set;
 public class ManterParticipante {
     private static Map<String, Participante> participantes;
     private static Participante participanteAtual;
+    private static Integer numParticipante;
 
+    public static Integer getNumParticipante() {
+        if(numParticipante == null){
+            numParticipante = 0;
+        }
+        return numParticipante;
+    }
+
+    public static void setNumParticipante(Integer numParticipante) {
+        ManterParticipante.numParticipante = numParticipante;
+    }
+    
+    
     public static Map<String, Participante> getParticipantes() {
         return participantes;
     }
@@ -43,6 +56,10 @@ public class ManterParticipante {
         if(participantes == null){
             participantes = new HashMap();
         }
+        if(numParticipante == null){
+            numParticipante = 0;
+        }
+        numParticipante++;
         participantes.put(participante.getIpAndPorta().getIp(), participante);
     }
     

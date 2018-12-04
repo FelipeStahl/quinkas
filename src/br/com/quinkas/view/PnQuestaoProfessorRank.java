@@ -27,7 +27,7 @@ public class PnQuestaoProfessorRank extends javax.swing.JPanel {
         CorPainel altera = new CorPainel(this);
         Thread t = new Thread(altera);
         t.start();
-        preencherJogadores("Nome 1", "Nome 2", "Nome 3", "Nome 4");
+        preencherJogadores();
     }
 
     /**
@@ -178,7 +178,7 @@ public class PnQuestaoProfessorRank extends javax.swing.JPanel {
         }
     }
 
-    private void preencherJogadores(String primeiro, String segundo, String terceiro, String quarto) {
+    private void preencherJogadores() {
         Integer i = 0;
         for (Participante listParticipante : ManterParticipante.listParticipantes()) {
             i++;
