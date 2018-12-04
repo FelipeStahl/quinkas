@@ -69,7 +69,7 @@ public class ManterParticipante {
             public int compare(Entry<String, Participante> e1, Entry<String, Participante> e2) {
                 Integer v1 = e1.getValue().getPontos();
                 Integer v2 = e2.getValue().getPontos();
-                return v1.compareTo(v2);
+                return v2.compareTo(v1);
             }
         };
         Set<Entry<String, Participante>> entries = participantes.entrySet();
