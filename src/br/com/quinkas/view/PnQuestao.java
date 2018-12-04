@@ -29,6 +29,7 @@ public class PnQuestao extends javax.swing.JPanel {
     private Date tempoInicial;
     private Integer tempo;
     private Boolean respondeu;
+
     public PnQuestao() {
         initComponents();
         respondeu = false;
@@ -538,7 +539,9 @@ public class PnQuestao extends javax.swing.JPanel {
                         Logger.getLogger(PnQuestaoInicial.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
-                painelEspera(null);
+                if (!respondeu) {
+                    painelEspera(null);
+                }
             }
         }.start();
     }
