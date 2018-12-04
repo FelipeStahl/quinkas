@@ -10,6 +10,7 @@ import br.com.quinkas.conexao.Server;
 import br.com.quinkas.entidade.Alternativa;
 import br.com.quinkas.entidade.Participante;
 import br.com.quinkas.manter.ManterPrincipal;
+import br.com.quinkas.manter.ManterServer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,10 +27,10 @@ public class PnQuestaoResultado extends javax.swing.JPanel implements ISocket{
         initComponents();
         preencherBG(resposta);
         lbPosicao.setText("Sua posição é " + participante.getPosicao().toString() + "° lugar.");
-
-        Server serv = new Server(this);
-        Thread tServ = new Thread(serv);
-        tServ.start();
+        ManterServer.iniciarServer();
+//        Server serv = new Server(this);
+//        Thread tServ = new Thread(serv);
+//        tServ.start();
     }
 
     private void iniciarJogo() {

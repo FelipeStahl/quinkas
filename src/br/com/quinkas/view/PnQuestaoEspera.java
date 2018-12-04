@@ -11,6 +11,7 @@ import br.com.quinkas.entidade.Alternativa;
 import br.com.quinkas.entidade.Participante;
 import br.com.quinkas.manter.ManterParticipante;
 import br.com.quinkas.manter.ManterPrincipal;
+import br.com.quinkas.manter.ManterServer;
 import br.com.quinkas.util.CorPainel;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,9 +38,10 @@ public class PnQuestaoEspera extends javax.swing.JPanel implements ISocket {
         Thread t = new Thread(altera);
         t.start();
 
-        Server serv = new Server(this);
-        Thread tServ = new Thread(serv);
-        tServ.start();
+        ManterServer.iniciarServer();
+//        Server serv = new Server(this);
+//        Thread tServ = new Thread(serv);
+//        tServ.start();
 
     }
 

@@ -17,6 +17,7 @@ import br.com.quinkas.manter.ManterIp;
 import br.com.quinkas.manter.ManterLista;
 import br.com.quinkas.manter.ManterParticipante;
 import br.com.quinkas.manter.ManterPrincipal;
+import br.com.quinkas.manter.ManterServer;
 import br.com.quinkas.util.CorPainel;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -55,12 +56,8 @@ public class PnEsperaProfessor extends javax.swing.JPanel implements ISocket {
             ManterIp.setIpServidor(ipServidor);
             lbPin.setText(ManterIp.converterPin(ipServidor));
         }
-        Server serv = new Server(this);
-        Thread tServ = new Thread(serv);
-        tServ.start();
-
-        //enviar lista por socket para o usuario que conectar e fica recebendo jogadores.
-        //addJogador("Jogador exemplo");
+        ManterServer.setPainelAtual(this);
+        ManterServer.iniciarServer();
     }
 
     private String retornarIp() {
@@ -134,7 +131,6 @@ public class PnEsperaProfessor extends javax.swing.JPanel implements ISocket {
 
         lbJogadores.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lbJogadores.setForeground(new java.awt.Color(255, 255, 255));
-        lbJogadores.setText("Joradores: 02");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;

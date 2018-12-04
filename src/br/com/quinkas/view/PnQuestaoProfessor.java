@@ -14,6 +14,7 @@ import br.com.quinkas.entidade.Participante;
 import br.com.quinkas.manter.ManterParticipante;
 import br.com.quinkas.manter.ManterPergunta;
 import br.com.quinkas.manter.ManterPrincipal;
+import br.com.quinkas.manter.ManterServer;
 import java.util.Date;
 import java.util.Map;
 import java.util.Random;
@@ -37,7 +38,7 @@ public class PnQuestaoProfessor extends javax.swing.JPanel implements ISocket {
      */
     public PnQuestaoProfessor() {
         initComponents();
-        Server serv = new Server(this);
+        ManterServer.iniciarServer();
         
         Random r = new Random();
         Integer num = r.nextInt(4);

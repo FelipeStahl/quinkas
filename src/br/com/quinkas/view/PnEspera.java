@@ -10,6 +10,7 @@ import br.com.quinkas.conexao.Server;
 import br.com.quinkas.estrutura.ListaEncadeada;
 import br.com.quinkas.manter.ManterLista;
 import br.com.quinkas.manter.ManterPrincipal;
+import br.com.quinkas.manter.ManterServer;
 import br.com.quinkas.util.CorPainel;
 
 /**
@@ -30,9 +31,9 @@ public class PnEspera extends javax.swing.JPanel implements ISocket {
         Boolean iniciar = false;
         addJogador("Nome Jogador"); //exemplo
         
-        serv = new Server(this);
-        Thread tServ = new Thread(serv);
-        tServ.start();
+        
+        ManterServer.setPainelAtual(this);
+        ManterServer.iniciarServer();
 //        while(!iniciar){
 //            //fazer uma thread esperando a iniciação do jogo e recebendo os nicks dos jogadores.
 //        }
