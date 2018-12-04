@@ -26,7 +26,7 @@ public class PnQuestaoResultado extends javax.swing.JPanel implements ISocket{
     public PnQuestaoResultado(Boolean resposta, Participante participante) {
         initComponents();
         preencherBG(resposta);
-//        lbPosicao.setText("Sua posição é " + participante.getPosicao().toString() + "° lugar.");
+        lbPosicao.setText("Sua posição é " + participante.getPosicao().toString() + "° lugar.");
         ManterServer.setPainelAtual(this);
 //        Server serv = new Server(this);
 //        Thread tServ = new Thread(serv);

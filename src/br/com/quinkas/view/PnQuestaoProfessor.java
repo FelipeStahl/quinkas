@@ -636,7 +636,7 @@ public class PnQuestaoProfessor extends javax.swing.JPanel implements ISocket {
         //calcular os pontos
         //setar o valor no participante
         ManterParticipante.ordenarParticipantes();
-        participante.setPosicao(ManterParticipante.listParticipantes().indexOf(participante));
+        participante.setPosicao(ManterParticipante.listParticipantes().indexOf(participante) + 1);
         System.out.println(participante.getPontos() + " / " + participante.getNick());
     }
 }

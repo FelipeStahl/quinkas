@@ -179,10 +179,10 @@ public class PnQuestaoProfessorRank extends javax.swing.JPanel {
     }
 
     private void preencherJogadores(String primeiro, String segundo, String terceiro, String quarto) {
-        lbJogador1.setText(primeiro);
-        lbJogador2.setText(segundo);
-        lbJogador3.setText(terceiro);
-        lbJogador4.setText(quarto);
+        lbJogador1.setText(ManterParticipante.listParticipantes().get(0).getNick());
+        lbJogador2.setText(ManterParticipante.listParticipantes().get(1).getNick());
+        lbJogador3.setText(ManterParticipante.listParticipantes().get(2).getNick());
+        lbJogador4.setText(ManterParticipante.listParticipantes().get(3).getNick());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
