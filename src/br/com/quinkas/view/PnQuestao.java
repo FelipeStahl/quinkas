@@ -479,7 +479,7 @@ public class PnQuestao extends javax.swing.JPanel {
 
     private void pnBMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnBMousePressed
         Mensagem mensagem = new Mensagem();
-        mensagem.setAlternativa(altA);
+        mensagem.setAlternativa(altB);
         mensagem.setTempo(calculaTempo());
         mensagem.setParticipante(ManterParticipante.getParticipanteAtual());
         EnviaSocket.enviarObjeto(mensagem);
@@ -488,7 +488,7 @@ public class PnQuestao extends javax.swing.JPanel {
 
     private void pnCMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnCMousePressed
         Mensagem mensagem = new Mensagem();
-        mensagem.setAlternativa(altA);
+        mensagem.setAlternativa(altC);
         mensagem.setTempo(calculaTempo());
         mensagem.setParticipante(ManterParticipante.getParticipanteAtual());
         EnviaSocket.enviarObjeto(mensagem);
@@ -497,7 +497,7 @@ public class PnQuestao extends javax.swing.JPanel {
 
     private void pnDMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnDMousePressed
         Mensagem mensagem = new Mensagem();
-        mensagem.setAlternativa(altA);
+        mensagem.setAlternativa(altD);
         mensagem.setTempo(calculaTempo());
         mensagem.setParticipante(ManterParticipante.getParticipanteAtual());
         EnviaSocket.enviarObjeto(mensagem);
