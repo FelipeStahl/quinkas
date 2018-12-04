@@ -273,6 +273,7 @@ public class PnEsperaProfessor extends javax.swing.JPanel implements ISocket {
             if (objeto instanceof String) {
                 System.out.println((String)objeto);
             }else if(objeto instanceof Participante) {
+                EnviaSocket.enviarObjeto(ManterParticipante.getParticipantes(), (Participante)objeto);
                 ManterParticipante.addParticipante((Participante)objeto);
                 EnviaSocket.enviarObjeto(ManterLista.getLista(), (Participante)objeto);
                 addJogador(((Participante)objeto).getNick());

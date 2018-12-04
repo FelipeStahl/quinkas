@@ -7,11 +7,13 @@ package br.com.quinkas.view;
 
 import br.com.quinkas.conexao.ISocket;
 import br.com.quinkas.conexao.Server;
+import br.com.quinkas.entidade.Participante;
 import br.com.quinkas.estrutura.ListaEncadeada;
 import br.com.quinkas.manter.ManterLista;
 import br.com.quinkas.manter.ManterPrincipal;
 import br.com.quinkas.manter.ManterServer;
 import br.com.quinkas.util.CorPainel;
+import java.util.List;
 
 /**
  *
@@ -169,6 +171,11 @@ public class PnEspera extends javax.swing.JPanel implements ISocket {
             }
         }else if(objeto instanceof String){
             addJogador((String)objeto);
+        }else if(objeto instanceof List){
+            List<Participante> participantes = (List)objeto;
+            for (Participante participante : participantes) {
+                addJogador(participante.getNick());
+            }
         }
     }
 }
