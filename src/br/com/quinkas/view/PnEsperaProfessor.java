@@ -59,6 +59,13 @@ public class PnEsperaProfessor extends javax.swing.JPanel implements ISocket {
         ManterServer.setPainelAtual(this);
         ManterServer.iniciarServer();
     }
+    
+        private void enviarNick(String nome) {
+        for (Map.Entry<String, Participante> entry : ManterParticipante.getParticipantes().entrySet()) {
+            Participante participante = entry.getValue();
+            EnviaSocket.enviarObjeto(nome, participante);
+        }
+    }
 
     private String retornarIp() {
         InetAddress ipAtual;
@@ -82,6 +89,7 @@ public class PnEsperaProfessor extends javax.swing.JPanel implements ISocket {
         jPanel2.add(espaceJog);
         numJogadores++;
         this.lbJogadores.setText("Jogadores: " + numJogadores.toString());
+        enviarNick(nome);
     }
 
     @SuppressWarnings("unchecked")
@@ -265,9 +273,9 @@ public class PnEsperaProfessor extends javax.swing.JPanel implements ISocket {
             if (objeto instanceof String) {
                 System.out.println((String)objeto);
             }else if(objeto instanceof Participante) {
-                addJogador(((Participante)objeto).getNick());
                 ManterParticipante.addParticipante((Participante)objeto);
                 EnviaSocket.enviarObjeto(ManterLista.getLista(), (Participante)objeto);
+                addJogador(((Participante)objeto).getNick());
             }
             
         } catch (Exception e) {

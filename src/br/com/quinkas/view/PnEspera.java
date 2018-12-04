@@ -167,6 +167,8 @@ public class PnEspera extends javax.swing.JPanel implements ISocket {
             if((Boolean)objeto){
                 iniciarJogo();
             }
+        }else if(objeto instanceof String){
+            addJogador((String)objeto);
         }
     }
 }

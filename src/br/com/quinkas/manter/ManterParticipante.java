@@ -64,22 +64,22 @@ public class ManterParticipante {
     }
     
     public static void ordenarParticipantes() {
-        Comparator<Entry<String, Participante>> valueComparator = new Comparator<Entry<String,Participante>>() {
-            @Override
-            public int compare(Entry<String, Participante> e1, Entry<String, Participante> e2) {
-                Integer v1 = e1.getValue().getPontos();
-                Integer v2 = e2.getValue().getPontos();
-                return v2.compareTo(v1);
-            }
-        };
-        Set<Entry<String, Participante>> entries = participantes.entrySet();
-        List<Entry<String, Participante>> listOfEntries = new ArrayList<Entry<String, Participante>>(entries);
-        Collections.sort(listOfEntries, valueComparator);
-        Map<String, Participante> mapOrdenado = new HashMap<String, Participante>();
-        for (Entry<String, Participante> entry : listOfEntries) {
-            mapOrdenado.put(entry.getKey(), entry.getValue());
-        }
-        participantes = mapOrdenado;
+//        Comparator<Entry<String, Participante>> valueComparator = new Comparator<Entry<String,Participante>>() {
+//            @Override
+//            public int compare(Entry<String, Participante> e1, Entry<String, Participante> e2) {
+//                Integer v1 = e1.getValue().getPontos();
+//                Integer v2 = e2.getValue().getPontos();
+//                return v2.compareTo(v1);
+//            }
+//        };
+//        Set<Entry<String, Participante>> entries = participantes.entrySet();
+//        List<Entry<String, Participante>> listOfEntries = new ArrayList<Entry<String, Participante>>(entries);
+//        Collections.sort(listOfEntries, valueComparator);
+//        Map<String, Participante> mapOrdenado = new HashMap<String, Participante>();
+//        for (Entry<String, Participante> entry : listOfEntries) {
+//            mapOrdenado.put(entry.getKey(), entry.getValue());
+//        }
+//        participantes = mapOrdenado;
     }
     
     public static List<Participante> listParticipantes() {
