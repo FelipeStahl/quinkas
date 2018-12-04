@@ -34,7 +34,7 @@ public class PnQuestao extends javax.swing.JPanel {
         if (num.equals(0)) {
             num = 1;
         }
-        lbPergunta.setText(ManterPergunta.getPerguntaAtual().getPergunta());
+        lbPergunta.setText("<html>" + ManterPergunta.getPerguntaAtual().getPergunta() + "</html>");
         for (Alternativa alternativa : ManterPergunta.getPerguntaAtual().getAlternativas()) {
             switch (num) {
                 case 1:

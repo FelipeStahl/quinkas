@@ -552,8 +552,7 @@ public class PnQuestaoProfessor extends javax.swing.JPanel implements ISocket {
     private void enviarParticipante(){
         for (Map.Entry<String, Participante> entry : ManterParticipante.getParticipantes().entrySet()) {
             Participante participante = entry.getValue();
-            Boolean iniciar = true;
-            EnviaSocket.enviarObjeto(iniciar, participante);
+            EnviaSocket.enviarObjeto(participante, participante);
         }
     }
 
