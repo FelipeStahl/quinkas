@@ -29,9 +29,12 @@ public class PnQuestaoEspera extends javax.swing.JPanel implements ISocket {
     public PnQuestaoEspera(Alternativa resposta) {
         initComponents();
         tempo = 5;
+        
         if (resposta == null) {
+            System.out.println("Nulo");
             respostaJogador = false;
         } else {
+            System.out.println(resposta.getIsTrue() + resposta.getResposta());
             respostaJogador = resposta.getIsTrue();
         }
         CorPainel altera = new CorPainel(this);

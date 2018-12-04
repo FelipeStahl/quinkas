@@ -505,15 +505,9 @@ public class PnQuestao extends javax.swing.JPanel {
     }//GEN-LAST:event_pnDMousePressed
 
     private void painelEspera(Alternativa resposta) {
-        enviarPorSocket(resposta);
         PnQuestaoEspera pn1 = new PnQuestaoEspera(resposta);
         ManterPrincipal.getPrincipal().setContentPane(pn1);
         ManterPrincipal.getPrincipal().setVisible(true);
-    }
-
-    private void enviarPorSocket(Alternativa resposta) {
-        Date tempoFinal = new Date();
-        //tempoInicial - tempoFinal
     }
 
     private Long calculaTempo() {
