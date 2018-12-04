@@ -6,8 +6,14 @@
 package br.com.quinkas.manter;
 
 import br.com.quinkas.entidade.Participante;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 /**
  *
@@ -33,12 +39,29 @@ public class ManterParticipante {
         ManterParticipante.participanteAtual = participanteAtual;
     }
 
-
-   
     public static void addParticipante(Participante participante){
         if(participantes == null){
             participantes = new HashMap();
         }
         participantes.put(participante.getIpAndPorta().getIp(), participante);
+    }
+    
+    public static void ordenarParticipantes() {
+        Comparator<Entry<String, Participante>> valueComparator = new Comparator<Entry<String,Participante>>() {
+            @Override
+            public int compare(Entry<String, Participante> e1, Entry<String, Participante> e2) {
+                Integer v1 = e1.getValue().getPontos();
+                Integer v2 = e2.getValue().getPontos();
+                return v1.compareTo(v2);
+            }
+        };
+        Set<Entry<String, Participante>> entries = participantes.entrySet();
+        List<Entry<String, Participante>> listOfEntries = new ArrayList<Entry<String, Participante>>(entries);
+        Collections.sort(listOfEntries, valueComparator);
+        Map<String, Participante> mapOrdenado = new HashMap<String, Participante>();
+        for (Entry<String, Participante> entry : listOfEntries) {
+            mapOrdenado.put(entry.getKey(), entry.getValue());
+        }
+        participantes = mapOrdenado;
     }
 }
