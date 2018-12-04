@@ -83,6 +83,8 @@ public class ManterParticipante {
     }
     
     public static List<Participante> listParticipantes() {
-        return new ArrayList<Participante>(participantes.values());
+        List<Participante> participantess = new  ArrayList<Participante>(participantes.values());
+        Collections.sort(participantess);
+        return participantess;
     }
 }
