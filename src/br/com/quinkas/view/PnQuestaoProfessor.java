@@ -39,7 +39,7 @@ public class PnQuestaoProfessor extends javax.swing.JPanel implements ISocket {
     public PnQuestaoProfessor() {
         initComponents();
         ManterServer.setPainelAtual(this);
-        
+
         Random r = new Random();
         Integer num = r.nextInt(4);
         if (num.equals(0)) {
@@ -549,7 +549,7 @@ public class PnQuestaoProfessor extends javax.swing.JPanel implements ISocket {
         ManterPrincipal.getPrincipal().setVisible(true);
     }//GEN-LAST:event_btProximoActionPerformed
 
-    private void enviarParticipante(){
+    private void enviarParticipante() {
         for (Map.Entry<String, Participante> entry : ManterParticipante.getParticipantes().entrySet()) {
             Participante participante = entry.getValue();
             EnviaSocket.enviarObjeto(participante, participante);
@@ -612,16 +612,32 @@ public class PnQuestaoProfessor extends javax.swing.JPanel implements ISocket {
 
     @Override
     public void recebeObjeto(Object objeto) {
-        if(objeto instanceof Mensagem){
-            calcularPontos((Mensagem)objeto);
+        if (objeto instanceof Mensagem) {
+            calcularPontos((Mensagem) objeto);
         }
     }
-    
-    private void calcularPontos(Mensagem mensagem){     
+
+    private void calcularPontos(Mensagem mensagem) {
         Participante participante = ManterParticipante.getParticipantes().get(mensagem.getParticipante().getIpAndPorta().getIp());
+        if (mensagem.getAlternativa().getIsTrue()) {
+            Integer pontuacaoBasica = 200;
+            pontuacaoBasica += mensagem.getTempo().intValue() / 300;
+            if (participante.getAcerto().equals(3)) {
+                pontuacaoBasica += 300;
+                participante.setAcerto(0);
+            } else {
+                participante.setAcerto(participante.getAcerto() + 1);
+            }
+            participante.setPontos(participante.getPontos() + pontuacaoBasica);
+        } else {
+            participante.setAcerto(0);
+            participante.setPontos(participante.getPontos() - 20);
+        }
         //calcular os pontos
         //setar o valor no participante
-        participante.setPosicao(24);
-        EnviaSocket.enviarObjeto(participante, participante);        
+        ManterParticipante.ordenarParticipantes();
+        participante.setPosicao(ManterParticipante.listParticipantes().indexOf(participante));
+        EnviaSocket.enviarObjeto(participante, participante);
+        System.out.println(participante.getPontos() + " / " + participante.getNick());
     }
 }

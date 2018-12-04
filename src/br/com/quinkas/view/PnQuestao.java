@@ -7,6 +7,8 @@ package br.com.quinkas.view;
 
 import br.com.quinkas.conexao.EnviaSocket;
 import br.com.quinkas.entidade.Alternativa;
+import br.com.quinkas.entidade.Mensagem;
+import br.com.quinkas.manter.ManterParticipante;
 import br.com.quinkas.manter.ManterPergunta;
 import br.com.quinkas.manter.ManterPrincipal;
 import java.util.Date;
@@ -467,22 +469,38 @@ public class PnQuestao extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void pnAMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnAMousePressed
-        EnviaSocket.enviarObjeto(altA);
+        Mensagem mensagem = new Mensagem();
+        mensagem.setAlternativa(altA);
+        mensagem.setTempo(calculaTempo());
+        mensagem.setParticipante(ManterParticipante.getParticipanteAtual());
+        EnviaSocket.enviarObjeto(mensagem);
         painelEspera(altA);
     }//GEN-LAST:event_pnAMousePressed
 
     private void pnBMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnBMousePressed
-        EnviaSocket.enviarObjeto(altB);
+        Mensagem mensagem = new Mensagem();
+        mensagem.setAlternativa(altA);
+        mensagem.setTempo(calculaTempo());
+        mensagem.setParticipante(ManterParticipante.getParticipanteAtual());
+        EnviaSocket.enviarObjeto(mensagem);
         painelEspera(altB);
     }//GEN-LAST:event_pnBMousePressed
 
     private void pnCMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnCMousePressed
-        EnviaSocket.enviarObjeto(altC);
+        Mensagem mensagem = new Mensagem();
+        mensagem.setAlternativa(altA);
+        mensagem.setTempo(calculaTempo());
+        mensagem.setParticipante(ManterParticipante.getParticipanteAtual());
+        EnviaSocket.enviarObjeto(mensagem);
         painelEspera(altC);
     }//GEN-LAST:event_pnCMousePressed
 
     private void pnDMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnDMousePressed
-        EnviaSocket.enviarObjeto(altD);
+        Mensagem mensagem = new Mensagem();
+        mensagem.setAlternativa(altA);
+        mensagem.setTempo(calculaTempo());
+        mensagem.setParticipante(ManterParticipante.getParticipanteAtual());
+        EnviaSocket.enviarObjeto(mensagem);
         painelEspera(altD);
     }//GEN-LAST:event_pnDMousePressed
 
@@ -498,13 +516,13 @@ public class PnQuestao extends javax.swing.JPanel {
         //tempoInicial - tempoFinal
     }
 
-    private Long calcuraTempo(){
+    private Long calculaTempo() {
         Long tempoI = tempoInicial.getTime();
         Date tempoFinal = new Date();
         Long tempoF = tempoFinal.getTime();
         return tempoF - tempoI;
     }
-    
+
     private void contagem() {
         new Thread() {
 

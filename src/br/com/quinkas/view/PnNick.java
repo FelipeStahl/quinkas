@@ -9,6 +9,7 @@ import br.com.quinkas.conexao.EnviaSocket;
 import br.com.quinkas.entidade.IpAndPorta;
 import br.com.quinkas.entidade.Participante;
 import br.com.quinkas.manter.ManterIp;
+import br.com.quinkas.manter.ManterParticipante;
 import br.com.quinkas.manter.ManterPrincipal;
 import br.com.quinkas.util.CorPainel;
 import java.io.ObjectOutputStream;
@@ -228,7 +229,7 @@ public class PnNick extends javax.swing.JPanel {
                 ipParticipante.setPorta("157");
                 participante.setIpAndPorta(ipParticipante);
                 EnviaSocket.enviarObjeto(participante);
-                
+                ManterParticipante.setParticipanteAtual(participante);
                 PnEspera pn1 = new PnEspera();
                 ManterPrincipal.getPrincipal().setContentPane(pn1);
                 ManterPrincipal.getPrincipal().setVisible(true);
