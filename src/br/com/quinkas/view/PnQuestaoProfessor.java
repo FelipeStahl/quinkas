@@ -546,10 +546,6 @@ public class PnQuestaoProfessor extends javax.swing.JPanel implements ISocket {
 
     private void btProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btProximoActionPerformed
         enviarParticipante();
-        for (Participante listParticipante : ManterParticipante.listParticipantes()) {
-            System.out.println(listParticipante.getPontos() + " / " + listParticipante.getNick());
-
-        }
         PnQuestaoProfessorRank pn1 = new PnQuestaoProfessorRank();
         ManterPrincipal.getPrincipal().setContentPane(pn1);
         ManterPrincipal.getPrincipal().setVisible(true);
@@ -647,5 +643,9 @@ public class PnQuestaoProfessor extends javax.swing.JPanel implements ISocket {
         //setar o valor no participante
         ManterParticipante.ordenarParticipantes();
         participante.setPosicao(ManterParticipante.listParticipantes().indexOf(participante) + 1);
+        for (Participante listParticipante : ManterParticipante.listParticipantes()) {
+            System.out.println(listParticipante.getPontos() + " / " + listParticipante.getNick());
+
+        }
     }
 }
