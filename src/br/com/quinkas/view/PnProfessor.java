@@ -80,6 +80,7 @@ public class PnProfessor extends javax.swing.JPanel {
         filler9 = new javax.swing.Box.Filler(new java.awt.Dimension(20, 0), new java.awt.Dimension(20, 0), new java.awt.Dimension(20, 32767));
         filler8 = new javax.swing.Box.Filler(new java.awt.Dimension(38, 0), new java.awt.Dimension(38, 0), new java.awt.Dimension(10, 32767));
 
+        setBackground(new java.awt.Color(0, 0, 102));
         setMinimumSize(new java.awt.Dimension(800, 600));
         setLayout(new java.awt.GridBagLayout());
 

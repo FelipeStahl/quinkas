@@ -69,6 +69,7 @@ public class PnProfessorQuestionario extends javax.swing.JPanel {
         txQuestionario = new javax.swing.JTextField();
         filler8 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
 
+        setBackground(new java.awt.Color(0, 0, 102));
         setMinimumSize(new java.awt.Dimension(800, 600));
         setLayout(new java.awt.GridBagLayout());
 
@@ -99,7 +100,7 @@ public class PnProfessorQuestionario extends javax.swing.JPanel {
 
         btInicarJogo.setBackground(new java.awt.Color(4, 12, 167));
         btInicarJogo.setForeground(new java.awt.Color(255, 255, 255));
-        btInicarJogo.setText("Iniciar Jogo");
+        btInicarJogo.setText("Iniciar PIN");
         btInicarJogo.setBorder(null);
         btInicarJogo.setMaximumSize(new java.awt.Dimension(200, 60));
         btInicarJogo.setMinimumSize(new java.awt.Dimension(200, 60));
@@ -140,7 +141,6 @@ public class PnProfessorQuestionario extends javax.swing.JPanel {
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Data de Criação: 11/08/1989");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 5;

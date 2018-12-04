@@ -64,6 +64,7 @@ public class PnPin extends javax.swing.JPanel {
         pnErro = new javax.swing.JPanel();
         lbMensagemErro = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(0, 0, 102));
         setMinimumSize(new java.awt.Dimension(800, 600));
         setLayout(new java.awt.GridBagLayout());
 
