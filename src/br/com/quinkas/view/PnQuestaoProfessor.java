@@ -38,7 +38,7 @@ public class PnQuestaoProfessor extends javax.swing.JPanel implements ISocket {
      */
     public PnQuestaoProfessor() {
         initComponents();
-        ManterServer.iniciarServer();
+        ManterServer.setPainelAtual(this);
         
         Random r = new Random();
         Integer num = r.nextInt(4);

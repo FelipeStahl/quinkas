@@ -38,7 +38,7 @@ public class PnQuestaoEspera extends javax.swing.JPanel implements ISocket {
         Thread t = new Thread(altera);
         t.start();
 
-        ManterServer.iniciarServer();
+        ManterServer.setPainelAtual(this);
 //        Server serv = new Server(this);
 //        Thread tServ = new Thread(serv);
 //        tServ.start();
