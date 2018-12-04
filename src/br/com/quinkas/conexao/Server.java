@@ -34,12 +34,19 @@ public class Server extends Thread {
     public void dispose() {
         try {
             servidor.close();
-            cliente.close();
-            ois.close();
         } catch (IOException ex) {
             Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        try {
+            cliente.close();
+        } catch (Exception e) {
+            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, e);
+        }
+        try {
+            ois.close();
+        } catch (Exception e) {
+            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, e);
+        }
     }
 
     @Override
