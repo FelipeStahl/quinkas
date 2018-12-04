@@ -22,8 +22,10 @@ public class Participante implements Serializable, Comparable {
 
     public Participante() {
         pontos = 0;
+        acerto = 0;
+        posicao = 0;
     }
-    
+
     public Integer getAcerto() {
         return acerto;
     }
@@ -39,7 +41,6 @@ public class Participante implements Serializable, Comparable {
     public void setPosicao(Integer posicao) {
         this.posicao = posicao;
     }
-    
 
     public IpAndPorta getIpAndPorta() {
         return ipAndPorta;
@@ -64,7 +65,7 @@ public class Participante implements Serializable, Comparable {
     public void setNick(String nick) {
         this.nick = nick;
     }
-    
+
     @Override
     public int compareTo(Object o) {
         return this.pontos.compareTo(((Participante) o).getPontos());
