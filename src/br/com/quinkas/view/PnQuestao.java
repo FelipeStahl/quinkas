@@ -28,9 +28,10 @@ public class PnQuestao extends javax.swing.JPanel {
     private Alternativa altD;
     private Date tempoInicial;
     private Integer tempo;
-
+    private Boolean respondeu;
     public PnQuestao() {
         initComponents();
+        respondeu = false;
         Random r = new Random();
         Integer num = r.nextInt(4);
         if (num.equals(0)) {
@@ -474,6 +475,7 @@ public class PnQuestao extends javax.swing.JPanel {
         mensagem.setTempo(calculaTempo());
         mensagem.setParticipante(ManterParticipante.getParticipanteAtual());
         EnviaSocket.enviarObjeto(mensagem);
+        respondeu = true;
         painelEspera(altA);
     }//GEN-LAST:event_pnAMousePressed
 
@@ -483,6 +485,7 @@ public class PnQuestao extends javax.swing.JPanel {
         mensagem.setTempo(calculaTempo());
         mensagem.setParticipante(ManterParticipante.getParticipanteAtual());
         EnviaSocket.enviarObjeto(mensagem);
+        respondeu = true;
         painelEspera(altB);
     }//GEN-LAST:event_pnBMousePressed
 
@@ -492,6 +495,7 @@ public class PnQuestao extends javax.swing.JPanel {
         mensagem.setTempo(calculaTempo());
         mensagem.setParticipante(ManterParticipante.getParticipanteAtual());
         EnviaSocket.enviarObjeto(mensagem);
+        respondeu = true;
         painelEspera(altC);
     }//GEN-LAST:event_pnCMousePressed
 
@@ -501,6 +505,7 @@ public class PnQuestao extends javax.swing.JPanel {
         mensagem.setTempo(calculaTempo());
         mensagem.setParticipante(ManterParticipante.getParticipanteAtual());
         EnviaSocket.enviarObjeto(mensagem);
+        respondeu = true;
         painelEspera(altD);
     }//GEN-LAST:event_pnDMousePressed
 
