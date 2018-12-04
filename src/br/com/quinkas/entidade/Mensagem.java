@@ -5,11 +5,13 @@
  */
 package br.com.quinkas.entidade;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Alunos
  */
-public class Mensagem {
+public class Mensagem implements Serializable{
     private Participante participante;
     private Alternativa alternativa;
     private Long tempo;
