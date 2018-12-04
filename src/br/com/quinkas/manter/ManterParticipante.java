@@ -64,4 +64,8 @@ public class ManterParticipante {
         }
         participantes = mapOrdenado;
     }
+    
+    public static List<Participante> listParticipantes() {
+        return new ArrayList<Participante>(participantes.values());
+    }
 }
