@@ -17,6 +17,7 @@ import br.com.quinkas.manter.ManterPrincipal;
 import br.com.quinkas.manter.ManterServer;
 import java.util.Date;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,6 +34,7 @@ public class PnQuestaoProfessor extends javax.swing.JPanel implements ISocket {
     private Alternativa altD;
     private Integer tempo;
     private Integer numResposta;
+
     /**
      * Creates new form PnQuestaoProfessor
      */
@@ -544,6 +546,10 @@ public class PnQuestaoProfessor extends javax.swing.JPanel implements ISocket {
 
     private void btProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btProximoActionPerformed
         enviarParticipante();
+        for (Participante listParticipante : ManterParticipante.listParticipantes()) {
+            System.out.println(listParticipante.getPontos() + " / " + listParticipante.getNick());
+
+        }
         PnQuestaoProfessorRank pn1 = new PnQuestaoProfessorRank();
         ManterPrincipal.getPrincipal().setContentPane(pn1);
         ManterPrincipal.getPrincipal().setVisible(true);
@@ -616,7 +622,7 @@ public class PnQuestaoProfessor extends javax.swing.JPanel implements ISocket {
             calcularPontos((Mensagem) objeto);
             numResposta++;
         }
-        if(numResposta == ManterParticipante.getNumParticipante()){
+        if (Objects.equals(numResposta, ManterParticipante.getNumParticipante())) {
             respotaCorreta();
         }
     }
@@ -641,6 +647,5 @@ public class PnQuestaoProfessor extends javax.swing.JPanel implements ISocket {
         //setar o valor no participante
         ManterParticipante.ordenarParticipantes();
         participante.setPosicao(ManterParticipante.listParticipantes().indexOf(participante) + 1);
-        System.out.println(participante.getPontos() + " / " + participante.getNick());
     }
 }
