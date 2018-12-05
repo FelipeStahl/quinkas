@@ -25,20 +25,14 @@ public class PnJogoFinal extends javax.swing.JPanel {
         t.start();
         preencherJogadores();
     }
-    
+
     private void preencherJogadores() {
         Integer i = 0;
-        for (Participante listParticipante : ManterParticipante.listParticipantes()) {
-            i++;
-            if (i.equals(1)) {
-                lbJogador1.setText(ManterParticipante.getRanking().getPrimeiro());
-            }else if (i.equals(2)) {
-                lbJogador2.setText(ManterParticipante.getRanking().getSegundo());
-            }else if (i.equals(3)) {
-                lbJogador3.setText(ManterParticipante.getRanking().getTerceiro());
-            }
-        }
+        lbJogador1.setText(ManterParticipante.getRanking().getPrimeiro());
+        lbJogador2.setText(ManterParticipante.getRanking().getSegundo());
+        lbJogador3.setText(ManterParticipante.getRanking().getTerceiro());
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
