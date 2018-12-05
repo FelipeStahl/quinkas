@@ -184,6 +184,7 @@ public class PnQuestaoProfessorRank extends javax.swing.JPanel {
         for (Map.Entry<String, Participante> entry : ManterParticipante.getParticipantes().entrySet()) {
             Participante participante = entry.getValue();
             Boolean iniciar = true;
+            EnviaSocket.enviarObjeto(ManterParticipante.getParticipantes(), participante);
             EnviaSocket.enviarObjeto(iniciar, participante);
         }
     }

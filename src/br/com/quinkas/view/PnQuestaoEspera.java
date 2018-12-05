@@ -8,9 +8,11 @@ package br.com.quinkas.view;
 import br.com.quinkas.conexao.ISocket;
 import br.com.quinkas.entidade.Alternativa;
 import br.com.quinkas.entidade.Participante;
+import br.com.quinkas.manter.ManterParticipante;
 import br.com.quinkas.manter.ManterPrincipal;
 import br.com.quinkas.manter.ManterServer;
 import br.com.quinkas.util.CorPainel;
+import java.util.Map;
 
 /**
  *
@@ -130,6 +132,8 @@ public class PnQuestaoEspera extends javax.swing.JPanel implements ISocket {
             PnQuestaoResultado pn1 = new PnQuestaoResultado(respostaJogador, participante);
             ManterPrincipal.getPrincipal().setContentPane(pn1);
             ManterPrincipal.getPrincipal().setVisible(true);
+        }else if(objeto instanceof Map){
+            ManterParticipante.setParticipantes((Map<String, Participante>)objeto);
         }
     }
 }

@@ -9,6 +9,7 @@ import br.com.quinkas.conexao.ISocket;
 import br.com.quinkas.entidade.Participante;
 import br.com.quinkas.manter.ManterPrincipal;
 import br.com.quinkas.manter.ManterServer;
+import java.util.List;
 
 /**
  *
