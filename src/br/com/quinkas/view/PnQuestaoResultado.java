@@ -112,9 +112,7 @@ public class PnQuestaoResultado extends javax.swing.JPanel implements ISocket{
     @Override
     public void recebeObjeto(Object objeto) {
         if(objeto instanceof Ranking){
-            if((Boolean)objeto){
-                iniciarJogo();
-            }
+            ManterParticipante.setRanking((Ranking)objeto);
         }
     }
 }
