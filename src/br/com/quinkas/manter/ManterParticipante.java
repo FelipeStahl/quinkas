@@ -6,6 +6,7 @@
 package br.com.quinkas.manter;
 
 import br.com.quinkas.entidade.Participante;
+import br.com.quinkas.entidade.Ranking;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -20,7 +21,16 @@ public class ManterParticipante {
     private static Map<String, Participante> participantes;
     private static Participante participanteAtual;
     private static Integer numParticipante;
+    private static Ranking ranking;
 
+    public static Ranking getRanking() {
+        return ranking;
+    }
+
+    public static void setRanking(Ranking ranking) {
+        ManterParticipante.ranking = ranking;
+    }      
+    
     public static Integer getNumParticipante() {
         if(numParticipante == null){
             numParticipante = 0;
@@ -67,6 +77,12 @@ public class ManterParticipante {
             participante.setPosicao(participanteList.indexOf(participante) + 1);
             ManterParticipante.participantes.put(participante.getIpAndPorta().getIp(), participante);            
         }
+        Ranking ranking = new Ranking();
+        ranking.setPrimeiro(participanteList.get(0).getNick());
+        ranking.setSegundo(participanteList.get(1).getNick());
+        ranking.setTerceiro(participanteList.get(2).getNick());
+        ranking.setQuarto(participanteList.get(3).getNick());
+        ManterParticipante.setRanking(ranking);
         return participanteList;
     }
 }

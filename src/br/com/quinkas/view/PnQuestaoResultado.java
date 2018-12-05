@@ -7,6 +7,7 @@ package br.com.quinkas.view;
 
 import br.com.quinkas.conexao.ISocket;
 import br.com.quinkas.entidade.Participante;
+import br.com.quinkas.entidade.Ranking;
 import br.com.quinkas.manter.ManterParticipante;
 import br.com.quinkas.manter.ManterPrincipal;
 import br.com.quinkas.manter.ManterServer;
@@ -110,13 +111,10 @@ public class PnQuestaoResultado extends javax.swing.JPanel implements ISocket{
 
     @Override
     public void recebeObjeto(Object objeto) {
-        if(objeto instanceof Boolean){
+        if(objeto instanceof Ranking){
             if((Boolean)objeto){
                 iniciarJogo();
             }
-        }else if(objeto instanceof Map){
-            System.out.println("Recebeu");
-            ManterParticipante.setParticipantes((Map<String, Participante>)objeto);
         }
     }
 }

@@ -7,6 +7,7 @@ package br.com.quinkas.view;
 
 import br.com.quinkas.conexao.EnviaSocket;
 import br.com.quinkas.entidade.Participante;
+import br.com.quinkas.entidade.Ranking;
 import br.com.quinkas.manter.ManterParticipante;
 import br.com.quinkas.manter.ManterPrincipal;
 import br.com.quinkas.util.CorPainel;
@@ -183,9 +184,7 @@ public class PnQuestaoProfessorRank extends javax.swing.JPanel {
     private void iniciarJogo() {
         for (Map.Entry<String, Participante> entry : ManterParticipante.getParticipantes().entrySet()) {
             Participante participante = entry.getValue();
-            Boolean iniciar = true;
-            EnviaSocket.enviarObjeto(ManterParticipante.getParticipantes(), participante);
-            EnviaSocket.enviarObjeto(iniciar, participante);
+            EnviaSocket.enviarObjeto(ManterParticipante.getRanking(), participante);
         }
     }
 

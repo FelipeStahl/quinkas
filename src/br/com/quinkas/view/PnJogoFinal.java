@@ -31,11 +31,11 @@ public class PnJogoFinal extends javax.swing.JPanel {
         for (Participante listParticipante : ManterParticipante.listParticipantes()) {
             i++;
             if (i.equals(1)) {
-                lbJogador1.setText(ManterParticipante.listParticipantes().get(0).getNick());
+                lbJogador1.setText(ManterParticipante.getRanking().getPrimeiro());
             }else if (i.equals(2)) {
-                lbJogador2.setText(ManterParticipante.listParticipantes().get(1).getNick());
+                lbJogador2.setText(ManterParticipante.getRanking().getSegundo());
             }else if (i.equals(3)) {
-                lbJogador3.setText(ManterParticipante.listParticipantes().get(2).getNick());
+                lbJogador3.setText(ManterParticipante.getRanking().getTerceiro());
             }
         }
     }
