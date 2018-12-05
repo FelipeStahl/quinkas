@@ -73,15 +73,27 @@ public class ManterParticipante {
     public static List<Participante> listParticipantes() {
         List<Participante> participanteList = new ArrayList(participantes.values());
         Collections.sort(participanteList);
-        for (Participante participante : participanteList) {
-            participante.setPosicao(participanteList.indexOf(participante) + 1);
-            ManterParticipante.participantes.put(participante.getIpAndPorta().getIp(), participante);            
-        }
+        Integer i = 0;
         Ranking ranking = new Ranking();
-        ranking.setPrimeiro(participanteList.get(0).getNick());
-        ranking.setSegundo(participanteList.get(1).getNick());
-        ranking.setTerceiro(participanteList.get(2).getNick());
-        ranking.setQuarto(participanteList.get(3).getNick());
+        for (Participante participante : participanteList) {       
+            participante.setPosicao(participanteList.indexOf(participante) + 1);
+            ManterParticipante.participantes.put(participante.getIpAndPorta().getIp(), participante);     
+            switch(i){
+                case 0:
+                    ranking.setPrimeiro(participanteList.get(i).getNick());
+                    break;
+                case 1:
+                    ranking.setPrimeiro(participanteList.get(i).getNick());
+                    break;
+                case 2:
+                    ranking.setPrimeiro(participanteList.get(i).getNick());
+                    break;
+                case 3:
+                    ranking.setPrimeiro(participanteList.get(i).getNick());
+                    break;
+            }
+            i++;
+        }
         ManterParticipante.setRanking(ranking);
         return participanteList;
     }
