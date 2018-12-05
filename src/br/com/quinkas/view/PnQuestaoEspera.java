@@ -132,9 +132,6 @@ public class PnQuestaoEspera extends javax.swing.JPanel implements ISocket {
             PnQuestaoResultado pn1 = new PnQuestaoResultado(respostaJogador, participante);
             ManterPrincipal.getPrincipal().setContentPane(pn1);
             ManterPrincipal.getPrincipal().setVisible(true);
-        }else if(objeto instanceof Map){
-            System.out.println("Recebeu");
-            ManterParticipante.setParticipantes((Map<String, Participante>)objeto);
         }
     }
 }

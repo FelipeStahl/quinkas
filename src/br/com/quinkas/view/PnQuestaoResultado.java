@@ -7,9 +7,11 @@ package br.com.quinkas.view;
 
 import br.com.quinkas.conexao.ISocket;
 import br.com.quinkas.entidade.Participante;
+import br.com.quinkas.manter.ManterParticipante;
 import br.com.quinkas.manter.ManterPrincipal;
 import br.com.quinkas.manter.ManterServer;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -112,6 +114,9 @@ public class PnQuestaoResultado extends javax.swing.JPanel implements ISocket{
             if((Boolean)objeto){
                 iniciarJogo();
             }
+        }else if(objeto instanceof Map){
+            System.out.println("Recebeu");
+            ManterParticipante.setParticipantes((Map<String, Participante>)objeto);
         }
     }
 }
