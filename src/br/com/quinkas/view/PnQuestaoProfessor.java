@@ -628,11 +628,10 @@ public class PnQuestaoProfessor extends javax.swing.JPanel implements ISocket {
         if (mensagem.getAlternativa().getIsTrue()) {
             Integer pontuacaoBasica = 200;
             pontuacaoBasica += (100 - (mensagem.getTempo().intValue() / 300));
+            participante.setAcerto(participante.getAcerto() + 1);
             if (participante.getAcerto().equals(3)) {
                 pontuacaoBasica += 300;
                 participante.setAcerto(0);
-            } else {
-                participante.setAcerto(participante.getAcerto() + 1);
             }
             participante.setPontos(participante.getPontos() + pontuacaoBasica);
         } else {
