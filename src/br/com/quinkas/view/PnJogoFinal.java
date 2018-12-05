@@ -27,7 +27,6 @@ public class PnJogoFinal extends javax.swing.JPanel {
     }
 
     private void preencherJogadores() {
-        Integer i = 0;
         lbJogador1.setText(ManterParticipante.getRanking().getPrimeiro());
         lbJogador2.setText(ManterParticipante.getRanking().getSegundo());
         lbJogador3.setText(ManterParticipante.getRanking().getTerceiro());

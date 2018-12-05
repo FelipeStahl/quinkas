@@ -83,13 +83,13 @@ public class ManterParticipante {
                     ranking.setPrimeiro(participanteList.get(i).getNick());
                     break;
                 case 1:
-                    ranking.setPrimeiro(participanteList.get(i).getNick());
+                    ranking.setSegundo(participanteList.get(i).getNick());
                     break;
                 case 2:
-                    ranking.setPrimeiro(participanteList.get(i).getNick());
+                    ranking.setTerceiro(participanteList.get(i).getNick());
                     break;
                 case 3:
-                    ranking.setPrimeiro(participanteList.get(i).getNick());
+                    ranking.setQuarto(participanteList.get(i).getNick());
                     break;
             }
             i++;
