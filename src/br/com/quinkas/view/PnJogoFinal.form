@@ -59,7 +59,6 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Jogador 2"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
           </Properties>
           <Constraints>
@@ -77,7 +76,6 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Jogador 3"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
           </Properties>
           <Constraints>
@@ -95,7 +93,6 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Jogador 1"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
           </Properties>
           <Constraints>

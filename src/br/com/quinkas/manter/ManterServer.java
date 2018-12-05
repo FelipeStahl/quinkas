@@ -6,7 +6,6 @@
 package br.com.quinkas.manter;
 
 import br.com.quinkas.conexao.ISocket;
-import br.com.quinkas.conexao.Server;
 import java.io.ObjectInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -85,7 +84,7 @@ public class ManterServer {
                     System.out.println("Servidor encerrado!");
                 } catch (Exception ex) {
 
-                    Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ManterServer.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         };

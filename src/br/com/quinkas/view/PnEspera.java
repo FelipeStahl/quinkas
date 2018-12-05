@@ -6,14 +6,11 @@
 package br.com.quinkas.view;
 
 import br.com.quinkas.conexao.ISocket;
-import br.com.quinkas.conexao.Server;
-import br.com.quinkas.entidade.Participante;
 import br.com.quinkas.estrutura.ListaEncadeada;
 import br.com.quinkas.manter.ManterLista;
 import br.com.quinkas.manter.ManterPrincipal;
 import br.com.quinkas.manter.ManterServer;
 import br.com.quinkas.util.CorPainel;
-import java.util.List;
 
 /**
  *
@@ -21,16 +18,13 @@ import java.util.List;
  */
 public class PnEspera extends javax.swing.JPanel implements ISocket {
     Integer numJogadores;
-    Server serv;
     
     public PnEspera() {
         initComponents();
         CorPainel altera = new CorPainel(this);
         Thread t = new Thread(altera);
         t.start();
-        numJogadores = 0;      
-        Boolean iniciar = false;
-//        addJogador("Nome Jogador"); //exemplo      
+        numJogadores = 0;       
         ManterServer.setPainelAtual(this);
         ManterServer.iniciarServer();
     }

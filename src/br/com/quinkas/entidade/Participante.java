@@ -68,6 +68,6 @@ public class Participante implements Serializable, Comparable {
 
     @Override
     public int compareTo(Object o) {
-        return this.pontos.compareTo(((Participante) o).getPontos());
+        return((Participante) o).getPontos().compareTo(this.pontos);
     }
 }

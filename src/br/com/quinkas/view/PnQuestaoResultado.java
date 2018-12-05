@@ -6,13 +6,9 @@
 package br.com.quinkas.view;
 
 import br.com.quinkas.conexao.ISocket;
-import br.com.quinkas.conexao.Server;
-import br.com.quinkas.entidade.Alternativa;
 import br.com.quinkas.entidade.Participante;
 import br.com.quinkas.manter.ManterPrincipal;
 import br.com.quinkas.manter.ManterServer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -85,7 +81,7 @@ public class PnQuestaoResultado extends javax.swing.JPanel implements ISocket{
 
         lbPosicao.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lbPosicao.setForeground(new java.awt.Color(255, 255, 255));
-        lbPosicao.setText("Sua posição é 1° lugar.");
+        lbPosicao.setText("Sua posição é ?");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;

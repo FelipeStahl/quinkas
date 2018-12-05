@@ -124,10 +124,13 @@ public class PnQuestaoInicial extends javax.swing.JPanel {
 
         lbPergunta.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         lbPergunta.setForeground(new java.awt.Color(0, 0, 0));
-        lbPergunta.setText("Pergunta?");
+        lbPergunta.setText("...");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.weighty = 0.1;
         add(lbPergunta, gridBagConstraints);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N

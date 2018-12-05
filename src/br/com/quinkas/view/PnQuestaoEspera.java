@@ -6,16 +6,11 @@
 package br.com.quinkas.view;
 
 import br.com.quinkas.conexao.ISocket;
-import br.com.quinkas.conexao.Server;
 import br.com.quinkas.entidade.Alternativa;
 import br.com.quinkas.entidade.Participante;
-import br.com.quinkas.manter.ManterParticipante;
 import br.com.quinkas.manter.ManterPrincipal;
 import br.com.quinkas.manter.ManterServer;
 import br.com.quinkas.util.CorPainel;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.SwingUtilities;
 
 /**
  *

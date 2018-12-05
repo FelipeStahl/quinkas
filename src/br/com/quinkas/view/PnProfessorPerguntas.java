@@ -11,8 +11,6 @@ import br.com.quinkas.entidade.Pergunta;
 import br.com.quinkas.entidade.Questionario;
 import br.com.quinkas.manter.ManterPrincipal;
 import br.com.quinkas.util.CorPainel;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;

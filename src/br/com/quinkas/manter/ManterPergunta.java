@@ -13,7 +13,7 @@ import br.com.quinkas.entidade.Pergunta;
  */
 public class ManterPergunta {
     private static Pergunta perguntaAtual;
-
+    
     public static Pergunta getPerguntaAtual() {
         return perguntaAtual;
     }

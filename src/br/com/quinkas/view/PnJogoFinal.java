@@ -26,11 +26,6 @@ public class PnJogoFinal extends javax.swing.JPanel {
         preencherJogadores();
     }
     
-    private void preencherJogadores(String primeiro, String segundo, String terceiro){
-        lbJogador1.setText(primeiro);
-        lbJogador2.setText(segundo);
-        lbJogador3.setText(terceiro);
-    }
     private void preencherJogadores() {
         Integer i = 0;
         for (Participante listParticipante : ManterParticipante.listParticipantes()) {
@@ -75,21 +70,18 @@ public class PnJogoFinal extends javax.swing.JPanel {
         lbJogador2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lbJogador2.setForeground(new java.awt.Color(255, 255, 255));
         lbJogador2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbJogador2.setText("Jogador 2");
         lbJogador2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jPanel2.add(lbJogador2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 250, 40));
 
         lbJogador3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lbJogador3.setForeground(new java.awt.Color(255, 255, 255));
         lbJogador3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbJogador3.setText("Jogador 3");
         lbJogador3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jPanel2.add(lbJogador3, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 202, 260, 30));
 
         lbJogador1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lbJogador1.setForeground(new java.awt.Color(255, 255, 255));
         lbJogador1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbJogador1.setText("Jogador 1");
         lbJogador1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jPanel2.add(lbJogador1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 30, 260, -1));
 

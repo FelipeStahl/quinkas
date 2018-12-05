@@ -10,7 +10,6 @@ import br.com.quinkas.entidade.Participante;
 import br.com.quinkas.manter.ManterParticipante;
 import br.com.quinkas.manter.ManterPrincipal;
 import br.com.quinkas.util.CorPainel;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -24,12 +23,23 @@ public class PnQuestaoProfessorRank extends javax.swing.JPanel {
      */
     public PnQuestaoProfessorRank() {
         initComponents();
+        esconderLabel();
         CorPainel altera = new CorPainel(this);
         Thread t = new Thread(altera);
         t.start();
         preencherJogadores();
     }
 
+    private void esconderLabel(){
+        lb1.setVisible(false);
+        lb2.setVisible(false);
+        lb3.setVisible(false);
+        lb4.setVisible(false);
+        lbJogador1.setVisible(false);
+        lbJogador2.setVisible(false);
+        lbJogador3.setVisible(false);
+        lbJogador4.setVisible(false);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -41,13 +51,13 @@ public class PnQuestaoProfessorRank extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lb1 = new javax.swing.JLabel();
         lbJogador1 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        lb2 = new javax.swing.JLabel();
         lbJogador2 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        lb3 = new javax.swing.JLabel();
         lbJogador3 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        lb4 = new javax.swing.JLabel();
         lbJogador4 = new javax.swing.JLabel();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 50), new java.awt.Dimension(0, 50), new java.awt.Dimension(32767, 50));
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 20), new java.awt.Dimension(0, 20), new java.awt.Dimension(32767, 20));
@@ -66,14 +76,14 @@ public class PnQuestaoProfessorRank extends javax.swing.JPanel {
         gridBagConstraints.gridwidth = 2;
         add(jLabel1, gridBagConstraints);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("1° Lugar ");
+        lb1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lb1.setForeground(new java.awt.Color(255, 255, 255));
+        lb1.setText("1° Lugar ");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_END;
-        add(jLabel2, gridBagConstraints);
+        add(lb1, gridBagConstraints);
 
         lbJogador1.setFont(new java.awt.Font("Tahoma", 1, 28)); // NOI18N
         lbJogador1.setForeground(new java.awt.Color(255, 255, 255));
@@ -83,13 +93,13 @@ public class PnQuestaoProfessorRank extends javax.swing.JPanel {
         gridBagConstraints.gridy = 3;
         add(lbJogador1, gridBagConstraints);
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("2° Lugar");
+        lb2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lb2.setForeground(new java.awt.Color(255, 255, 255));
+        lb2.setText("2° Lugar");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 5;
-        add(jLabel4, gridBagConstraints);
+        add(lb2, gridBagConstraints);
 
         lbJogador2.setFont(new java.awt.Font("Tahoma", 1, 28)); // NOI18N
         lbJogador2.setForeground(new java.awt.Color(255, 255, 255));
@@ -99,13 +109,13 @@ public class PnQuestaoProfessorRank extends javax.swing.JPanel {
         gridBagConstraints.gridy = 6;
         add(lbJogador2, gridBagConstraints);
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("3° Lugar");
+        lb3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lb3.setForeground(new java.awt.Color(255, 255, 255));
+        lb3.setText("3° Lugar");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 8;
-        add(jLabel6, gridBagConstraints);
+        add(lb3, gridBagConstraints);
 
         lbJogador3.setFont(new java.awt.Font("Tahoma", 1, 28)); // NOI18N
         lbJogador3.setForeground(new java.awt.Color(255, 255, 255));
@@ -115,13 +125,13 @@ public class PnQuestaoProfessorRank extends javax.swing.JPanel {
         gridBagConstraints.gridy = 9;
         add(lbJogador3, gridBagConstraints);
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("4° Lugar");
+        lb4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lb4.setForeground(new java.awt.Color(255, 255, 255));
+        lb4.setText("4° Lugar");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 11;
-        add(jLabel8, gridBagConstraints);
+        add(lb4, gridBagConstraints);
 
         lbJogador4.setFont(new java.awt.Font("Tahoma", 1, 28)); // NOI18N
         lbJogador4.setForeground(new java.awt.Color(255, 255, 255));
@@ -183,12 +193,20 @@ public class PnQuestaoProfessorRank extends javax.swing.JPanel {
         for (Participante listParticipante : ManterParticipante.listParticipantes()) {
             i++;
             if (i.equals(1)) {
+                lbJogador1.setVisible(true);
+                lb1.setVisible(true);
                 lbJogador1.setText(ManterParticipante.listParticipantes().get(0).getNick());
             }else if (i.equals(2)) {
+                lbJogador2.setVisible(true);
+                lb2.setVisible(true);
                 lbJogador2.setText(ManterParticipante.listParticipantes().get(1).getNick());
             }else if (i.equals(3)) {
+                lbJogador3.setVisible(true);
+                lb3.setVisible(true);
                 lbJogador3.setText(ManterParticipante.listParticipantes().get(2).getNick());
             }else if (i.equals(4)) {
+                lbJogador4.setVisible(true);
+                lb4.setVisible(true);
                 lbJogador4.setText(ManterParticipante.listParticipantes().get(3).getNick());
             }
         }
@@ -202,10 +220,10 @@ public class PnQuestaoProfessorRank extends javax.swing.JPanel {
     private javax.swing.Box.Filler filler4;
     private javax.swing.Box.Filler filler5;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel lb1;
+    private javax.swing.JLabel lb2;
+    private javax.swing.JLabel lb3;
+    private javax.swing.JLabel lb4;
     private javax.swing.JLabel lbJogador1;
     private javax.swing.JLabel lbJogador2;
     private javax.swing.JLabel lbJogador3;

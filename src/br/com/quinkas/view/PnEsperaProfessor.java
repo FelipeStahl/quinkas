@@ -7,7 +7,6 @@ package br.com.quinkas.view;
 
 import br.com.quinkas.conexao.EnviaSocket;
 import br.com.quinkas.conexao.ISocket;
-import br.com.quinkas.conexao.Server;
 import br.com.quinkas.entidade.IpAndPorta;
 import br.com.quinkas.entidade.Participante;
 import br.com.quinkas.entidade.Pergunta;

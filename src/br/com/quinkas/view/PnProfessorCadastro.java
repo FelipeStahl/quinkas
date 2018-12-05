@@ -5,15 +5,11 @@
  */
 package br.com.quinkas.view;
 
-import br.com.quinkas.dao.impl.ProfessorDAOImpl;
 import br.com.quinkas.entidade.Professor;
 import br.com.quinkas.manter.ManterPrincipal;
 import br.com.quinkas.manter.ManterProfessor;
 import br.com.quinkas.util.CorPainel;
 import br.com.quinkas.util.ErroEfeito;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 

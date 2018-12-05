@@ -66,7 +66,7 @@ public class PnQuestao extends javax.swing.JPanel {
                 num = 1;
             }
         }
-        tempo = 10;
+        tempo = 30;
         tempoInicial = new Date();
         contagem();
     }
@@ -83,14 +83,9 @@ public class PnQuestao extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        filler8 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
-        filler9 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
         filler21 = new javax.swing.Box.Filler(new java.awt.Dimension(20, 0), new java.awt.Dimension(20, 0), new java.awt.Dimension(20, 32767));
-        filler22 = new javax.swing.Box.Filler(new java.awt.Dimension(20, 0), new java.awt.Dimension(20, 0), new java.awt.Dimension(20, 32767));
         lbTempo = new javax.swing.JLabel();
         lbPergunta = new javax.swing.JLabel();
-        filler30 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
-        filler31 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
         jPanel2 = new javax.swing.JPanel();
         pnA = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -141,53 +136,33 @@ public class PnQuestao extends javax.swing.JPanel {
         jLabel3.setForeground(new java.awt.Color(0, 102, 102));
         jLabel3.setText("TEMPO");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
         jPanel1.add(jLabel3, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 6;
-        jPanel1.add(filler8, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        jPanel1.add(filler9, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         jPanel1.add(filler21, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 0;
-        jPanel1.add(filler22, gridBagConstraints);
 
         lbTempo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lbTempo.setForeground(new java.awt.Color(0, 102, 102));
         lbTempo.setText("10s");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
         jPanel1.add(lbTempo, gridBagConstraints);
 
         lbPergunta.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        lbPergunta.setForeground(new java.awt.Color(0, 0, 0));
         lbPergunta.setText("Pergunta?");
+        lbPergunta.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weighty = 0.3;
         jPanel1.add(lbPergunta, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.weighty = 0.1;
-        jPanel1.add(filler30, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.weighty = 0.1;
-        jPanel1.add(filler31, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
@@ -561,7 +536,6 @@ public class PnQuestao extends javax.swing.JPanel {
     private javax.swing.Box.Filler filler2;
     private javax.swing.Box.Filler filler20;
     private javax.swing.Box.Filler filler21;
-    private javax.swing.Box.Filler filler22;
     private javax.swing.Box.Filler filler23;
     private javax.swing.Box.Filler filler24;
     private javax.swing.Box.Filler filler25;
@@ -570,14 +544,10 @@ public class PnQuestao extends javax.swing.JPanel {
     private javax.swing.Box.Filler filler28;
     private javax.swing.Box.Filler filler29;
     private javax.swing.Box.Filler filler3;
-    private javax.swing.Box.Filler filler30;
-    private javax.swing.Box.Filler filler31;
     private javax.swing.Box.Filler filler4;
     private javax.swing.Box.Filler filler5;
     private javax.swing.Box.Filler filler6;
     private javax.swing.Box.Filler filler7;
-    private javax.swing.Box.Filler filler8;
-    private javax.swing.Box.Filler filler9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

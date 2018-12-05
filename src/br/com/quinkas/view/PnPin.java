@@ -12,11 +12,8 @@ import br.com.quinkas.manter.ManterLista;
 import br.com.quinkas.manter.ManterPrincipal;
 import br.com.quinkas.util.CorPainel;
 import br.com.quinkas.util.ErroEfeito;
-import java.awt.Graphics;
-import java.awt.Image;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import javax.swing.ImageIcon;
 
 /**
  *
